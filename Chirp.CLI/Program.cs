@@ -1,8 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-// Console.WriteLine("Hello, World!");
-
-
-using System; 
+﻿using System; 
 using System.IO;
 
 class Program
@@ -48,7 +44,6 @@ class Program
     else if (args[0] == "cheep")
     {
         DateTimeOffset convertedTime = DateTimeOffset.UtcNow;
-        // convertedTime = convertedTime;
         string author = Environment.UserName;
         string message = $"\"{args[1]}\"";
         string cheep = $"{author},{message},{convertedTime.ToUnixTimeSeconds()}";

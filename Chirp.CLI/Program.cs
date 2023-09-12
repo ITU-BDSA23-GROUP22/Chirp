@@ -38,14 +38,16 @@ class Program
     else if (args[0] == "cheep")
     {
         DateTimeOffset convertedTime = DateTimeOffset.UtcNow;
-        string author = Environment.UserName;
-        string message = $"\"{args[1]}\"";
-        string cheep = $"{author},{message},{convertedTime.ToUnixTimeSeconds()}";
-
-        using (StreamWriter sw = File.AppendText("chirp_cli_db.csv"))
-        {
-            sw.WriteLine(cheep);
-        }
+        string auth = Environment.UserName;
+        string mess = $"{args[1]}";
+        
+        using (var stream = File.Open("chirp_cli_db.csv", FileMode.Append))
+        using(var writer = new StreamWriter(stream))
+        using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.NextRecord();
+                csv.WriteRecord(new Cheep(auth, mess, convertedTime.ToUnixTimeSeconds()));
+            }
     }
   }
 }

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "zb5ycDBBzbxb9NBuzydBQXMTSllZtRHPK3/jxs0/o6WZ5wg+aVHPxSc84SMubeu0SL1VnvVSz783YneX5vxpjQ==",
+  "dgSpecHash": "JPRvMToSPCgFibvXh6brdVR739kkGkmkTJ5Aj8qeNWKEU0fzSd6QDoy0JxLiehu2ihVawqF7zI1vQMnNp2oNcg==",
   "success": true,
-  "projectFilePath": "/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/Chirp.CLI.csproj",
+  "projectFilePath": "/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/Chirp.CLI.csproj",
   "expectedPackageFiles": [
-    "/Users/marcus/.nuget/packages/csvhelper/30.0.1/csvhelper.30.0.1.nupkg.sha512"
+    "/home/sylvestrasmus/.nuget/packages/csvhelper/30.0.1/csvhelper.30.0.1.nupkg.sha512"
   ],
   "logs": []
 }

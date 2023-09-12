@@ -29,3 +29,20 @@
 /Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.pdb
 /Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.genruntimeconfig.cache
 /Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/ref/Chirp.CLI.dll
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.deps.json
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.runtimeconfig.json
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.pdb
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/bin/Debug/net7.0/CsvHelper.dll
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.csproj.AssemblyReference.cache
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.GeneratedMSBuildEditorConfig.editorconfig
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.AssemblyInfoInputs.cache
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.AssemblyInfo.cs
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.csproj.CoreCompileInputs.cache
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.csproj.CopyComplete
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.dll
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/obj/Debug/net7.0/refint/Chirp.CLI.dll
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.pdb
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.genruntimeconfig.cache
+/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/obj/Debug/net7.0/ref/Chirp.CLI.dll

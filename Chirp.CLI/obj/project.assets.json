@@ -68,32 +68,41 @@
     ]
   },
   "packageFolders": {
-    "/home/sylvestrasmus/.nuget/packages/": {}
+    "C:\\Users\\Patrick\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/Chirp.CLI.csproj",
+      "projectUniqueName": "C:\\Users\\Patrick\\documents\\github\\chirp\\chirp.cli\\Chirp.CLI.csproj",
       "projectName": "Chirp.CLI",
-      "projectPath": "/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/Chirp.CLI.csproj",
-      "packagesPath": "/home/sylvestrasmus/.nuget/packages/",
-      "outputPath": "/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/Chirp.CLI/obj/",
+      "projectPath": "C:\\Users\\Patrick\\documents\\github\\chirp\\chirp.cli\\Chirp.CLI.csproj",
+      "packagesPath": "C:\\Users\\Patrick\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Patrick\\documents\\github\\chirp\\chirp.cli\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "/home/sylvestrasmus/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Patrick\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/SimpleDB/SimpleDB.csproj": {
-              "projectPath": "/mnt/c/Users/rasmu/Desktop/BDSA/Project/Chirp/SimpleDB/SimpleDB.csproj"
+            "C:\\Users\\Patrick\\documents\\github\\chirp\\SimpleDB\\SimpleDB.csproj": {
+              "projectPath": "C:\\Users\\Patrick\\documents\\github\\chirp\\SimpleDB\\SimpleDB.csproj"
             }
           }
         }
@@ -129,7 +138,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.110/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

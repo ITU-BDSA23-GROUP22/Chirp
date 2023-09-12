@@ -18,18 +18,13 @@ class Program
     if (args[0] == "read") 
     {
         IEnumerable<Cheep> results = database.Read(int.Parse(args[1]));
-
-        foreach(Cheep result in results)
-        {
-            Console.WriteLine(result.FormattedCheep());
-        }
+        UserInterfce.printCheeps(results);
     } 
     else if (args[0] == "cheep")
     {
         DateTimeOffset convertedTime = DateTimeOffset.UtcNow;
         string auth = Environment.UserName;
         string mess = $"{args[1]}";
-
         database.Store(new Cheep(auth, mess, convertedTime.ToUnixTimeSeconds()));
     }
   }

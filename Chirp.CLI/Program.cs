@@ -4,6 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
 using CsvHelper;
+using SimpleDB;
+using System.Linq;
 
 class Program
 {
@@ -11,28 +13,15 @@ class Program
   public static void Main(String[] args)
   {
 
+    IDatabaseRepository<Cheep> database = new CsvDatabase<Cheep>("chirp_cli_db.csv");
+
     if (args[0] == "read") 
-    {
-        try
+    {git 
+        IEnumerable<Cheep> results = database.Read(int.Parse(args[1]));
+
+        foreach(Cheep result in results)
         {
-            using (var sr = new StreamReader("chirp_cli_db.csv"))
-            using (var csv = new CsvReader(sr, CultureInfo.InvariantCulture)){
-                
-                csv.Read();
-                csv.ReadHeader();
-                while (csv.Read()){
-                    var record = csv.GetRecord<Cheep>();
-                    if(record != null){
-                        Console.WriteLine(record.FormattedCheep());
-                    }
-                }
-            }
-            
-        }
-        catch (IOException e)
-        {
-            Console.WriteLine("This file could not be read");
-            Console.WriteLine(e.Message);
+            Console.WriteLine(result.FormattedCheep());
         }
     } 
     else if (args[0] == "cheep")
@@ -40,14 +29,8 @@ class Program
         DateTimeOffset convertedTime = DateTimeOffset.UtcNow;
         string auth = Environment.UserName;
         string mess = $"{args[1]}";
-        
-        using (var stream = File.Open("chirp_cli_db.csv", FileMode.Append))
-        using(var writer = new StreamWriter(stream))
-        using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-            {
-                csv.NextRecord();
-                csv.WriteRecord(new Cheep(auth, mess, convertedTime.ToUnixTimeSeconds()));
-            }
+
+        database.Store(new Cheep(auth, mess, convertedTime.ToUnixTimeSeconds()));
     }
   }
 }

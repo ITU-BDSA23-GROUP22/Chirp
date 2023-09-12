@@ -1,5 +1,9 @@
-﻿using System; 
+﻿using System;
+using System.ComponentModel.Design;
+using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
+using CsvHelper;
 
 class Program
 {
@@ -12,28 +16,18 @@ class Program
         try
         {
             using (var sr = new StreamReader("chirp_cli_db.csv"))
-            {
-                sr.ReadLine();
+            using (var csv = new CsvReader(sr, CultureInfo.InvariantCulture)){
                 
-                string currentLine;
-                while((currentLine = sr.ReadLine()) != null)
-                {
-                    
-                    string author = currentLine.Substring(0,currentLine.IndexOf(","));
-                    
-                    string timeStamp = currentLine.Substring(currentLine.LastIndexOf(",") + 1);
-                    long seconds = long.Parse(timeStamp);
-                    DateTime convertedTime = new DateTime(1970,1,1,0,0,0,0, DateTimeKind.Utc);
-                    convertedTime = convertedTime.AddSeconds(seconds);
-                    convertedTime = convertedTime.ToLocalTime();
-
-                    int lengthOfMessage = currentLine.LastIndexOf(",") - currentLine.IndexOf(",");
-                    string message = currentLine.Substring(currentLine.IndexOf(",") +1, lengthOfMessage -1);
-
-                    string cheep = $"{author} @ {convertedTime} {message}";
-                    Console.WriteLine(cheep);
-                }   
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read()){
+                    var record = csv.GetRecord<Cheep>();
+                    if(record != null){
+                        Console.WriteLine(record.FormattedCheep());
+                    }
+                }
             }
+            
         }
         catch (IOException e)
         {

@@ -12,3 +12,20 @@
 /Users/marcus/Desktop/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.pdb
 /Users/marcus/Desktop/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.genruntimeconfig.cache
 /Users/marcus/Desktop/Chirp/Chirp.CLI/obj/Debug/net7.0/ref/Chirp.CLI.dll
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.deps.json
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.runtimeconfig.json
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.pdb
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/bin/Debug/net7.0/CsvHelper.dll
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.csproj.AssemblyReference.cache
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.GeneratedMSBuildEditorConfig.editorconfig
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.AssemblyInfoInputs.cache
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.AssemblyInfo.cs
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.csproj.CoreCompileInputs.cache
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.csproj.CopyComplete
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.dll
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/refint/Chirp.CLI.dll
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.pdb
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/Chirp.CLI.genruntimeconfig.cache
+/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/Debug/net7.0/ref/Chirp.CLI.dll

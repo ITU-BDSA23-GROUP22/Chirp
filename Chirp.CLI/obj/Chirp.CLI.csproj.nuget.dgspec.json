@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/marcus/Desktop/Chirp/Chirp.CLI/Chirp.CLI.csproj": {}
+    "/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/Chirp.CLI.csproj": {}
   },
   "projects": {
-    "/Users/marcus/Desktop/Chirp/Chirp.CLI/Chirp.CLI.csproj": {
+    "/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/Chirp.CLI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/marcus/Desktop/Chirp/Chirp.CLI/Chirp.CLI.csproj",
+        "projectUniqueName": "/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/Chirp.CLI.csproj",
         "projectName": "Chirp.CLI",
-        "projectPath": "/Users/marcus/Desktop/Chirp/Chirp.CLI/Chirp.CLI.csproj",
+        "projectPath": "/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/Chirp.CLI.csproj",
         "packagesPath": "/Users/marcus/.nuget/packages/",
-        "outputPath": "/Users/marcus/Desktop/Chirp/Chirp.CLI/obj/",
+        "outputPath": "/Users/marcus/Desktop/Analysis, Design & Software Architecture/Chirp/Chirp.CLI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/marcus/.nuget/NuGet/NuGet.Config"
@@ -37,6 +37,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[30.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

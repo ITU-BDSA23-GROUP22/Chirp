@@ -9,7 +9,8 @@
       "Chirp.CLI/1.0.0": {
         "dependencies": {
           "CsvHelper": "30.0.1",
-          "SimpleDB": "1.0.0"
+          "SimpleDB": "1.0.0",
+          "System.CommandLine": "2.0.0-beta1.20427.1"
         },
         "runtime": {
           "Chirp.CLI.dll": {}
@@ -23,6 +24,20 @@
           }
         }
       },
+      "Microsoft.CSharp/4.4.1": {},
+      "System.CommandLine/2.0.0-beta1.20427.1": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.4.1",
+          "System.Memory": "4.5.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.CommandLine.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.20.42701"
+          }
+        }
+      },
+      "System.Memory/4.5.4": {},
       "SimpleDB/1.0.0": {
         "dependencies": {
           "CsvHelper": "30.0.1"
@@ -45,6 +60,27 @@
       "sha512": "sha512-rcZtgbWR+As4G3Vpgx0AMNmShGuQLFjkHAPIIflzrfkJCx8/AOd4m96ZRmiU1Wi39qS5UVjV0P8qdgqOo5Cwyg==",
       "path": "csvhelper/30.0.1",
       "hashPath": "csvhelper.30.0.1.nupkg.sha512"
+    },
+    "Microsoft.CSharp/4.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A5hI3gk6WpcBI0QGZY6/d5CCaYUxJgi7iENn1uYEng+Olo8RfI5ReGVkjXjeu3VR3srLvVYREATXa2M0X7FYJA==",
+      "path": "microsoft.csharp/4.4.1",
+      "hashPath": "microsoft.csharp.4.4.1.nupkg.sha512"
+    },
+    "System.CommandLine/2.0.0-beta1.20427.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UjTbOfEKkAd2HlzNOL9d9jv8if+Xkhr+iL6oBaYJfQi8qIKvDwFSub3bjNczwaGQYRgVcTqX2Tle4wi/r2y65g==",
+      "path": "system.commandline/2.0.0-beta1.20427.1",
+      "hashPath": "system.commandline.2.0.0-beta1.20427.1.nupkg.sha512"
+    },
+    "System.Memory/4.5.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+      "path": "system.memory/4.5.4",
+      "hashPath": "system.memory.4.5.4.nupkg.sha512"
     },
     "SimpleDB/1.0.0": {
       "type": "project",

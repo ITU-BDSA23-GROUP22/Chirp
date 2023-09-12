@@ -67,3 +67,4 @@ C:\Users\Patrick\documents\github\chirp\Chirp.CLI\obj\Debug\net7.0\refint\Chirp.
 C:\Users\Patrick\documents\github\chirp\Chirp.CLI\obj\Debug\net7.0\Chirp.CLI.pdb
 C:\Users\Patrick\documents\github\chirp\Chirp.CLI\obj\Debug\net7.0\Chirp.CLI.genruntimeconfig.cache
 C:\Users\Patrick\documents\github\chirp\Chirp.CLI\obj\Debug\net7.0\ref\Chirp.CLI.dll
+C:\Users\Patrick\documents\github\chirp\Chirp.CLI\bin\Debug\net7.0\System.CommandLine.dll

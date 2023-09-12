@@ -1,4 +1,4 @@
-class UserInterfce{
+class UserInterface{
     public static void printCheeps(IEnumerable<Cheep> cheeps){
         foreach(Cheep result in cheeps)
         {

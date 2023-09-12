@@ -16,7 +16,7 @@ class Program
     IDatabaseRepository<Cheep> database = new CsvDatabase<Cheep>("chirp_cli_db.csv");
 
     if (args[0] == "read") 
-    {git 
+    {
         IEnumerable<Cheep> results = database.Read(int.Parse(args[1]));
 
         foreach(Cheep result in results)

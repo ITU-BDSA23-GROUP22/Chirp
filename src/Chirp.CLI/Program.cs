@@ -11,13 +11,13 @@ using System.CommandLine.Invocation;
 
 class Program
 {
-  
+
   public static void Main(String[] args)
   {
 
-    IDatabaseRepository<Cheep> database = new CsvDatabase<Cheep>("chirp_cli_db.csv");
+    IDatabaseRepository<Cheep> database = CsvDatabase<Cheep>.getInstance("../../data/chirp_cli_db.csv");
     //The below implementation if System.CommandLine is created with the help of: https://www.youtube.com/watch?v=nLKh_QaA3oU    
-    
+
     //Code just below here specifies the available commands and what the helper function writes about the commands.
     var rootCommand = new RootCommand{
           new Option<string>(
@@ -34,23 +34,23 @@ class Program
     //Check helper funktionen ved at skrive -- --hellp ELLER -- --h ELLER -- -?
     rootCommand.Handler = CommandHandler.Create<string, string>((read, cheep) =>
         {
-            if (!string.IsNullOrEmpty(read))
-            {
-                IEnumerable<Cheep> results = database.Read(int.Parse(read));
-                UserInterface.printCheeps(results);
-            }
-            else if (!string.IsNullOrEmpty(cheep))
-            {
-                DateTimeOffset convertedTime = DateTimeOffset.UtcNow;
-                string auth = Environment.UserName;
-                string mess = $"{cheep}";
-                database.Store(new Cheep(auth, mess, convertedTime.ToUnixTimeSeconds()));
-            }
-            else
-            {
-                Console.WriteLine("No option specified. Run --help to see options");
-            }
+          if (!string.IsNullOrEmpty(read))
+          {
+            IEnumerable<Cheep> results = database.Read(int.Parse(read));
+            UserInterface.printCheeps(results);
+          }
+          else if (!string.IsNullOrEmpty(cheep))
+          {
+            DateTimeOffset convertedTime = DateTimeOffset.UtcNow;
+            string auth = Environment.UserName;
+            string mess = $"{cheep}";
+            database.Store(new Cheep(auth, mess, convertedTime.ToUnixTimeSeconds()));
+          }
+          else
+          {
+            Console.WriteLine("No option specified. Run --help to see options");
+          }
         });
-     rootCommand.Invoke(args);
+    rootCommand.Invoke(args);
   }
 }

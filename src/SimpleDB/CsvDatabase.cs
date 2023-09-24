@@ -1,5 +1,6 @@
 ﻿namespace SimpleDB;
 using CsvHelper;
+using CsvHelper.Configuration;
 using System.Globalization;
 
 public sealed class CsvDatabase<T> : IDatabaseRepository<T>
@@ -43,4 +44,39 @@ public sealed class CsvDatabase<T> : IDatabaseRepository<T>
                 csv.WriteRecord(record);
             }
     }
-}
+    public void DeleteLastLine()
+    {
+        var lines = File.ReadAllLines(path).ToList();
+
+        if (lines.Count == 0)
+        {
+            return;
+        }
+
+        // Create a new list of lines excluding the last line
+        lines.RemoveAt(lines.Count -1);
+
+        // Overwrite the file with the updated lines
+        File.WriteAllLines(path, lines);
+        
+    }
+    public string GetLastItem(){
+        string lastLine = null;
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (StreamReader reader = new StreamReader(fs))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    if (!string.IsNullOrEmpty(line))
+                    {
+                        lastLine = line;
+                    }
+                }
+            }
+
+        return lastLine;
+    }
+
+    }
+

@@ -15,7 +15,7 @@ class Program
   public static void Main(String[] args)
   {
 
-    IDatabaseRepository<Cheep> database = new CsvDatabase<Cheep>("chirp_cli_db.csv");
+    IDatabaseRepository<Cheep> database = new CsvDatabase<Cheep>("../../data/chirp_cli_db.csv");
     //The below implementation if System.CommandLine is created with the help of: https://www.youtube.com/watch?v=nLKh_QaA3oU    
     
     //Code just below here specifies the available commands and what the helper function writes about the commands.

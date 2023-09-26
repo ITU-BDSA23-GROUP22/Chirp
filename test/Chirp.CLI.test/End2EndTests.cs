@@ -13,7 +13,7 @@ public class End2End
         string output = "";
         using (var process = new Process())
         {
-            process.StartInfo.FileName = "../../../../../src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.exe";
+            process.StartInfo.FileName = "../../../../../src/Chirp.CLI/bin/Debug/net7.0/Chirp.exe";
             process.StartInfo.Arguments = "--read 10";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.WorkingDirectory = "../../../../../src/Chirp.CLI";
@@ -39,7 +39,7 @@ public class End2End
         IDatabaseRepository<Cheep> database = new CsvDatabase<Cheep>("../../../../../data/chirp_cli_db.csv");
         using (var process = new Process())
         {
-            process.StartInfo.FileName = "../../../../../src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.exe";
+            process.StartInfo.FileName = "../../../../../src/Chirp.CLI/bin/Debug/net7.0/Chirp.exe";
             process.StartInfo.Arguments = "--cheep Hello!!!";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.WorkingDirectory = "../../../../../src/Chirp.CLI";

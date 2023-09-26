@@ -14,7 +14,6 @@ class Program
 
   public static void Main(String[] args)
   {
-
     IDatabaseRepository<Cheep> database = CsvDatabase<Cheep>.getInstance("../../data/chirp_cli_db.csv");
     //The below implementation if System.CommandLine is created with the help of: https://www.youtube.com/watch?v=nLKh_QaA3oU    
 

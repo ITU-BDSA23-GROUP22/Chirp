@@ -5,6 +5,17 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <PublishRelease>true</PublishRelease>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+    <DebugType>None</DebugType>
+    <DebugSymbols>False</DebugSymbols>
+    <!-- <ReadyToRun>true</ReadyToRun> -->
+    <!-- <DebugType>embedded</DebugType> -->
+    <AssemblyName>Chirp</AssemblyName>
+    <!-- <RuntimeIdentifiers>win-x64;linux-x64;osx-x64;osx-arm64</RuntimeIdentifiers> -->
+    <!-- <OutputPath>bin/Release/net7.0</OutputPath> -->
   </PropertyGroup>
 
   <ItemGroup>

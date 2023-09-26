@@ -11,12 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup dotnet
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore ./src/Chirp.CLI/Chirp.CLI.csproj
+      - name: Build
+        run: dotnet build --no-restore ./src/Chirp.CLI/Chirp.CLI.csproj
+      - name: Test chirp
+        run: dotnet test --verbosity normal ./test/Chirp.CLI.test/Chirp.CLI.test.csproj
+      - name: Test DB
+        run: dotnet test --verbosity normal ./test/SimpleDB.test/SimpleDB.test.csproj
 
       - name: Build Linux
         shell: bash

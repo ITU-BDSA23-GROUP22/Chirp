@@ -14,7 +14,7 @@ public class UserInterfaceTest
         convertedTime = convertedTime.ToLocalTime();
         string formattedTime = convertedTime.ToString("dd-MM-yy HH:mm");
 
-        var testMessage = "Test Bruger @ " + formattedTime + ": Dette er en test";
+        var testMessage = "Test Brugr @ " + formattedTime + ": Dette er en test";
 
         Assert.Equal(testMessage, testCheep.FormattedCheep());
     }

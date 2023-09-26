@@ -3,28 +3,12 @@ name: Create release with Semantic Version tag
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   release:
     name: Release
-    strategy:
-      matrix:
-        kind: ["linux", "windows", "macOS"]
-        include:
-          - kind: linux
-            os: ubuntu-latest
-            target: linux-x64
-          - kind: windows
-            os: windows-latest
-            target: win-x64
-          - kind: macOS
-            os: macos-latest
-            target: osx-x64
-          - kind: macOSarm
-            os: ubuntu-latest
-            target: osx-arm64
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -34,18 +18,63 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
-      - name: Build
+      - name: Build Linux
         shell: bash
         run: |
           tag=$(git describe --tags --abbrev=0)
-          release_name="Chirp-$tag-${{ matrix.target }}"
+          release_name="Chirp-$tag-linux-x64"
 
           # Build everything
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "${{ matrix.target }}" -c Release -o "$release_name"
+          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "linux-x64" -c Release -o "$release_name"
 
           # Pack files
           7z a -tzip "${release_name}.zip" "./${release_name}/*"
-          
+
+          # Delete output directory
+          rm -r "$release_name"
+
+      - name: Build Windows
+        shell: bash
+        run: |
+          tag=$(git describe --tags --abbrev=0)
+          release_name="Chirp-$tag-win-x64"
+
+          # Build everything
+          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "win-x64" -c Release -o "$release_name"
+
+          # Pack files
+          7z a -tzip "${release_name}.zip" "./${release_name}/*"
+
+          # Delete output directory
+          rm -r "$release_name"
+
+      - name: Build MacOS
+        shell: bash
+        run: |
+          tag=$(git describe --tags --abbrev=0)
+          release_name="Chirp-$tag-osx-x64"
+
+          # Build everything
+          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "osx-x64" -c Release -o "$release_name"
+
+          # Pack files
+          7z a -tzip "${release_name}.zip" "./${release_name}/*"
+
+          # Delete output directory
+          rm -r "$release_name"
+
+      - name: Build MacOSarm
+        shell: bash
+        run: |
+          tag=$(git describe --tags --abbrev=0)
+          release_name="Chirp-$tag-osx-arm64"
+
+          # Build everything
+          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "osx-arm64" -c Release -o "$release_name"
+
+          # Pack files
+          7z a -tzip "${release_name}.zip" "./${release_name}/*"
+
           # Delete output directory
           rm -r "$release_name"
 

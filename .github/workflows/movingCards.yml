@@ -14,3 +14,4 @@ jobs:
         with:
           project: ITU-BDSA23-GROUP22 Chirp
           column: In Progress
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

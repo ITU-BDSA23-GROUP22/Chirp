@@ -7,9 +7,10 @@ namespace Chirp.CLI.test;
 
 public class End2End
 {
-    
+
     [Fact]
-    public void TestReadCheep(){
+    public void TestReadCheep()
+    {
         string output = "";
         using (var process = new Process())
         {
@@ -31,9 +32,10 @@ public class End2End
         Assert.EndsWith("Hello, BDSA students!\r", fstCheep);
     }
 
-    
+
     [Fact]
-    public void TestWriteCheep(){
+    public void TestWriteCheep()
+    {
         var user = Environment.UserName;
         IDatabaseRepository<Cheep> database = new CsvDatabase<Cheep>("../../../../../data/chirp_cli_db.csv");
         using (var process = new Process())
@@ -47,9 +49,9 @@ public class End2End
             process.WaitForExit();
         }
         var fstCheep = database.GetLastItem();
-        var userAndMessage = user+",Hello!!!";
+        var userAndMessage = user + ",Hello!!!";
         database.DeleteLastLine();
-        Assert.StartsWith(userAndMessage,fstCheep);
+        Assert.StartsWith(userAndMessage, fstCheep);
     }
 
 }

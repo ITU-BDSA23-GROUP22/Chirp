@@ -1,6 +1,6 @@
-// workflow from https://docs.github.com/en/actions/managing-issues-and-pull-requests/adding-labels-to-issues
-// this workflpw adds the label "triage" (def; to determine urgency of need of treatment) to all opened and 
-// reopened issues
+# workflow from https://docs.github.com/en/actions/managing-issues-and-pull-requests/adding-labels-to-issues
+# this workflpw adds the label "triage" (def; to determine urgency of need of treatment) to all opened and 
+# reopened issues
 
 name: Label issues
 on:

@@ -1,5 +1,5 @@
-// worklfow from https://docs.github.com/en/actions/managing-issues-and-pull-requests/moving-assigned-issues-on-project-boards
-// moves issue cards into the in progress collumn if they become assigned
+# worklfow from https://docs.github.com/en/actions/managing-issues-and-pull-requests/moving-assigned-issues-on-project-boards
+# moves issue cards into the in progress collumn if they become assigned
 
 name: Move assigned card
 on:

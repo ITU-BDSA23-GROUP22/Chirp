@@ -18,4 +18,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore ./src/Chirp.CLI/Chirp.CLI.csproj
     - name: Test DB
-      run: dotnet test --no-build --verbosity normal ./test/SimpleDB.test/SimpleDB.test.csproj
+      run: dotnet test --verbosity normal ./test/SimpleDB.test/SimpleDB.test.csproj

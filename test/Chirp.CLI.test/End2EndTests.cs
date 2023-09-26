@@ -7,7 +7,6 @@ namespace Chirp.CLI.test;
 
 public class End2End
 {
-
     [Fact]
     public void TestReadCheep()
     {

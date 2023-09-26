@@ -28,7 +28,7 @@ public class End2End
 
         // Assert
         Assert.StartsWith("ropf", fstCheep);
-        Assert.EndsWith("Hello, BDSA students!\r", fstCheep);
+        Assert.EndsWith("Hello, BDSA students!", fstCheep);
     }
 
 

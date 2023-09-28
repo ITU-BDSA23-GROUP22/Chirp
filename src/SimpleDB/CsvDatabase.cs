@@ -40,9 +40,7 @@ public sealed class CsvDatabase<T> : IDatabaseRepository<T>
                         output.Add(record);
                     }
                 }
-
             }
-
         }
         return output;
     }

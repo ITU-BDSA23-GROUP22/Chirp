@@ -6,6 +6,8 @@ builder.Services.AddSingleton<ICheepService, CheepService>();
 
 
 var app = builder.Build();
+DBFacade.createDB();
+DBFacade.readDB();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

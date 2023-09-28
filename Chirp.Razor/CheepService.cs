@@ -12,7 +12,7 @@ public class CheepService : ICheepService
     private static readonly List<CheepViewModel> _cheeps = new()
         {
             new CheepViewModel("Helge", "Hello, BDSA students!", UnixTimeStampToDateTimeString(1690892208)),
-            new CheepViewModel("Rasmus", "Hej, velkommen til kurset.", UnixTimeStampToDateTimeString(1690895308)),
+            new CheepViewModel("Rasmus", DBFacade.readDB(), UnixTimeStampToDateTimeString(1690895308)),
         };
 
     public List<CheepViewModel> GetCheeps()

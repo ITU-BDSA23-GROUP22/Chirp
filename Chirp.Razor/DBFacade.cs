@@ -2,6 +2,12 @@ using Microsoft.Data.Sqlite;
 using System.Data.Entity.Infrastructure;
 using System.Data.SQLite;
 
+//Code in createDB is partially inspired by 
+// https://stackoverflow.com/questions/15292880/create-sqlite-database-and-table
+
+//Code in readDB is partially inspired by
+// https://stackoverflow.com/questions/38096399/pulling-all-data-from-sqlite-table-column-using-c-sharp-iteration
+
 
 class DBFacade
 {
@@ -32,7 +38,6 @@ class DBFacade
         var command = m_dbConnection.CreateCommand();
         command.CommandText = @"SELECT * FROM highscores";
         using var reader = command.ExecuteReader();
-        Console.WriteLine("HEJSAAA UDE FRA LOOP");
         while (reader.Read())
         {
             return reader.GetString(0);

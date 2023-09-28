@@ -5,7 +5,19 @@ using System.Globalization;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-var csvFilePath = "../../data/chirp_cli_db.csv";
+var csvFilePath = "/tmp/csvdb.csv";
+if (!File.Exists(csvFilePath))
+{
+    FileStream fs = File.Create(csvFilePath);
+    fs.Close();
+}
+using (var stream = File.Open(csvFilePath, FileMode.Append))
+using (var writer = new StreamWriter(stream))
+using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)){
+csv.NextRecord();
+csv.WriteRecord(new Cheep("rehe","checkitup", 300));
+}
+
 
 app.MapPost("/cheep", async context =>
 {

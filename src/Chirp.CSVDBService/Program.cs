@@ -1,6 +1,7 @@
 using System.Text.Json;
 using CsvHelper;
 using System.Globalization;
+using CsvHelper.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -13,9 +14,10 @@ if (!File.Exists(csvFilePath))
 }
 using (var stream = File.Open(csvFilePath, FileMode.Append))
 using (var writer = new StreamWriter(stream))
-using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)){
-csv.NextRecord();
-csv.WriteRecord(new Cheep("rehe","checkitup", 300));
+using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+{
+    csv.NextRecord();
+    csv.WriteRecord(new Cheep("rehe", "First cheep!", 1695991091));
 }
 
 
@@ -48,12 +50,18 @@ app.MapGet("/cheeps", async context =>
 {
     try
     {
+        var csvConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            MissingFieldFound = null,
+            HasHeaderRecord = false
+        };
+
         var cheeps = new List<Cheep>();
         using (var sr = new StreamReader(csvFilePath))
-        using (var csv = new CsvReader(sr, CultureInfo.InvariantCulture))
+        using (var csv = new CsvReader(sr, csvConfiguration))
         {
             csv.Read();
-            csv.ReadHeader();
+            // csv.ReadHeader();
 
             while (csv.Read())
             {

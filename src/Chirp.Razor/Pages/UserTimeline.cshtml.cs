@@ -7,6 +7,8 @@ public class UserTimelineModel : PageModel
 {
     private readonly ICheepService _service;
     public List<CheepViewModel> Cheeps { get; set; }
+    [FromQuery(Name="page")]
+    public string page { get; set; }
 
     public UserTimelineModel(ICheepService service)
     {
@@ -15,7 +17,14 @@ public class UserTimelineModel : PageModel
 
     public ActionResult OnGet(string author)
     {
-        Cheeps = _service.GetCheepsFromAuthor(author);
+        int pageNumber = 1;
+        try {
+            pageNumber = int.Parse(page);
+        }
+        catch(Exception e) {}
+        finally {
+            Cheeps = _service.GetCheepsFromAuthor(author, pageNumber);
+        }
         return Page();
     }
 }

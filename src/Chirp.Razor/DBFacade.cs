@@ -17,37 +17,50 @@ class DBFacade
         SQLiteConnection.CreateFile("cheep.sqlite");
 
         string connectionString = "Data Source=cheep.sqlite;Version=3";
-        SQLiteConnection m_dbConnection = new SQLiteConnection(connectionString);
-        m_dbConnection.Open();
-
-        string sql = "DROP TABLE IF EXISTS user";
-        SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
-        command.ExecuteNonQuery();
-
-        sql = "DROP TABLE IF EXISTS message";
-        command = new SQLiteCommand(sql, m_dbConnection);
-        command.ExecuteNonQuery();
-
-
-
-
-
-        sql = "CREATE TABLE IF NOT EXISTS user (user_id integer primary key autoincrement, username string not null, email string not null, pw_hash string not null)";
-        command = new SQLiteCommand(sql, m_dbConnection);
-        command.ExecuteNonQuery();
-
-        sql = "CREATE TABLE IF NOT EXISTS message (message_id integer primary key autoincrement, author_id integer not null, text string not null, pub_date integer)";
-        command = new SQLiteCommand(sql, m_dbConnection);
-        command.ExecuteNonQuery();
-
-
-        StreamReader sr = new StreamReader("dump.sql");
-        var line = sr.ReadLine();
-        while (line != null)
+        using (SQLiteConnection m_dbConnection = new SQLiteConnection(connectionString))
         {
-            command = new SQLiteCommand(line.ToString(), m_dbConnection);
-            command.ExecuteNonQuery();
-            line = sr.ReadLine();
+            m_dbConnection.Open();
+
+            string sql = "DROP TABLE IF EXISTS user";
+            using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
+            {
+                command.ExecuteNonQuery();
+            }
+
+            sql = "DROP TABLE IF EXISTS user";
+            using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
+            {
+                command.ExecuteNonQuery();
+            }
+
+            sql = "DROP TABLE IF EXISTS message";
+            using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
+            {
+                command.ExecuteNonQuery();
+            }
+
+            sql = "CREATE TABLE IF NOT EXISTS user (user_id integer primary key autoincrement, username string not null, email string not null, pw_hash string not null)";
+            using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
+            {
+                command.ExecuteNonQuery();
+            }
+
+            sql = "CREATE TABLE IF NOT EXISTS message (message_id integer primary key autoincrement, author_id integer not null, text string not null, pub_date integer)";
+            using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
+            {
+                command.ExecuteNonQuery();
+            }
+
+            StreamReader sr = new StreamReader("dump.sql");
+            var line = sr.ReadLine();
+            while (line != null)
+            {
+                using (SQLiteCommand command = new SQLiteCommand(line.ToString(), m_dbConnection))
+                {
+                    command.ExecuteNonQuery();
+                }
+                line = sr.ReadLine();
+            }
         }
 
 
@@ -64,7 +77,6 @@ class DBFacade
                 command = new SQLiteCommand(sql, m_dbConnection);
                 command.ExecuteNonQuery();
         */
-        m_dbConnection.Close();
     }
 
     public static List<List<string>> readDB()

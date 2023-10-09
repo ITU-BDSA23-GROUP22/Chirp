@@ -38,8 +38,11 @@ class DBFacade
             {
                 command.ExecuteNonQuery();
             }
+        }
 
-            sql = "CREATE TABLE IF NOT EXISTS user (user_id integer primary key autoincrement, username string not null, email string not null, pw_hash string not null)";
+        using (SQLiteConnection m_dbConnection = new SQLiteConnection(connectionString))
+        {
+            string sql = "CREATE TABLE IF NOT EXISTS user (user_id integer primary key autoincrement, username string not null, email string not null, pw_hash string not null)";
             using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
             {
                 command.ExecuteNonQuery();

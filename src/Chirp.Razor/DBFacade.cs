@@ -111,7 +111,6 @@ class DBFacade
             
 
         using var reader = command.ExecuteReader();
-        m_dbConnection.Close();
         List<List<string>> result = new List<List<string>>();
 
         while (reader.Read())
@@ -124,6 +123,7 @@ class DBFacade
         };
             result.Add(innerList);
         }
+        m_dbConnection.Close();
         if (result.Count > 0)
         {
             return result;

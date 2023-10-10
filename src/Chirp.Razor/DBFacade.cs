@@ -84,16 +84,29 @@ class DBFacade
         */
     }
 
-    public static List<List<string>> readDB()
+    public static List<List<string>> readDB(int page, int amount, string user)
     {
         string connectionString = "Data Source=cheep.sqlite;Version=3";
         SQLiteConnection m_dbConnection = new SQLiteConnection(connectionString);
         m_dbConnection.Open();
         var command = m_dbConnection.CreateCommand();
-        command.CommandText = @"
-        SELECT u.username, m.text, m.pub_date
-        FROM user u
-        INNER JOIN message m ON u.user_id = m.author_id";
+        if (user != null){
+            command.CommandText = @$"
+            SELECT u.username, m.text, m.pub_date
+            FROM user u
+            INNER JOIN message m ON u.user_id = m.author_id
+            WHERE u.username = '{user}'
+            ORDER BY m.pub_date
+            LIMIT ({page} - 1)*{amount}, {amount}";
+        }else{
+            command.CommandText = @$"
+            SELECT u.username, m.text, m.pub_date
+            FROM user u
+            INNER JOIN message m ON u.user_id = m.author_id
+            ORDER BY m.pub_date
+            LIMIT ({page} - 1)*{amount}, {amount}";
+        }
+            
 
         using var reader = command.ExecuteReader();
 
@@ -117,6 +130,5 @@ class DBFacade
         {
             return null;
         }
-
     }
 }

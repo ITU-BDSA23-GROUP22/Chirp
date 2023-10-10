@@ -37,6 +37,7 @@ public class Author
 
 public class Cheep
 {
+    [Key]
     public int Id { get; set; }
     public string Text { get; set; }
     public DateTime TimeStamp { get; set; }

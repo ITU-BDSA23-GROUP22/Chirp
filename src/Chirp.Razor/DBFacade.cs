@@ -20,7 +20,6 @@ class DBFacade
         using (SQLiteConnection m_dbConnection = new SQLiteConnection(connectionString))
         {
             m_dbConnection.Open();
-
             string sql = "DROP TABLE IF EXISTS user";
             using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
             {
@@ -38,14 +37,8 @@ class DBFacade
             {
                 command.ExecuteNonQuery();
             }
-            m_dbConnection.Close();
-        }
 
-        using (SQLiteConnection m_dbConnection = new SQLiteConnection(connectionString))
-        {
-            m_dbConnection.Open();
-
-            string sql = "CREATE TABLE IF NOT EXISTS user (user_id integer primary key autoincrement, username string not null, email string not null, pw_hash string not null)";
+            sql = "CREATE TABLE IF NOT EXISTS user (user_id integer primary key autoincrement, username string not null, email string not null, pw_hash string not null)";
             using (SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection))
             {
                 command.ExecuteNonQuery();

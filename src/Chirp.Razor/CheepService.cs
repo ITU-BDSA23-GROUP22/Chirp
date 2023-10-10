@@ -10,15 +10,9 @@ public interface ICheepService
 
 public class CheepService : ICheepService
 {
-    List<List<string>> cheeps = DBFacade.readDB(0, 32,null);
+    List<List<string>> cheeps = DBFacade.readDB(0, 32, null);
     List<CheepViewModel> cheepsTotal = new();
     // These would normally be loaded from a database for example
-    private static readonly List<CheepViewModel> _cheeps = new()
-        {
-            new CheepViewModel("Helge", "Hello, BDSA students!", UnixTimeStampToDateTimeString(1690892208)),
-            new CheepViewModel("Rasmus", DBFacade.readDB(0, 32,null)[2][1], UnixTimeStampToDateTimeString(1690895308)),
-        };
-
     public List<CheepViewModel> GetCheeps(int page)
     {
         cheeps = DBFacade.readDB(page, 32, null);

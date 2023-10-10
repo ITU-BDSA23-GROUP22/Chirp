@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 
 //the following code is adapted from the documentation 
@@ -28,6 +29,7 @@ public class ChirpContext : DbContext
 public class Author
 {
     public string Name { get; set; }
+    [Key]
     public string Email { get; set; }
 
     public List<int> UserCheeps { get; } = new();

@@ -1,10 +1,10 @@
-public interface IRepository
+public interface ICheepRepository
 {
     public void AddAuthor(String name, string email);
 
     public void DeleteAuthor(Author author);
 
-    public void WriteCheep(string text, TimeDate publishTimestamp, Author author);
+    public void WriteCheep(string text, DateTime publishTimestamp, Author author);
 
     public void DeleteCheep(Cheep cheep);
 

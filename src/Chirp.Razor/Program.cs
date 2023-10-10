@@ -4,10 +4,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<ICheepService, CheepService>();
 
-
+var tester = new CheepRepository();
+tester.AddAuthor("TesterMcMuffin", "Tester@Muffin.dk");
 var app = builder.Build();
 DBFacade.createDB();
-DBFacade.readDB(0, 10,null);
+DBFacade.readDB(0, 10, null);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

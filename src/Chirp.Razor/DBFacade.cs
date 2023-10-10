@@ -38,6 +38,7 @@ class DBFacade
             {
                 command.ExecuteNonQuery();
             }
+            m_dbConnection.Close();
         }
 
         using (SQLiteConnection m_dbConnection = new SQLiteConnection(connectionString))
@@ -66,6 +67,7 @@ class DBFacade
                 }
                 line = sr.ReadLine();
             }
+            m_dbConnection.Close();
         }
 
 

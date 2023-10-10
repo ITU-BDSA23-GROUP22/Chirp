@@ -111,7 +111,7 @@ class DBFacade
             
 
         using var reader = command.ExecuteReader();
-
+        m_dbConnection.Close();
         List<List<string>> result = new List<List<string>>();
 
         while (reader.Read())

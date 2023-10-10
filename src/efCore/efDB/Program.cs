@@ -30,11 +30,12 @@ public class Author
     public string Name { get; set; }
     public string Email { get; set; }
 
-    public List<Cheep> UserCheeps { get; } = new();
+    public List<int> UserCheeps { get; } = new();
 }
 
 public class Cheep
 {
+    public int Id { get; set; }
     public string Text { get; set; }
     public DateTime TimeStamp { get; set; }
     public Author CheepAuthor { get; set; }

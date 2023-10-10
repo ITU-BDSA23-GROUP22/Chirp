@@ -73,7 +73,6 @@ class DBFacade
         SQLiteConnection m_dbConnection = new SQLiteConnection(connectionString);
         m_dbConnection.Open();
         var command = m_dbConnection.CreateCommand();
-        Console.WriteLine(user);
         if (user != null){
             command.CommandText = @$"
             SELECT u.username, m.text, m.pub_date

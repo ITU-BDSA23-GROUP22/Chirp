@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 //the following code is adapted from the documentation 
@@ -28,15 +30,19 @@ public class ChirpContext : DbContext
 public class Author
 {
     public string Name { get; set; }
+    [Key]
     public string Email { get; set; }
 
-    public List<int> UserCheeps { get; } = new();
+    public List<Cheep> UserCheeps { get; } = new List<Cheep>();
 }
 
 public class Cheep
 {
-    public int Id { get; set; }
+    [Key]
+    public int CheepId { get; set; }
     public string Text { get; set; }
+
     public DateTime TimeStamp { get; set; }
-    public Author CheepAuthor { get; set; }
+    [ForeignKey("authorEmail")]
+    public String authorEmail { get; set; }
 }

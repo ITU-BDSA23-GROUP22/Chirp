@@ -32,12 +32,9 @@ namespace Chirp.Razor.Migrations
 
             modelBuilder.Entity("Cheep", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CheepId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("CheepAuthorEmail")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -46,20 +43,29 @@ namespace Chirp.Razor.Migrations
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.Property<string>("authorEmail")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.HasIndex("CheepAuthorEmail");
+                    b.HasKey("CheepId");
+
+                    b.HasIndex("authorEmail");
 
                     b.ToTable("Cheeps");
                 });
 
             modelBuilder.Entity("Cheep", b =>
                 {
-                    b.HasOne("Author", "CheepAuthor")
-                        .WithMany()
-                        .HasForeignKey("CheepAuthorEmail");
+                    b.HasOne("Author", null)
+                        .WithMany("UserCheeps")
+                        .HasForeignKey("authorEmail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Navigation("CheepAuthor");
+            modelBuilder.Entity("Author", b =>
+                {
+                    b.Navigation("UserCheeps");
                 });
 #pragma warning restore 612, 618
         }

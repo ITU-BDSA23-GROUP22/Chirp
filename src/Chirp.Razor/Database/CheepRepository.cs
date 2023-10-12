@@ -9,10 +9,12 @@ public class CheepRepository : ICheepRepository
 
     public void AddAuthor(string name, string email)
     {
-        db.Add(new Author { Name = name, Email = email });
-        db.SaveChanges();
+        if (!db.Authors.Any(a => a.Email == email))
+        {
+            db.Add(new Author { Name = name, Email = email });
+            db.SaveChanges();
+        }
         db.ChangeTracker.Clear();
-        //throw new NotImplementedException();
     }
 
     public void DeleteAuthor(Author author)
@@ -20,27 +22,33 @@ public class CheepRepository : ICheepRepository
         db.Remove(author);
         db.SaveChanges();
         db.ChangeTracker.Clear();
-        //throw new NotImplementedException();
     }
 
     public void WriteCheep(string text, DateTime publishTimestamp, Author author)
     {
-        db.Add(new Cheep { Id = 1, Text = text, TimeStamp = publishTimestamp, CheepAuthor = author });
-        db.SaveChanges();
+        var existingAuthor = db.Authors.FirstOrDefault(a => a.Email == author.Email);
+        if (existingAuthor != null)
+        {
+            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, authorEmail = author.Email });
+            db.SaveChanges();
+        }
         db.ChangeTracker.Clear();
     }
 
     public void DeleteCheep(Cheep cheep)
     {
-        db.Remove(cheep);
-        db.SaveChanges();
+        var cheepToDelete = db.Cheeps.Find(cheep.CheepId);
+        if (cheepToDelete != null)
+        {
+            db.Cheeps.Remove(cheepToDelete);
+            db.SaveChanges();
+        }
         db.ChangeTracker.Clear();
-        //throw new NotImplementedException();
     }
 
     public IEnumerable<Cheep> GetAllCheeps()
     {
-        throw new NotImplementedException();
+        return db.Cheeps.ToList();
     }
 
     public Author GetAuthor(string name)

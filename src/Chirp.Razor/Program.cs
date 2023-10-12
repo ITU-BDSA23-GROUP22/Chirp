@@ -6,17 +6,19 @@ builder.Services.AddSingleton<ICheepService, CheepService>();
 
 var tester = new CheepRepository();
 
-var testAuthor = new Author { Name = "TesterMcMuffin", Email = "Tester@Muffin.dk" };
-tester.AddAuthor("TesterMcMuffin", "Tester@Muffin.dk");
+var testAuthor = new Author { Name = "TesterMcMuffin", Email = "Tester@Muffinn.dk" };
+tester.AddAuthor("TesterMcMuffin", "Tester@Muffinn.dk");
 
 
 var currentTime = DateTime.UtcNow;
-var testCheep = new Cheep { Id = 1, Text = "Dette er en test cheep", TimeStamp = currentTime, CheepAuthor = testAuthor };
+var testCheep = new Cheep { CheepId = 13, Text = "Dette er en test cheep", TimeStamp = currentTime, authorEmail = testAuthor.Email };
 tester.WriteCheep("Dette er en test cheep", currentTime, testAuthor);
 
 
-//tester.DeleteAuthor(testAuthor);
+tester.DeleteAuthor(testAuthor);
 //tester.DeleteCheep(testCheep);
+
+
 var app = builder.Build();
 DBFacade.createDB();
 DBFacade.readDB(0, 10, null);

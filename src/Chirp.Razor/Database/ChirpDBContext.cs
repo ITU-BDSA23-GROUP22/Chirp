@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 //the following code is adapted from the documentation 
@@ -32,14 +33,16 @@ public class Author
     [Key]
     public string Email { get; set; }
 
-    public List<int> UserCheeps { get; } = new();
+    public List<Cheep> UserCheeps { get; } = new List<Cheep>();
 }
 
 public class Cheep
 {
     [Key]
-    public int Id { get; set; }
+    public int CheepId { get; set; }
     public string Text { get; set; }
+
     public DateTime TimeStamp { get; set; }
-    public Author CheepAuthor { get; set; }
+    [ForeignKey("authorEmail")]
+    public String authorEmail { get; set; }
 }

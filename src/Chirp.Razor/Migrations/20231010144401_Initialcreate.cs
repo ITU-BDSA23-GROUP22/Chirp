@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Chirp.Razor.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initialcreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,26 +27,27 @@ namespace Chirp.Razor.Migrations
                 name: "Cheeps",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    CheepId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Text = table.Column<string>(type: "TEXT", nullable: false),
                     TimeStamp = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CheepAuthorEmail = table.Column<string>(type: "TEXT", nullable: true)
+                    authorEmail = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cheeps", x => x.Id);
+                    table.PrimaryKey("PK_Cheeps", x => x.CheepId);
                     table.ForeignKey(
-                        name: "FK_Cheeps_Authors_CheepAuthorEmail",
-                        column: x => x.CheepAuthorEmail,
+                        name: "FK_Cheeps_Authors_authorEmail",
+                        column: x => x.authorEmail,
                         principalTable: "Authors",
-                        principalColumn: "Email");
+                        principalColumn: "Email",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cheeps_CheepAuthorEmail",
+                name: "IX_Cheeps_authorEmail",
                 table: "Cheeps",
-                column: "CheepAuthorEmail");
+                column: "authorEmail");
         }
 
         /// <inheritdoc />

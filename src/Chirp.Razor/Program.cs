@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -24,7 +26,7 @@ tester.DeleteAuthor(testAuthor);
 var app = builder.Build();
 DBFacade.createDB();
 DBFacade.readDB(0, 10, null);
-
+CheepRepository db = new CheepRepository();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

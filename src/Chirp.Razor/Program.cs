@@ -24,8 +24,8 @@ tester.DeleteAuthor(testAuthor);
 
 
 var app = builder.Build();
-DBFacade.createDB();
-DBFacade.readDB(0, 10, null);
+//DBFacade.createDB();
+//DBFacade.readDB(0, 10, null);
 var tester = new dbCreator();
 tester.createDIfNotExists(app);
 // Configure the HTTP request pipeline.

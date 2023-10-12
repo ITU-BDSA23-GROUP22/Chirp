@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<ICheepService, CheepService>();
 
+/*
 var tester = new CheepRepository();
 
 var testAuthor = new Author { Name = "TesterMcMuffin", Email = "Tester@Muffinn.dk" };
@@ -17,6 +18,7 @@ tester.WriteCheep("Dette er en test cheep", currentTime, testAuthor);
 
 tester.DeleteAuthor(testAuthor);
 //tester.DeleteCheep(testCheep);
+*/
 
 
 var app = builder.Build();

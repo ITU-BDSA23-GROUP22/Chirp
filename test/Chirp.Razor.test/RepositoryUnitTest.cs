@@ -8,4 +8,19 @@ public class RepositoryUnitTest
     public void TestNewUser()
     {
     }
+
+    [Fact]
+    public void TestDeleteUser()
+    {
+    }
+
+    [Fact]
+    public void TestNewCheep()
+    {
+    }
+
+    [Fact]
+    public void TestCheepsByAuthor()
+    {
+    }
 }

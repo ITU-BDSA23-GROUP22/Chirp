@@ -55,16 +55,16 @@ public class CheepService : ICheepService
             cheepsTotal.Add(new CheepViewModel(cheep.authorEmail, cheep.Text, cheep.TimeStamp.ToString()));
         }
         return cheepsTotal;
+
+
     }
 
-}
-
-private static string UnixTimeStampToDateTimeString(double unixTimeStamp)
-{
-    // Unix timestamp is seconds past epoch
-    DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-    dateTime = dateTime.AddSeconds(unixTimeStamp);
-    return dateTime.ToString("MM/dd/yy H:mm:ss");
-}
+    private static string UnixTimeStampToDateTimeString(double unixTimeStamp)
+    {
+        // Unix timestamp is seconds past epoch
+        DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+        dateTime = dateTime.AddSeconds(unixTimeStamp);
+        return dateTime.ToString("MM/dd/yy H:mm:ss");
+    }
 
 }

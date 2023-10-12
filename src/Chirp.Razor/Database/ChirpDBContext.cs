@@ -13,7 +13,7 @@ public class ChirpContext : DbContext
     public DbSet<Author> Authors { get; set; }
 
     public string DbPath { get; }
-    CheepRepository db = new CheepRepository();
+
     public ChirpContext()
     {
         var folder = Environment.SpecialFolder.LocalApplicationData;

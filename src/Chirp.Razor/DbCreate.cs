@@ -1,4 +1,5 @@
 using System;
+using System.Data.Entity;
 public class dbCreator
 {
 
@@ -16,7 +17,8 @@ public class dbCreator
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Something happened");
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred creating the DB.");
             }
         }
 

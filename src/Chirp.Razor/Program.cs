@@ -20,8 +20,7 @@ var app = builder.Build();
 var tester = new dbCreator();
 tester.createDIfNotExists(app);
 builder.Services.BuildServiceProvider().GetService<ChirpContext>().Database.Migrate();
-//DBFacade.createDB();
-//DBFacade.readDB(0, 10, null);
+
 
 var tester1 = new CheepRepository();
 

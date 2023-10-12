@@ -85,7 +85,8 @@ class DBFacade
         SQLiteConnection m_dbConnection = new SQLiteConnection(connectionString);
         m_dbConnection.Open();
         var command = m_dbConnection.CreateCommand();
-        if (user != null){
+        if (user != null)
+        {
             command.CommandText = @$"
             SELECT u.username, m.text, m.pub_date
             FROM user u
@@ -93,7 +94,9 @@ class DBFacade
             WHERE u.username = '{user}'
             ORDER BY m.pub_date
             LIMIT ({page} - 1)*{amount}, {amount}";
-        }else{
+        }
+        else
+        {
             command.CommandText = @$"
             SELECT u.username, m.text, m.pub_date
             FROM user u
@@ -101,7 +104,7 @@ class DBFacade
             ORDER BY m.pub_date
             LIMIT ({page} - 1)*{amount}, {amount}";
         }
-            
+
 
         using var reader = command.ExecuteReader();
         List<List<string>> result = new List<List<string>>();

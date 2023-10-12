@@ -12,8 +12,9 @@ public class CheepRepository : ICheepRepository
         if (!db.Authors.Any(a => a.Email == email))
         {
             db.Add(new Author { Name = name, Email = email });
-            db.SaveChanges();
+
         }
+        db.SaveChanges();
         db.ChangeTracker.Clear();
     }
 
@@ -30,8 +31,9 @@ public class CheepRepository : ICheepRepository
         if (existingAuthor != null)
         {
             db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, authorEmail = author.Email });
-            db.SaveChanges();
+
         }
+        db.SaveChanges();
         db.ChangeTracker.Clear();
     }
 
@@ -41,8 +43,9 @@ public class CheepRepository : ICheepRepository
         if (cheepToDelete != null)
         {
             db.Cheeps.Remove(cheepToDelete);
-            db.SaveChanges();
+
         }
+        db.SaveChanges();
         db.ChangeTracker.Clear();
     }
 

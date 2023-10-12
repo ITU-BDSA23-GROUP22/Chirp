@@ -19,15 +19,15 @@ public class ChirpContext : DbContext
 
     public ChirpContext()
     {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
-        DbPath = System.IO.Path.Join(path, "cheeping.db");
+        DbPath = Environment.GetEnvironmentVariable("CHIRPDBPATH")
+
+        ?? Path.Combine(Path.GetTempPath(), "cheeping.db");
     }
 
     // The following configures EF to create a Sqlite database file in the
     // special "local" folder for your platform.
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source=cheeping.db");
+        => options.UseSqlite($"Data Source={DbPath}");
 
 
 }

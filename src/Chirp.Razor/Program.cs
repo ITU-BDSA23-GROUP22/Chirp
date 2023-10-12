@@ -5,9 +5,29 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<ICheepService, CheepService>();
-builder.Services.AddScoped<ICheepRepository, CheepRepository>();
+builder.Services.AddSingleton<ICheepService, CheepService>();
+builder.Services.AddSingleton<ICheepRepository, CheepRepository>();
 
+
+var app = builder.Build();
+
+using (var context = new ChirpContext()) {
+            context.Database.EnsureCreated();
+            var tester1 = new CheepRepository();
+
+            var testAuthor = new Author { Name = "TesterMcMuffin", Email = "Tester@Muffinn.dk" };
+            tester1.AddAuthor("TesterMcMuffin", "Tester@Muffinn.dk");
+
+
+            var currentTime = DateTime.UtcNow;
+            var testCheep = new Cheep { CheepId = 13, Text = "Dette er en test cheep", TimeStamp = currentTime, authorEmail = testAuthor.Email };
+            tester1.WriteCheep("Dette er en test cheep", currentTime, testAuthor);
+
+            
+        }
+
+
+//new dbCreator().createDIfNotExists(app);
 /*
 
 
@@ -15,23 +35,15 @@ builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 tester.DeleteAuthor(testAuthor);
 //tester.DeleteCheep(testCheep);
 */
+/*
 builder.Services.AddDbContext<ChirpContext>();
 
-var app = builder.Build();
-var tester = new dbCreator();
-tester.createDIfNotExists(app);
+
+
 builder.Services.BuildServiceProvider().GetService<ChirpContext>().Database.Migrate();
+*/
 
 
-var tester1 = new CheepRepository();
-
-var testAuthor = new Author { Name = "TesterMcMuffin", Email = "Tester@Muffinn.dk" };
-tester1.AddAuthor("TesterMcMuffin", "Tester@Muffinn.dk");
-
-
-var currentTime = DateTime.UtcNow;
-var testCheep = new Cheep { CheepId = 13, Text = "Dette er en test cheep", TimeStamp = currentTime, authorEmail = testAuthor.Email };
-tester1.WriteCheep("Dette er en test cheep", currentTime, testAuthor);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 public class CheepRepository : ICheepRepository
 {
     readonly ChirpContext db;
@@ -49,9 +50,13 @@ public class CheepRepository : ICheepRepository
         db.ChangeTracker.Clear();
     }
 
-    public IEnumerable<Cheep> GetAllCheeps()
+    public IEnumerable<Cheep> GetAllCheeps(int page)
     {
-        return db.Cheeps.ToList();
+        //return db.Cheeps.ToList();
+        return db.Cheeps
+        .Skip(32*(page - 1))
+        .Take(32)
+        .ToList();
     }
 
     public Author GetAuthor(int id)

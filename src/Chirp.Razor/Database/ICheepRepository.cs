@@ -8,7 +8,7 @@ public interface ICheepRepository
 
     public void DeleteCheep(Cheep cheep);
 
-    public IEnumerable<Cheep> GetAllCheeps();
+    public IEnumerable<Cheep> GetAllCheeps(int page);
 
     public IEnumerable<Cheep> GetCheeps(int page, int amount);
 

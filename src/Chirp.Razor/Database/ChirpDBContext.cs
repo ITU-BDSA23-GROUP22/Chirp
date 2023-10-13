@@ -18,7 +18,7 @@ public class ChirpContext : DbContext
     }
     public ChirpContext()
     {
-        DbPath = Path.Combine(Path.GetTempPath(), "cheeping.db").Replace("\\","/");
+        DbPath = Path.Combine(Path.GetTempPath(), "cheeping.db");
 
     }
 

@@ -13,7 +13,7 @@ public class CheepService : ICheepService
     CheepRepository dbCalls = new CheepRepository();
     public List<CheepViewModel> GetCheeps(int page)
     {
-        var cheeps = dbCalls.GetAllCheeps();
+        var cheeps = dbCalls.GetAllCheeps(page);
         List<CheepViewModel> cheepsTotal = new();
         foreach (Cheep cheep in cheeps)
         {
@@ -31,7 +31,7 @@ public class CheepService : ICheepService
     public List<CheepViewModel> GetCheepsFromAuthor(string author, int page)
     {
 
-        var cheeps = dbCalls.GetAllCheeps();
+        var cheeps = dbCalls.GetAllCheeps(page);
         List<CheepViewModel> cheepsTotal = new();
         foreach (Cheep cheep in cheeps)
         {

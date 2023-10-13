@@ -16,38 +16,30 @@ public class ChirpContext : DbContext
     public ChirpContext(DbContextOptions<ChirpContext> options) : base(options)
     {
     }
-
     public ChirpContext()
     {
-        DbPath = Environment.GetEnvironmentVariable("CHIRPDBPATH")
+        DbPath = Path.Combine(Path.GetTempPath(), "cheeping.db").Replace("\\","/");
 
-        ?? Path.Combine(Path.GetTempPath(), "cheeping.db");
     }
 
     // The following configures EF to create a Sqlite database file in the
     // special "local" folder for your platform.
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
-
-
+    protected override void OnConfiguring(DbContextOptionsBuilder options){
+        options.UseSqlite($"Data Source={DbPath}");
+    }
 }
 
-public class Author
-{
-    public string Name { get; set; }
-    [Key]
-    public string Email { get; set; }
 
-    public List<Cheep> UserCheeps { get; } = new List<Cheep>();
-}
-
-public class Cheep
-{
-    [Key]
+public class Cheep {
     public int CheepId { get; set; }
+    public int AuthorId { get; set; }
     public string Text { get; set; }
-
     public DateTime TimeStamp { get; set; }
-    [ForeignKey("authorEmail")]
-    public String authorEmail { get; set; }
+    public Author Author {get; set;}
+}
+public class Author {
+    public int AuthorId { get; set; }
+    public string Email { get; set; }
+    public string Name { get; set; }
+    public IEnumerable<Cheep> Cheeps { get; set; }
 }

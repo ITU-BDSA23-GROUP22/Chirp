@@ -16,5 +16,5 @@ public interface ICheepRepository
 
     public Cheep GetCheepById(int id);
 
-    public Author GetAuthor(string name);
+    public Author GetAuthor(int id);
 }

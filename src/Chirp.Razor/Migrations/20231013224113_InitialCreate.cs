@@ -15,12 +15,14 @@ namespace Chirp.Razor.Migrations
                 name: "Authors",
                 columns: table => new
                 {
+                    AuthorId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Authors", x => x.Email);
+                    table.PrimaryKey("PK_Authors", x => x.AuthorId);
                 });
 
             migrationBuilder.CreateTable(
@@ -29,25 +31,25 @@ namespace Chirp.Razor.Migrations
                 {
                     CheepId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    AuthorId = table.Column<int>(type: "INTEGER", nullable: false),
                     Text = table.Column<string>(type: "TEXT", nullable: false),
-                    TimeStamp = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    authorEmail = table.Column<string>(type: "TEXT", nullable: false)
+                    TimeStamp = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cheeps", x => x.CheepId);
                     table.ForeignKey(
-                        name: "FK_Cheeps_Authors_authorEmail",
-                        column: x => x.authorEmail,
+                        name: "FK_Cheeps_Authors_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "Authors",
-                        principalColumn: "Email",
+                        principalColumn: "AuthorId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cheeps_authorEmail",
+                name: "IX_Cheeps_AuthorId",
                 table: "Cheeps",
-                column: "authorEmail");
+                column: "AuthorId");
         }
 
         /// <inheritdoc />

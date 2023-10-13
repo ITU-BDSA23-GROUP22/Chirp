@@ -11,19 +11,14 @@ public interface ICheepService
 public class CheepService : ICheepService
 {
     CheepRepository dbCalls = new CheepRepository();
-
-    //List<List<string>> cheeps = DBFacade.readDB(0, 32, null);
-    List<CheepViewModel> cheepsTotal = new();
-    // These would normally be loaded from a database for example
     public List<CheepViewModel> GetCheeps(int page)
     {
-        //cheeps = DBFacade.readDB(page, 32, null);
         var cheeps = dbCalls.GetAllCheeps();
         List<CheepViewModel> cheepsTotal = new();
         foreach (Cheep cheep in cheeps)
         {
-
-            cheepsTotal.Add(new CheepViewModel(cheep.authorEmail, cheep.Text, cheep.TimeStamp.ToString()));
+            Author cheepAuthor = dbCalls.GetAuthor(cheep.AuthorId);
+            cheepsTotal.Add(new CheepViewModel(cheepAuthor.Name, cheep.Text, cheep.TimeStamp.ToString()));
         }
         return cheepsTotal;
     }
@@ -51,8 +46,8 @@ public class CheepService : ICheepService
         List<CheepViewModel> cheepsTotal = new();
         foreach (Cheep cheep in cheeps)
         {
-
-            cheepsTotal.Add(new CheepViewModel(cheep.authorEmail, cheep.Text, cheep.TimeStamp.ToString()));
+            Author cheepAuthor = dbCalls.GetAuthor(cheep.AuthorId);
+            cheepsTotal.Add(new CheepViewModel(cheepAuthor.Name, cheep.Text, cheep.TimeStamp.ToString()));
         }
         return cheepsTotal;
 

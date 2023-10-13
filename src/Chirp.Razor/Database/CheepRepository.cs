@@ -5,6 +5,7 @@ public class CheepRepository : ICheepRepository
     public CheepRepository()
     {
         db = new ChirpContext();
+        Console.WriteLine(db.DbPath);
     }
 
     public void AddAuthor(string name, string email)
@@ -30,7 +31,7 @@ public class CheepRepository : ICheepRepository
         var existingAuthor = db.Authors.FirstOrDefault(a => a.Email == author.Email);
         if (existingAuthor != null)
         {
-            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, authorEmail = author.Email });
+            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp,  AuthorId= author.AuthorId, Author =  author});
 
         }
         db.SaveChanges();
@@ -54,9 +55,12 @@ public class CheepRepository : ICheepRepository
         return db.Cheeps.ToList();
     }
 
-    public Author GetAuthor(string name)
+    public Author GetAuthor(int id)
     {
-        throw new NotImplementedException();
+        var author = db.Authors
+        .Where(b => b.AuthorId == id)
+        .FirstOrDefault();
+        return author;
     }
 
     public Cheep GetCheepById(int id)

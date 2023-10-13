@@ -7,41 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<ICheepService, CheepService>();
 builder.Services.AddSingleton<ICheepRepository, CheepRepository>();
+builder.Services.AddDbContext<ChirpContext>();
 
 
 var app = builder.Build();
 
 using (var context = new ChirpContext()) {
             context.Database.EnsureCreated();
-            var tester1 = new CheepRepository();
-
-            var testAuthor = new Author { Name = "TesterMcMuffin", Email = "Tester@Muffinn.dk" };
-            tester1.AddAuthor("TesterMcMuffin", "Tester@Muffinn.dk");
-
-
-            var currentTime = DateTime.UtcNow;
-            var testCheep = new Cheep { CheepId = 13, Text = "Dette er en test cheep", TimeStamp = currentTime, authorEmail = testAuthor.Email };
-            tester1.WriteCheep("Dette er en test cheep", currentTime, testAuthor);
-
-            
+            DbInitializer.SeedDatabase(context);
         }
 
 
-//new dbCreator().createDIfNotExists(app);
-/*
-
-
-
-tester.DeleteAuthor(testAuthor);
-//tester.DeleteCheep(testCheep);
-*/
-/*
-builder.Services.AddDbContext<ChirpContext>();
-
-
-
-builder.Services.BuildServiceProvider().GetService<ChirpContext>().Database.Migrate();
-*/
 
 
 

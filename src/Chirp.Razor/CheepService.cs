@@ -30,18 +30,7 @@ public class CheepService : ICheepService
 
     public List<CheepViewModel> GetCheepsFromAuthor(string author, int page)
     {
-        /*
-        cheeps = DBFacade.readDB(page, 32, author);
-        List<CheepViewModel> cheepsTotal = new();
-        foreach (List<string> cheepList in cheeps)
-        {
-            cheepsTotal.Add(new CheepViewModel(cheepList[0], cheepList[1], UnixTimeStampToDateTimeString(Convert.ToDouble(cheepList[2]))));
-        }
-        return cheepsTotal;
-        // filter by the provided author name
-        //GetCheeps(page);
-        //return cheepsTotal.Where(x => x.Author == author).ToList();
-        */
+
         var cheeps = dbCalls.GetAllCheeps();
         List<CheepViewModel> cheepsTotal = new();
         foreach (Cheep cheep in cheeps)
@@ -49,7 +38,7 @@ public class CheepService : ICheepService
             Author cheepAuthor = dbCalls.GetAuthor(cheep.AuthorId);
             cheepsTotal.Add(new CheepViewModel(cheepAuthor.Name, cheep.Text, cheep.TimeStamp.ToString()));
         }
-        return cheepsTotal;
+        return cheepsTotal.Where(cheep => cheep.Author == author).ToList();
 
 
     }

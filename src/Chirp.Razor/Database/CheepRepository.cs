@@ -5,7 +5,6 @@ public class CheepRepository : ICheepRepository
     public CheepRepository()
     {
         db = new ChirpContext();
-        Console.WriteLine(db.DbPath);
     }
 
     public void AddAuthor(string name, string email)

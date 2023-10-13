@@ -52,7 +52,6 @@ public class CheepRepository : ICheepRepository
 
     public IEnumerable<Cheep> GetAllCheeps(int page)
     {
-        //return db.Cheeps.ToList();
         return db.Cheeps
         .Skip(32*(page - 1))
         .Take(32)
@@ -77,9 +76,13 @@ public class CheepRepository : ICheepRepository
         throw new NotImplementedException();
     }
 
-    public IEnumerable<Cheep> GetCheepsByAuthor(Author author)
+    public IEnumerable<Cheep> GetCheepsByAuthor(string author, int page)
     {
-        throw new NotImplementedException();
+        return db.Cheeps
+        .Where(cheep => cheep.Author.Name == author)
+        .Skip(32*(page - 1))
+        .Take(32)
+        .ToList();
     }
 
 

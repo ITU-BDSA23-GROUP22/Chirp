@@ -31,14 +31,15 @@ public class CheepService : ICheepService
     public List<CheepViewModel> GetCheepsFromAuthor(string author, int page)
     {
 
-        var cheeps = dbCalls.GetAllCheeps(page);
+        var cheeps = dbCalls.GetCheepsByAuthor(author,page);
         List<CheepViewModel> cheepsTotal = new();
         foreach (Cheep cheep in cheeps)
         {
             Author cheepAuthor = dbCalls.GetAuthor(cheep.AuthorId);
             cheepsTotal.Add(new CheepViewModel(cheepAuthor.Name, cheep.Text, cheep.TimeStamp.ToString()));
         }
-        return cheepsTotal.Where(cheep => cheep.Author == author).ToList();
+        
+        return cheepsTotal;
 
 
     }

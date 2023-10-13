@@ -12,7 +12,7 @@ public interface ICheepRepository
 
     public IEnumerable<Cheep> GetCheeps(int page, int amount);
 
-    public IEnumerable<Cheep> GetCheepsByAuthor(Author author);
+    public IEnumerable<Cheep> GetCheepsByAuthor(string author, int page);
 
     public Cheep GetCheepById(int id);
 

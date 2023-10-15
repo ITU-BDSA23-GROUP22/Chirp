@@ -1,29 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
+using Chirp.Core;
 namespace Chirp.Razor.Pages;
 
-public class PublicModel : PageModel
+public class UserTimelineModel : PageModel
 {
     private readonly ICheepService _service;
-    public List<CheepDTO> Cheeps { get; set; } = null!;
+    public IEnumerable<CheepDTO> Cheeps { get; set; } = null!;
     [FromQuery(Name="page")]
     public string page { get; set; } = null!;
 
-    public PublicModel(ICheepService service)
+    public UserTimelineModel(ICheepService service)
     {
         _service = service;
     }
 
-    public ActionResult OnGet()
+    public ActionResult OnGet(string author)
     {
         int pageNumber = 1;
         try {
             pageNumber = int.Parse(page);
         }
-        catch(Exception e) {Console.WriteLine(e);}
+        catch(Exception) {}
         finally {
-            Cheeps = _service.GetCheeps(pageNumber);
+            Cheeps = _service.GetCheepsFromAuthor(author, pageNumber);
         }
         return Page();
     }

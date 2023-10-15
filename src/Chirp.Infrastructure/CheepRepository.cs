@@ -1,5 +1,5 @@
 using System;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using Chirp.Core;
 public class CheepRepository : ICheepRepository
 {
     readonly ChirpContext db;
@@ -50,44 +50,56 @@ public class CheepRepository : ICheepRepository
         db.ChangeTracker.Clear();
     }
 
-    public IEnumerable<Cheep> GetAllCheeps(int page)
+    public IEnumerable<CheepDTO> GetAllCheeps(int page)
     {
-        return db.Cheeps
+        List<CheepDTO> cheepDTOList = new List<CheepDTO>();
+        var cheeps =  db.Cheeps
         .Skip(32*(page - 1))
         .Take(32)
         .ToList();
+        foreach(Cheep cheep in cheeps){
+            cheepDTOList.Add(new CheepDTO(GetAuthor(cheep.AuthorId).Name,cheep.Text,cheep.TimeStamp.ToString()));
+        }
+        return cheepDTOList;
+
+
     }
 
-    public Author GetAuthor(int id)
+    public AuthorDTO GetAuthor(int id)
     {
         var author = db.Authors
         .Where(b => b.AuthorId == id)
         .FirstOrDefault();
         if (author != null){
-            return author;
+            return new AuthorDTO(author.Name,author.Email);
         }else{
             throw new NullReferenceException("Author not found");
         }
         
     }
 
-    public Cheep GetCheepById(int id)
+    public CheepDTO GetCheepById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable<Cheep> GetCheeps(int page, int amount)
+    public IEnumerable<CheepDTO> GetCheeps(int page, int amount)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable<Cheep> GetCheepsByAuthor(string author, int page)
+    public IEnumerable<CheepDTO> GetCheepsByAuthor(string author, int page)
     {
-        return db.Cheeps
+        List<CheepDTO> cheepDTOList = new List<CheepDTO>();
+        var cheeps = db.Cheeps
         .Where(cheep => cheep.Author.Name == author)
         .Skip(32*(page - 1))
         .Take(32)
         .ToList();
+        foreach(Cheep cheep in cheeps){
+            cheepDTOList.Add(new CheepDTO(cheep.Author.Name,cheep.Text,cheep.TimeStamp.ToString()));
+        }
+        return cheepDTOList;
     }
 
 

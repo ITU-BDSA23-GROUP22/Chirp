@@ -20,12 +20,7 @@ public class CheepService : ICheepService
         }
         return DTOCheeps;
     }
-
-    private string UnixTimeStampToDateTimeString(string v)
-    {
-        throw new NotImplementedException();
-    }
-
+    
     public List<CheepDTO> GetCheepsFromAuthor(string author, int page)
     {
         var databaseCheeps = dbCall.GetCheepsByAuthor(author,page);

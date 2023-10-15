@@ -12,7 +12,7 @@ public class CheepRepository : ICheepRepository
     {
         if (!db.Authors.Any(a => a.Email == email))
         {
-            db.Add(new Author { Name = name, Email = email });
+            db.Add(new Author { Name = name, Email = email, Cheeps = new List<Cheep>()});
 
         }
         db.SaveChanges();
@@ -63,7 +63,12 @@ public class CheepRepository : ICheepRepository
         var author = db.Authors
         .Where(b => b.AuthorId == id)
         .FirstOrDefault();
-        return author;
+        if (author != null){
+            return author;
+        }else{
+            throw new NullReferenceException("Author not found");
+        }
+        
     }
 
     public Cheep GetCheepById(int id)

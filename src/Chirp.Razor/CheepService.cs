@@ -1,26 +1,24 @@
-public record CheepViewModel(string Author, string Message, string Timestamp);
-
 public interface ICheepService
 
 {
 
-    public List<CheepViewModel> GetCheeps(int page);
-    public List<CheepViewModel> GetCheepsFromAuthor(string author, int page);
+    public List<CheepDTO> GetCheeps(int page);
+    public List<CheepDTO> GetCheepsFromAuthor(string author, int page);
 }
 
 public class CheepService : ICheepService
 {
-    CheepRepository dbCalls = new CheepRepository();
-    public List<CheepViewModel> GetCheeps(int page)
+    CheepRepository dbCall = new CheepRepository();
+    public List<CheepDTO> GetCheeps(int page)
     {
-        var cheeps = dbCalls.GetAllCheeps(page);
-        List<CheepViewModel> cheepsTotal = new();
-        foreach (Cheep cheep in cheeps)
+        var databaseCheeps = dbCall.GetAllCheeps(page);
+        List<CheepDTO> DTOCheeps = new();
+        foreach (Cheep cheep in databaseCheeps)
         {
-            Author cheepAuthor = dbCalls.GetAuthor(cheep.AuthorId);
-            cheepsTotal.Add(new CheepViewModel(cheepAuthor.Name, cheep.Text, cheep.TimeStamp.ToString()));
+            Author cheepAuthor = dbCall.GetAuthor(cheep.AuthorId);
+            DTOCheeps.Add(new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString()));
         }
-        return cheepsTotal;
+        return DTOCheeps;
     }
 
     private string UnixTimeStampToDateTimeString(string v)
@@ -28,20 +26,16 @@ public class CheepService : ICheepService
         throw new NotImplementedException();
     }
 
-    public List<CheepViewModel> GetCheepsFromAuthor(string author, int page)
+    public List<CheepDTO> GetCheepsFromAuthor(string author, int page)
     {
-
-        var cheeps = dbCalls.GetCheepsByAuthor(author,page);
-        List<CheepViewModel> cheepsTotal = new();
-        foreach (Cheep cheep in cheeps)
+        var databaseCheeps = dbCall.GetCheepsByAuthor(author,page);
+        List<CheepDTO> DTOCheeps = new();
+        foreach (Cheep cheep in databaseCheeps)
         {
-            Author cheepAuthor = dbCalls.GetAuthor(cheep.AuthorId);
-            cheepsTotal.Add(new CheepViewModel(cheepAuthor.Name, cheep.Text, cheep.TimeStamp.ToString()));
+            Author cheepAuthor = dbCall.GetAuthor(cheep.AuthorId);
+            DTOCheeps.Add(new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString()));
         }
-        
-        return cheepsTotal;
-
-
+        return DTOCheeps;
     }
 
     private static string UnixTimeStampToDateTimeString(double unixTimeStamp)

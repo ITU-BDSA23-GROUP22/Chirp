@@ -140,7 +140,7 @@ public class CheepRepository : ICheepRepository
             }
             else
             {
-                Console.WriteLine("Cheep Author is null")
+                Console.WriteLine("Cheep Author is null");
             }
             
         }

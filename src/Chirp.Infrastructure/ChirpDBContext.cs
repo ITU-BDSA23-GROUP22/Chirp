@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Chirp.Core;
 
 
 //the following code is adapted from the documentation 
@@ -26,7 +27,17 @@ public class ChirpContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder options){
         //options.UseSqlite($"Data Source=C:/Users/Patrick/AppData/Local/Temp/cheeping.db");
         options.UseSqlite($"Data Source={DbPath}");
-
     }
+
+
+    // THIS RESULTS IN CHEEPS.AUTHOR IN CHEEPREPOSITORY.CS LINE 77 TO BE NULL:
+    // protected override void OnModelCreating(ModelBuilder modelBuilder)
+    // {
+    //     modelBuilder.Entity<AuthorDTO>().HasNoKey();
+
+    //     modelBuilder.Entity<AuthorDTO>()
+    //         .HasIndex(a => a.Email)
+    //         .IsUnique();
+    // }
 
 }

@@ -57,4 +57,35 @@ public class RepositoryUnitTest
         repo.WriteCheep("hello hello", DateTime.Now, author);
         Assert.Single(repo.GetCheepsByAuthor(author));
     }
+
+    [Fact]
+    public void TestGetAllCheeps()
+    {
+        CheepRepository repo = new CheepRepository();
+
+        string name = "John Doe";
+        string email = "john.doe@example.com";
+        repo.AddAuthor(name, email);
+        Author author = repo.GetAuthor(name);
+        for (int i = 0; i < 32; i++)
+        {
+            repo.WriteCheep("Test cheep " + i, DateTime.Now, author);
+        }
+
+        foreach (CheepDTO loopCheep : repo.GetAllCheeps(0))
+        {
+            Assert.Equals(loopCheep.message, "Test cheep");
+        }
+        Assert.Single(repo.GetCheepsByAuthor(author));
+    }
+
+    public void TestCheepById()
+    {
+
+    }
+
+    public void TestAuthorById()
+    {
+
+    }
 }

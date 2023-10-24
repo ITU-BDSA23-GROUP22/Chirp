@@ -34,6 +34,12 @@ public class CheepRepository : ICheepRepository
             db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = author.AuthorId, Author = author });
 
         }
+        else
+        {
+            AddAuthor(author.Name, author.Email);
+            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = author.AuthorId, Author = author });
+
+        }
         db.SaveChanges();
         db.ChangeTracker.Clear();
     }
@@ -80,11 +86,44 @@ public class CheepRepository : ICheepRepository
 
     }
 
+    public AuthorDTO GetAuthor(string EmailOrName)
+    {
+        Author? author = null;
+        if (EmailOrName.Contains("@") == true)
+        {
+            author = db.Authors
+           .Where(b => b.Email == EmailOrName)
+           .FirstOrDefault();
+        }
+        else
+        {
+            author = db.Authors
+           .Where(b => b.Name == EmailOrName)
+           .FirstOrDefault();
+        }
+
+        if (author != null)
+        {
+            return new AuthorDTO(author.Name, author.Email);
+        }
+        else
+        {
+            throw new NullReferenceException("Author not found");
+        }
+
+    }
+
     public CheepDTO GetCheepById(int id)
     {
         var cheep = db.Cheeps.Find(id);
-
-        return new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString());
+        if (cheep != null)
+        {
+            return new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString());
+        }
+        else
+        {
+            throw new Exception("Cheep not found");
+        }
     }
 
     public IEnumerable<CheepDTO> GetCheepsByAuthor(string author, int page)

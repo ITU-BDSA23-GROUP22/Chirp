@@ -5,12 +5,14 @@ namespace Chirp.Razor.Pages;
 
 public class PublicModel : PageModel
 {
-    private readonly ICheepService _service;
+
+    private readonly CheepRepository _service;
+
     public IEnumerable<CheepDTO> Cheeps { get; set; } = null!;
-    [FromQuery(Name="page")]
+    [FromQuery(Name = "page")]
     public string page { get; set; } = null!;
 
-    public PublicModel(ICheepService service)
+    public PublicModel(CheepRepository service)
     {
         _service = service;
     }
@@ -18,12 +20,14 @@ public class PublicModel : PageModel
     public ActionResult OnGet()
     {
         int pageNumber = 1;
-        try {
+        try
+        {
             pageNumber = int.Parse(page);
         }
-        catch(Exception) {}
-        finally {
-            Cheeps = _service.GetCheeps(pageNumber);
+        catch (Exception) { }
+        finally
+        {
+            Cheeps = _service.GetAllCheeps(pageNumber);
         }
         return Page();
     }

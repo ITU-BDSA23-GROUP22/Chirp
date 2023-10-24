@@ -3,9 +3,9 @@ using Chirp.Core;
 public class CheepRepository : ICheepRepository
 {
     readonly ChirpContext db;
-    public CheepRepository()
+    public CheepRepository(ChirpContext chirpContext)
     {
-        db = new ChirpContext();
+        db = chirpContext;
     }
 
     public void AddAuthor(string name, string email)
@@ -13,7 +13,6 @@ public class CheepRepository : ICheepRepository
         if (!db.Authors.Any(a => a.Email == email))
         {
             db.Add(new Author { Name = name, Email = email, Cheeps = new List<Cheep>() });
-
         }
         db.SaveChanges();
         db.ChangeTracker.Clear();

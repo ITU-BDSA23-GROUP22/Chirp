@@ -12,7 +12,7 @@ public class CheepRepository : ICheepRepository
     {
         if (!db.Authors.Any(a => a.Email == email))
         {
-            db.Add(new Author { Name = name, Email = email, Cheeps = new List<Cheep>()});
+            db.Add(new Author { Name = name, Email = email, Cheeps = new List<Cheep>() });
 
         }
         db.SaveChanges();
@@ -31,7 +31,7 @@ public class CheepRepository : ICheepRepository
         var existingAuthor = db.Authors.FirstOrDefault(a => a.Email == author.Email);
         if (existingAuthor != null)
         {
-            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp,  AuthorId= author.AuthorId, Author =  author});
+            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = author.AuthorId, Author = author });
 
         }
         db.SaveChanges();
@@ -53,16 +53,15 @@ public class CheepRepository : ICheepRepository
     public IEnumerable<CheepDTO> GetAllCheeps(int page)
     {
         List<CheepDTO> cheepDTOList = new List<CheepDTO>();
-        var cheeps =  db.Cheeps
-        .Skip(32*(page - 1))
+        var cheeps = db.Cheeps
+        .Skip(32 * (page - 1))
         .Take(32)
         .ToList();
-        foreach(Cheep cheep in cheeps){
-            cheepDTOList.Add(new CheepDTO(GetAuthor(cheep.AuthorId).Name,cheep.Text,cheep.TimeStamp.ToString()));
+        foreach (Cheep cheep in cheeps)
+        {
+            cheepDTOList.Add(new CheepDTO(GetAuthor(cheep.AuthorId).Name, cheep.Text, cheep.TimeStamp.ToString()));
         }
         return cheepDTOList;
-
-
     }
 
     public AuthorDTO GetAuthor(int id)
@@ -70,20 +69,18 @@ public class CheepRepository : ICheepRepository
         var author = db.Authors
         .Where(b => b.AuthorId == id)
         .FirstOrDefault();
-        if (author != null){
-            return new AuthorDTO(author.Name,author.Email);
-        }else{
+        if (author != null)
+        {
+            return new AuthorDTO(author.Name, author.Email);
+        }
+        else
+        {
             throw new NullReferenceException("Author not found");
         }
-        
+
     }
 
     public CheepDTO GetCheepById(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<CheepDTO> GetCheeps(int page, int amount)
     {
         throw new NotImplementedException();
     }
@@ -93,11 +90,12 @@ public class CheepRepository : ICheepRepository
         List<CheepDTO> cheepDTOList = new List<CheepDTO>();
         var cheeps = db.Cheeps
         .Where(cheep => cheep.Author.Name == author)
-        .Skip(32*(page - 1))
+        .Skip(32 * (page - 1))
         .Take(32)
         .ToList();
-        foreach(Cheep cheep in cheeps){
-            cheepDTOList.Add(new CheepDTO(cheep.Author.Name,cheep.Text,cheep.TimeStamp.ToString()));
+        foreach (Cheep cheep in cheeps)
+        {
+            cheepDTOList.Add(new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString()));
         }
         return cheepDTOList;
     }

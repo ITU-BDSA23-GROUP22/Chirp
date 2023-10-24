@@ -82,7 +82,7 @@ public class CheepRepository : ICheepRepository
 
     public CheepDTO GetCheepById(int id)
     {
-        var cheep = db.Cheeps.Find(cheep.CheepId);
+        var cheep = db.Cheeps.Find(id);
 
         return new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString());
     }

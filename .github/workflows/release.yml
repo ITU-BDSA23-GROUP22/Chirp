@@ -19,11 +19,11 @@ jobs:
           dotnet-version: 7.0.x
 
       - name: Restore dependencies
-        run: dotnet restore ./src/Chirp.CLI/Chirp.CLI.csproj
+        run: dotnet restore ./src/Chirp.Web/Chirp.Web.csproj
       - name: Build
-        run: dotnet build --no-restore ./src/Chirp.CLI/Chirp.CLI.csproj
+        run: dotnet build --no-restore ./src/Chirp.Web/Chirp.Web.csproj
       - name: Test chirp
-        run: dotnet test --verbosity normal ./test/Chirp.CLI.test/Chirp.CLI.test.csproj
+        run: dotnet test --verbosity normal ./test/Chirp.Web.test/Chirp.Web.test.csproj
       - name: Test DB
         run: dotnet test --verbosity normal ./test/SimpleDB.test/SimpleDB.test.csproj
 
@@ -34,7 +34,7 @@ jobs:
           release_name="Chirp-$tag-linux-x64"
 
           # Build everything
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "linux-x64" -c Release -o "$release_name"
+          dotnet publish src/Chirp.Web/Chirp.Web.csproj --framework net7.0 --runtime "linux-x64" -c Release -o "$release_name"
 
           # Pack files
           7z a -tzip "${release_name}.zip" "./${release_name}/*"
@@ -49,7 +49,7 @@ jobs:
           release_name="Chirp-$tag-win-x64"
 
           # Build everything
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "win-x64" -c Release -o "$release_name"
+          dotnet publish src/Chirp.Web/Chirp.Web.csproj --framework net7.0 --runtime "win-x64" -c Release -o "$release_name"
 
           # Pack files
           7z a -tzip "${release_name}.zip" "./${release_name}/*"
@@ -64,7 +64,7 @@ jobs:
           release_name="Chirp-$tag-osx-x64"
 
           # Build everything
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "osx-x64" -c Release -o "$release_name"
+          dotnet publish src/Chirp.Web/Chirp.Web.csproj --framework net7.0 --runtime "osx-x64" -c Release -o "$release_name"
 
           # Pack files
           7z a -tzip "${release_name}.zip" "./${release_name}/*"
@@ -79,7 +79,7 @@ jobs:
           release_name="Chirp-$tag-osx-arm64"
 
           # Build everything
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "osx-arm64" -c Release -o "$release_name"
+          dotnet publish src/Chirp.Web/Chirp.Web.csproj --framework net7.0 --runtime "osx-arm64" -c Release -o "$release_name"
 
           # Pack files
           7z a -tzip "${release_name}.zip" "./${release_name}/*"

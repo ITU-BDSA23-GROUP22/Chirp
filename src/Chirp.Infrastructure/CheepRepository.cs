@@ -34,6 +34,12 @@ public class CheepRepository : ICheepRepository
             db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = author.AuthorId, Author = author });
 
         }
+        else
+        {
+            AddAuthor(author.Name, author.Email);
+            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = author.AuthorId, Author = author });
+
+        }
         db.SaveChanges();
         db.ChangeTracker.Clear();
     }
@@ -69,6 +75,32 @@ public class CheepRepository : ICheepRepository
         var author = db.Authors
         .Where(b => b.AuthorId == id)
         .FirstOrDefault();
+        if (author != null)
+        {
+            return new AuthorDTO(author.Name, author.Email);
+        }
+        else
+        {
+            throw new NullReferenceException("Author not found");
+        }
+
+    }
+    public AuthorDTO GetAuthor(string EmailOrName)
+    {
+        Author? author = null;
+        if (EmailOrName.Contains("@") == true)
+        {
+            author = db.Authors
+           .Where(b => b.Email == EmailOrName)
+           .FirstOrDefault();
+        }
+        else
+        {
+            author = db.Authors
+           .Where(b => b.Name == EmailOrName)
+           .FirstOrDefault();
+        }
+
         if (author != null)
         {
             return new AuthorDTO(author.Name, author.Email);

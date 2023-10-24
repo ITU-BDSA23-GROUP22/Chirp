@@ -3,11 +3,11 @@ public interface ICheepRepository
 {
     public void AddAuthor(String name, string email);
 
-    public void DeleteAuthor(AuthorDTO author);
+    // public void DeleteAuthor(AuthorDTO author);
 
-    public void WriteCheep(string text, DateTime publishTimestamp, AuthorDTO author);
+    //public void WriteCheep(string text, DateTime publishTimestamp, AuthorDTO author);
 
-    public void DeleteCheep(CheepDTO cheep);
+    //public void DeleteCheep(CheepDTO cheep);
 
     public IEnumerable<CheepDTO> GetAllCheeps(int page);
 

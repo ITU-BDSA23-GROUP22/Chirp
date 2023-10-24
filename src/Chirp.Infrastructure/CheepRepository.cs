@@ -82,9 +82,15 @@ public class CheepRepository : ICheepRepository
 
     public CheepDTO GetCheepById(int id)
     {
-        var cheep = db.Cheeps.Find(cheep.CheepId);
-
-        return new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString());
+        var cheep = db.Cheeps.Find(id);
+        if (cheep != null)
+        {
+            return new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString());
+        }
+        else
+        {
+            throw new Exception("Cheep not found");
+        }
     }
 
     public IEnumerable<CheepDTO> GetCheepsByAuthor(string author, int page)

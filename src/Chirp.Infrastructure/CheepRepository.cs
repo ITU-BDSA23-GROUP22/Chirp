@@ -82,7 +82,9 @@ public class CheepRepository : ICheepRepository
 
     public CheepDTO GetCheepById(int id)
     {
-        throw new NotImplementedException();
+        var cheep = db.Cheeps.Find(cheep.CheepId);
+
+        return new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString());
     }
 
     public IEnumerable<CheepDTO> GetCheepsByAuthor(string author, int page)

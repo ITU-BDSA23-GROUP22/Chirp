@@ -11,8 +11,6 @@ public interface ICheepRepository
 
     public IEnumerable<CheepDTO> GetAllCheeps(int page);
 
-    public IEnumerable<CheepDTO> GetCheeps(int page, int amount);
-
     public IEnumerable<CheepDTO> GetCheepsByAuthor(string author, int page);
 
     public CheepDTO GetCheepById(int id);

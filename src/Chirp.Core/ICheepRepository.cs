@@ -16,4 +16,6 @@ public interface ICheepRepository
     public CheepDTO GetCheepById(int id);
 
     public AuthorDTO GetAuthor(int id);
+
+    public AuthorDTO GetAuthor(string EmailOrName);
 }

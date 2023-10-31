@@ -1,21 +1,59 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication.OpenIdConnect
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>@ViewData["Title"]</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/png" href="/favicon/favicon.ico">
 </head>
-<body>
-<div class=page>
-    <h1><img src="/images/icon1.png" alt="Icon1"/>Chirp!</h1>
 
-    <div class=body>
-        @RenderBody()
+<body>
+    <div class=page>
+        <h1><img src="/images/icon1.png" alt="Icon1" />Chirp!</h1>
+        <div class=navigation>
+
+            @inject IOptionsMonitor<MicrosoftIdentityOptions> AzureADB2COptions
+
+            @{
+                var options = AzureADB2COptions.Get(OpenIdConnectDefaults.AuthenticationScheme);
+                var user = User as System.Security.Claims.ClaimsPrincipal;
+
+            }
+
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div>
+                    <a href="/@(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)">my timeline</a> |
+                    <a href="/">public timeline</a> |
+                    <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account"
+                        asp-action="SignOut">logout [@User.Identity.Name]</a>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <a href="/">public timeline</a> |
+                    <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignUp">register</a> |
+                    <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account"
+                        asp-action="SignIn">login</a>
+                </div>
+            }
+        </div>
+        @* <partial name="_LoginPartial" /> *@
+        <div class=body>
+            @RenderBody()
+        </div>
+        <div class=footer>
+            Chirp &mdash; An ASP.NET Application
+        </div>
     </div>
-    <div class=footer>
-        Chirp &mdash; An ASP.NET Application
-    </div>
-</div>
 
 </body>
+
 </html>

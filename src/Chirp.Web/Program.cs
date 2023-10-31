@@ -1,24 +1,24 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Chirp.Core;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<ICheepService, CheepService>();
 builder.Services.AddSingleton<ICheepRepository, CheepRepository>();
-builder.Services.AddDbContext<ChirpContext>();
+// builder.Services.AddDbContext<ChirpContext>(
+//     options =>
+//     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<ChirpContext>();
 
 
 var app = builder.Build();
 
-using (var context = new ChirpContext()) {
-            context.Database.EnsureCreated();
-            DbInitializer.SeedDatabase(context);
-        }
-
-
-
-
+using (var context = new ChirpContext())
+{
+    context.Database.EnsureCreated();
+    DbInitializer.SeedDatabase(context);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

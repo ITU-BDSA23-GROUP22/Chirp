@@ -11,14 +11,9 @@
     <ul>
         @foreach (System.Security.Claims.Claim claim in User.Claims)
         {
-            if (claim.Type.Equals("emails"))
-            {
-                <li>@claim.Value</li>
-            }
+            <li><b>@(claim.Type): </b></li>
+            <p>@claim.Value</p>
+
         }
     </ul>
-
-
-    @* <p> EMAIL: @(User.FindFirst(System.Security.Claims.ClaimTypes.Email).Value.ToString())</p> *@
-    @* <PersistedClaim ClaimTypeReferenceId="otherMails" /> *@
 </div>

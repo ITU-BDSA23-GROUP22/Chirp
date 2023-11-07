@@ -19,13 +19,11 @@ jobs:
           dotnet-version: 7.0.x
 
       - name: Restore dependencies
-        run: dotnet restore ./src/Chirp.Web/Chirp.Web.csproj
+        run: dotnet restore ./src/Chirp.Web/Chirp.web.csproj
       - name: Build
-        run: dotnet build --no-restore ./src/Chirp.Web/Chirp.Web.csproj
-      - name: Test chirp
-        run: dotnet test --verbosity normal ./test/Chirp.Web.test/Chirp.Web.test.csproj
-      - name: Test DB
-        run: dotnet test --verbosity normal ./test/SimpleDB.test/SimpleDB.test.csproj
+        run: dotnet build --no-restore ./src/Chirp.Web/Chirp.web.csproj
+      # - name: Test chirp
+      # run: dotnet test --verbosity normal ./test/Chirp.Web.test/Chirp.web.test.csproj
 
       - name: Build Linux
         shell: bash

@@ -8,7 +8,8 @@
             <a href="/">public timeline </a> |
             @* <span class="navbar-text text-dark">Hello @User.Identity?.Name!</span> *@
             <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout
-                [@(User.Identity.Name)]</a>
+                [@(User.Identity.Name)]</a> |
+            <a href="/Profile"> Profile </a>
         </div>
     }
     else
@@ -19,6 +20,7 @@
                 asp-action="SignIn">Register</a> |
             <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account"
                 asp-action="SignIn">Login</a>
+
         </div>
     }
 </div>

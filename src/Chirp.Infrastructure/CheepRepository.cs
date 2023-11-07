@@ -131,20 +131,13 @@ public class CheepRepository : ICheepRepository
     {
         List<CheepDTO> cheepDTOList = new List<CheepDTO>();
         var cheeps = db.Cheeps
-        .Where(cheep => cheep.Author != null && cheep.Author.Name == author)
+        .Where(cheep => cheep.Author.Name == author)
         .Skip(32 * (page - 1))
         .Take(32)
         .ToList();
         foreach (Cheep cheep in cheeps)
         {
-            if (cheep.Author != null)
-            {
-                cheepDTOList.Add(new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString()));
-            }
-            else
-            {
-                Console.WriteLine("Cheep Author is null");
-            }
+            cheepDTOList.Add(new CheepDTO(GetAuthor(cheep.AuthorId).Name, cheep.Text, cheep.TimeStamp.ToString()));
 
         }
         return cheepDTOList;

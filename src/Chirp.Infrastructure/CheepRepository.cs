@@ -25,18 +25,20 @@ public class CheepRepository : ICheepRepository
         db.ChangeTracker.Clear();
     }
 
-    public void WriteCheep(string text, DateTime publishTimestamp, Author author)
+    public void WriteCheep(string text, DateTime publishTimestamp, AuthorDTO author)
     {
         var existingAuthor = db.Authors.FirstOrDefault(a => a.Email == author.Email);
         if (existingAuthor != null)
         {
-            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = author.AuthorId, Author = author });
+
+            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = existingAuthor.AuthorId, Author = existingAuthor });
 
         }
         else
         {
             AddAuthor(author.Name, author.Email);
-            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = author.AuthorId, Author = author });
+            var getNewAuthor = db.Authors.FirstOrDefault(a => a.Email == author.Email);
+            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = getNewAuthor.AuthorId, Author = getNewAuthor });
 
         }
         db.SaveChanges();
@@ -143,7 +145,7 @@ public class CheepRepository : ICheepRepository
             {
                 Console.WriteLine("Cheep Author is null");
             }
-            
+
         }
         return cheepDTOList;
     }

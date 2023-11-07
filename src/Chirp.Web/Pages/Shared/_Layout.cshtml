@@ -1,7 +1,10 @@
-﻿@using System.Security.Claims
+﻿@* @using System.Security.Claims
 @using Microsoft.AspNetCore.Authentication.OpenIdConnect
 @using Microsoft.Extensions.Options
-@using Microsoft.Identity.Web
+@using Microsoft.Identity.Web *@
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,36 +19,26 @@
     <div class=page>
         <h1><img src="/images/icon1.png" alt="Icon1" />Chirp!</h1>
         <div class=navigation>
-
-            @inject IOptionsMonitor<MicrosoftIdentityOptions> AzureADB2COptions
-
-            @{
-                var options = AzureADB2COptions.Get(OpenIdConnectDefaults.AuthenticationScheme);
-                var user = User as System.Security.Claims.ClaimsPrincipal;
-
-            }
-
-
-            @if (User.Identity.IsAuthenticated)
+            <partial name="_LoginPartial" />
+            @* <ul class="navbar-nav">
+            @if (User.Identity?.IsAuthenticated == true)
             {
-                <div>
-                    <a href="/@(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)">my timeline</a> |
-                    <a href="/">public timeline</a> |
-                    <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account"
-                        asp-action="SignOut">logout [@User.Identity.Name]</a>
-                </div>
+            <span class="navbar-text text-dark">Hello @User.Identity?.Name!</span>
+            <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account"
+            asp-action="SignOut">Sign out</a>
+            </li>
             }
             else
             {
-                <div>
-                    <a href="/">public timeline</a> |
-                    <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignUp">register</a> |
-                    <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account"
-                        asp-action="SignIn">login</a>
-                </div>
+            <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account"
+            asp-action="SignIn">Sign in</a>
+            </li>
             }
+            </ul> *@
         </div>
-        @* <partial name="_LoginPartial" /> *@
+
         <div class=body>
             @RenderBody()
         </div>

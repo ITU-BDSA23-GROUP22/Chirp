@@ -4,57 +4,40 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add authentication
 
+// Add services to the container.
+builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+        .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureADB2C"));
+builder.Services.AddAuthorization(options =>
+{
+    // By default, all incoming requests will be authorized according to 
+    // the default policy
+    options.FallbackPolicy = options.DefaultPolicy;
+});
 
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AllowAnonymousToPage("/Public");
+})
+.AddMvcOptions(options => { })
+.AddMicrosoftIdentityUI();
 
-List<string> initialScopes = new List<string>
-    {
-        "openid",  // required for authentication
-        "profile", // include additional user profile information
-        // Add other scopes as needed
-    };
-
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-    })
-    .AddCookie()
-    .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
-    {
-        options.Authority = $"{builder.Configuration["AzureADB2C:Instance"]}{builder.Configuration["AzureADB2C:Domain"]}/{builder.Configuration["AzureADB2C:SignUpSignInPolicyId"]}/v2.0";
-        options.ClientId = builder.Configuration["AzureADB2C:ClientId"];
-        options.ResponseType = OpenIdConnectResponseType.IdToken;
-        options.UsePkce = true;
-        options.CallbackPath = builder.Configuration["AzureADB2C:CallbackPath"];
-        options.SignedOutCallbackPath = builder.Configuration["AzureADB2C:SignedOutCallbackPath"];
-        options.TokenValidationParameters.NameClaimType = "name";
-        options.Events = new OpenIdConnectEvents
-        {
-            OnRemoteFailure = OnAuthenticationFailed
-        };
-    });
+// builder.Services.AddRazorPages();
+// builder.Services.AddControllersWithViews().AddMicrosoftIdentityUI();
+// builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+//     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureADB2C"));
 // builder.Services.AddAuthorization(options =>
 // {
-//     // By default, all incoming requests will be authorized according to 
-//     // the default policy
-//     options.FallbackPolicy = options.DefaultPolicy;
+//     options.AddPolicy("Admin", policy =>
+//     {
+//         policy.RequireClaim("jobTitle", "Admin");
+//     });
 // });
-// builder.Services.AddRazorPages(options =>
-// {
-//     options.Conventions.AllowAnonymousToPage("/Index");
-// })
-// .AddMvcOptions(options => { })
-// .AddMicrosoftIdentityUI();
-
-// Add services to the container.
-builder.Services.AddRazorPages();
 builder.Services.AddSingleton<ICheepService, CheepService>();
 builder.Services.AddSingleton<ICheepRepository, CheepRepository>();
 builder.Services.AddDbContext<ChirpContext>();
@@ -68,13 +51,13 @@ using (var context = new ChirpContext())
     DbInitializer.SeedDatabase(context);
 }
 
-static Task OnAuthenticationFailed(RemoteFailureContext context)
-{
-    context.Response.Redirect("/Home/Error?message=" + Uri.EscapeUriString(context.Failure.Message));
-    context.HandleResponse();
+// static Task OnAuthenticationFailed(RemoteFailureContext context)
+// {
+//     context.Response.Redirect("/Home/Error?message=" + Uri.EscapeUriString(context.Failure.Message));
+//     context.HandleResponse();
 
-    return Task.CompletedTask;
-}
+//     return Task.CompletedTask;
+// }
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -83,17 +66,28 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHsts();
+// app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
+// app.UseRewriter(
+//     new RewriteOptions().Add(
+//         context =>
+//         {
+//             if (context.HttpContext.Request.Path == "/MicrosoftIdentity/Account/SignedOut")
+//             {
+//                 context.HttpContext.Response.Redirect("/");
+//             }
+//         }
+//     )
+// );
+
 
 app.MapRazorPages();
-// app.MapControllers();
+app.MapControllers();
 
 app.Run();

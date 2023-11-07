@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@* @using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication.OpenIdConnect
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web *@
+
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,9 +19,7 @@
     <div class=page>
         <h1><img src="/images/icon1.png" alt="Icon1" />Chirp!</h1>
         <div class=navigation>
-            <div>
-                <a href="/">public timeline</a>
-            </div>
+            <partial name="_LoginPartial" />
         </div>
 
         <div class=body>

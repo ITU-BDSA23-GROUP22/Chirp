@@ -3,9 +3,9 @@ using Chirp.Core;
 public class CheepRepository : ICheepRepository
 {
     readonly ChirpContext db;
-    public CheepRepository()
+    public CheepRepository(ChirpContext chirpContext)
     {
-        db = new ChirpContext();
+        db = chirpContext;
     }
 
     public void AddAuthor(string name, string email)
@@ -13,7 +13,6 @@ public class CheepRepository : ICheepRepository
         if (!db.Authors.Any(a => a.Email == email))
         {
             db.Add(new Author { Name = name, Email = email, Cheeps = new List<Cheep>() });
-
         }
         db.SaveChanges();
         db.ChangeTracker.Clear();
@@ -130,13 +129,21 @@ public class CheepRepository : ICheepRepository
     {
         List<CheepDTO> cheepDTOList = new List<CheepDTO>();
         var cheeps = db.Cheeps
-        .Where(cheep => cheep.Author.Name == author)
+        .Where(cheep => cheep.Author != null && cheep.Author.Name == author)
         .Skip(32 * (page - 1))
         .Take(32)
         .ToList();
         foreach (Cheep cheep in cheeps)
         {
-            cheepDTOList.Add(new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString()));
+            if (cheep.Author != null)
+            {
+                cheepDTOList.Add(new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString()));
+            }
+            else
+            {
+                Console.WriteLine("Cheep Author is null");
+            }
+            
         }
         return cheepDTOList;
     }

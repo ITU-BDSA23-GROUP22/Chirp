@@ -6,7 +6,6 @@ using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.EntityFrameworkCore;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -19,17 +18,14 @@ builder.Services.AddAuthorization(options =>
     // the default policy
     options.FallbackPolicy = options.DefaultPolicy;
 });
-
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AllowAnonymousToPage("/Public");
 })
 .AddMvcOptions(options => { })
 .AddMicrosoftIdentityUI();
-
 builder.Services.AddSingleton<ICheepRepository, CheepRepository>();
 builder.Services.AddTransient<ChirpContext>();
-
 
 var app = builder.Build();
 

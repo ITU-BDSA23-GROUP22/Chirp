@@ -25,18 +25,20 @@ public class CheepRepository : ICheepRepository
         db.ChangeTracker.Clear();
     }
 
-    public void WriteCheep(string text, DateTime publishTimestamp, Author author)
+    public void WriteCheep(string text, DateTime publishTimestamp, AuthorDTO author)
     {
         var existingAuthor = db.Authors.FirstOrDefault(a => a.Email == author.Email);
         if (existingAuthor != null)
         {
-            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = author.AuthorId, Author = author });
+
+            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = existingAuthor.AuthorId, Author = existingAuthor });
 
         }
         else
         {
             AddAuthor(author.Name, author.Email);
-            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = author.AuthorId, Author = author });
+            var getNewAuthor = db.Authors.FirstOrDefault(a => a.Email == author.Email);
+            db.Add<Cheep>(new Cheep { Text = text, TimeStamp = publishTimestamp, AuthorId = getNewAuthor.AuthorId, Author = getNewAuthor });
 
         }
         db.SaveChanges();
@@ -129,21 +131,14 @@ public class CheepRepository : ICheepRepository
     {
         List<CheepDTO> cheepDTOList = new List<CheepDTO>();
         var cheeps = db.Cheeps
-        .Where(cheep => cheep.Author != null && cheep.Author.Name == author)
+        .Where(cheep => cheep.Author.Name == author)
         .Skip(32 * (page - 1))
         .Take(32)
         .ToList();
         foreach (Cheep cheep in cheeps)
         {
-            if (cheep.Author != null)
-            {
-                cheepDTOList.Add(new CheepDTO(cheep.Author.Name, cheep.Text, cheep.TimeStamp.ToString()));
-            }
-            else
-            {
-                Console.WriteLine("Cheep Author is null");
-            }
-            
+            cheepDTOList.Add(new CheepDTO(GetAuthor(cheep.AuthorId).Name, cheep.Text, cheep.TimeStamp.ToString()));
+
         }
         return cheepDTOList;
     }

@@ -1,0 +1,18 @@
+﻿@page "/Profile"
+@model Chirp.Pages.ProfileModel
+@{
+    ViewData["Title"] = "Chirp!";
+    Layout = "Shared/_Layout";
+}
+
+<div>
+    <h2>Claims</h2>
+
+    <ul>
+        @foreach (var claim in User.Claims)
+        {
+            <li> @claim</li>
+        }
+    </ul>
+
+</div>

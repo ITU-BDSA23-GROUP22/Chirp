@@ -1,13 +1,7 @@
 ﻿namespace Chirp.Core;
 public interface ICheepRepository
 {
-    public void AddAuthor(String name, string email);
-
-    //public void DeleteAuthor(Author author);
-
-    //public void WriteCheep(string text, DateTime publishTimestamp, Author author);
-
-    //public void DeleteCheep(Cheep cheep);
+    public void DeleteCheep(CheepDTO cheep);
 
     public void WriteCheep(string text, DateTime publishTimestamp, AuthorDTO author);
     public IEnumerable<CheepDTO> GetAllCheeps(int page);
@@ -16,7 +10,4 @@ public interface ICheepRepository
 
     public CheepDTO GetCheepById(int id);
 
-    public AuthorDTO GetAuthor(int id);
-
-    public AuthorDTO GetAuthor(string EmailOrName);
 }

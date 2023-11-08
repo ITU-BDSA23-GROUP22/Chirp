@@ -21,9 +21,11 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AllowAnonymousToPage("/Public");
+    options.Conventions.AllowAnonymousToPage("/Timeline");
 })
 .AddMvcOptions(options => { })
 .AddMicrosoftIdentityUI();
+builder.Services.AddSingleton<IAuthorRepository, AuthorRepository>();
 builder.Services.AddSingleton<ICheepRepository, CheepRepository>();
 builder.Services.AddTransient<ChirpContext>();
 

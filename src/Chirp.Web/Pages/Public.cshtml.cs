@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Chirp.Core;
 using Microsoft.VisualBasic;
+using System.Security.Claims;
 namespace Chirp.Razor.Pages;
 
 public class PublicModel : PageModel
@@ -40,12 +41,21 @@ public class PublicModel : PageModel
 
     public ActionResult OnPost()
     {
+        // TODO: Find a way to get email in a better way
+        var userEmail = "";
+        foreach (Claim claim in User.Claims)
+        {
+            if (claim.Type.Equals("emails"))
+            {
+                userEmail = claim.Value;
+            }
+        }
         var Text = Request.Form["testing"];
         if (Text.FirstOrDefault() != null)
         {
             var text = Text;
 
-            var author = new AuthorDTO("newTesterMan", "newTesterMan@gmail.com");
+            var author = new AuthorDTO(User.Identity.Name, userEmail);
             _service.WriteCheep(text, DateTime.Now, author);
 
         }

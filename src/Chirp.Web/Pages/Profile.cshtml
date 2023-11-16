@@ -9,10 +9,11 @@
     <h2>Claims</h2>
 
     <ul>
-        @foreach (var claim in User.Claims)
+        @foreach (System.Security.Claims.Claim claim in User.Claims)
         {
-            <li> @claim</li>
+            <li><b>@(claim.Type): </b></li>
+            <p>@claim.Value</p>
+
         }
     </ul>
-
 </div>

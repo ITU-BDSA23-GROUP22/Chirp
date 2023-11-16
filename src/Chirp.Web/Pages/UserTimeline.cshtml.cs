@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Chirp.Core;
+using Microsoft.AspNetCore.Authorization;
 namespace Chirp.Razor.Pages;
 
+[AllowAnonymous]
 public class UserTimelineModel : PageModel
 {
     private readonly ICheepRepository _service;

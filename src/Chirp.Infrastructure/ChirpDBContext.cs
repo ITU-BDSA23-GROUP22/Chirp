@@ -19,7 +19,7 @@ public class ChirpContext : DbContext
     }
     public ChirpContext()
     {
-        DbPath = Path.Combine(Path.GetTempPath(), "cheeping.db");
+        DbPath = @"Server=host.docker.internal,1433";
     }
 
     // The following configures EF to create a Sqlite database file in the

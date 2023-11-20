@@ -61,6 +61,7 @@ public class CheepRepository : ICheepRepository
     {
         List<CheepDTO> cheepDTOList = new List<CheepDTO>();
         var cheeps = db.Cheeps
+        .OrderByDescending(c => c.TimeStamp)
         .Skip(32 * (page - 1))
         .Take(32)
         .ToList();
@@ -131,6 +132,7 @@ public class CheepRepository : ICheepRepository
     {
         List<CheepDTO> cheepDTOList = new List<CheepDTO>();
         var cheeps = db.Cheeps
+        .OrderByDescending(c => c.TimeStamp)
         .Where(cheep => cheep.Author.Name == author)
         .Skip(32 * (page - 1))
         .Take(32)

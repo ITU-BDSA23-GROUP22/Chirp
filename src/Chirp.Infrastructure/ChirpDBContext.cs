@@ -1,44 +1,25 @@
+// the following code is adapted from the documentation 
+// https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Chirp.Core;
 
-
-//the following code is adapted from the documentation 
-//https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli
-public class ChirpDBContext : DbContext
+namespace Chirp.Infrastructure
 {
-    public DbSet<Cheep> Cheeps { get; set; } = null!;
-    public DbSet<Author> Authors { get; set; } = null!;
-
-    public string DbPath { get; } = null!;
-    public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options)
+    public class ChirpDBContext : DbContext, IDbContext
     {
+        public DbSet<Cheep> Cheeps { get; set; } = null!;
+        public DbSet<Author> Authors { get; set; } = null!;
+        public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options)
+        {
+        }
+        async Task IDbContext.SaveChanges()
+        {
+            await this.SaveChangesAsync();
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            // Apply all EntityConfigurations defined in current assembly..
+            builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+        }
     }
-    public ChirpDBContext()
-    {
-        DbPath = @"Server=host.docker.internal,1433";
-    }
-
-    // The following configures EF to create a Sqlite database file in the
-    // special "local" folder for your platform.
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
-        //options.UseSqlite($"Data Source=C:/Users/Patrick/AppData/Local/Temp/cheeping.db");
-        options.UseSqlite($"Data Source={DbPath}");
-    }
-
-
-    // THIS RESULTS IN CHEEPS.AUTHOR IN CHEEPREPOSITORY.CS LINE 77 TO BE NULL:
-    // protected override void OnModelCreating(ModelBuilder modelBuilder)
-    // {
-    //     modelBuilder.Entity<AuthorDTO>().HasNoKey();
-
-    //     modelBuilder.Entity<AuthorDTO>()
-    //         .HasIndex(a => a.Email)
-    //         .IsUnique();
-    // }
-
 }

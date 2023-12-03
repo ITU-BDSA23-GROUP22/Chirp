@@ -8,9 +8,9 @@ namespace Chirp.Infrastructure.Services
     {
         private readonly ICheepRepository cheepRepository;
         private readonly IAuthorRepository authorRepository;
-        private readonly ChirpDBContext dbContext;
+        private readonly IDbContext dbContext;
 
-        public ChirpService(ICheepRepository cheepRepository, IAuthorRepository authorRepository, ChirpDBContext dbContext)
+        public ChirpService(ICheepRepository cheepRepository, IAuthorRepository authorRepository, IDbContext dbContext)
         {
             this.cheepRepository = cheepRepository;
             this.authorRepository = authorRepository;
@@ -37,7 +37,7 @@ namespace Chirp.Infrastructure.Services
             var timestamp = DateTime.Now;
             await this.cheepRepository.Create(author, text, timestamp);
 
-            dbContext.SaveChanges();
+            await dbContext.SaveChanges();
         }
 
         public async Task<IEnumerable<CheepDTO>> GetAllCheeps(int page)

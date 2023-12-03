@@ -26,15 +26,15 @@ builder.Services.AddRazorPages(options =>
 .AddMvcOptions(options => { })
 .AddMicrosoftIdentityUI();
 builder.Services.AddSingleton<ICheepRepository, CheepRepository>();
-builder.Services.AddTransient<ChirpDBContext>();
+builder.Services.AddDbContext<ChirpDBContext>();
 
 var app = builder.Build();
 
-using (var context = new ChirpDBContext())
-{
-    context.Database.EnsureCreated();
-    // DbInitializer.SeedDatabase(context);
-}
+// using (var context = new ChirpDBContext()
+// {
+//     // context.Database.EnsureCreated();
+//     // DbInitializer.SeedDatabase(context);
+// }
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

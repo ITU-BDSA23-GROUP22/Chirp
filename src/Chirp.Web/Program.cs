@@ -5,6 +5,7 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.EntityFrameworkCore;
+using Chirp.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,14 +26,14 @@ builder.Services.AddRazorPages(options =>
 .AddMvcOptions(options => { })
 .AddMicrosoftIdentityUI();
 builder.Services.AddSingleton<ICheepRepository, CheepRepository>();
-builder.Services.AddTransient<ChirpContext>();
+builder.Services.AddTransient<ChirpDBContext>();
 
 var app = builder.Build();
 
-using (var context = new ChirpContext())
+using (var context = new ChirpDBContext())
 {
     context.Database.EnsureCreated();
-    DbInitializer.SeedDatabase(context);
+    // DbInitializer.SeedDatabase(context);
 }
 
 // Configure the HTTP request pipeline.

@@ -8,23 +8,24 @@ using Chirp.Core;
 
 //the following code is adapted from the documentation 
 //https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli
-public class ChirpContext : DbContext
+public class ChirpDBContext : DbContext
 {
     public DbSet<Cheep> Cheeps { get; set; } = null!;
     public DbSet<Author> Authors { get; set; } = null!;
 
     public string DbPath { get; } = null!;
-    public ChirpContext(DbContextOptions<ChirpContext> options) : base(options)
+    public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options)
     {
     }
-    public ChirpContext()
+    public ChirpDBContext()
     {
         DbPath = @"Server=host.docker.internal,1433";
     }
 
     // The following configures EF to create a Sqlite database file in the
     // special "local" folder for your platform.
-    protected override void OnConfiguring(DbContextOptionsBuilder options){
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
         //options.UseSqlite($"Data Source=C:/Users/Patrick/AppData/Local/Temp/cheeping.db");
         options.UseSqlite($"Data Source={DbPath}");
     }

@@ -31,7 +31,7 @@ https://bdsagroup22chirprazor.azurewebsites.net/
 		set ASPNETCORE_ENVIRONMENT=<Development | Production>
 
 **[macos & windows]**
-2) go to project folder:
+2)   go to project folder:
 
     	cd chirp/src/Chirp.Migrations
 

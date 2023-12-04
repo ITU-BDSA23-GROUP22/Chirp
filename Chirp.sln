@@ -13,11 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.web", "src\Chirp.Web\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{332F0DFE-23E9-4216-89DD-DFF8226E6D5A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.CLI.test", "test\Chirp.CLI.test\Chirp.CLI.test.csproj", "{B8118E88-1001-4134-9504-9E3E928C2254}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.Infrastructure.Test", "test\Chirp.Infrastructure.Test\Chirp.Infrastructure.Test.csproj", "{ABA8ECA0-D247-4E7A-B554-7843380B5B40}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.Infrastructure.test", "test\Chirp.Infrastructure.test\Chirp.Infrastructure.test.csproj", "{ABA8ECA0-D247-4E7A-B554-7843380B5B40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Web.Test", "test\Chirp.Web.Test\Chirp.Web.Test.csproj", "{0F134D5F-76D2-4301-83FB-7EC32586C2E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chirp.Razor.test", "test\Chirp.Razor.test\Chirp.Razor.test.csproj", "{871E60BB-7838-40B8-86C8-0A441B247DBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Razor.Test", "test\Chirp.Razor.Test\Chirp.Razor.Test.csproj", "{F6A09200-C332-43C9-857A-1BAA5C596D71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +49,14 @@ Global
 		{871E60BB-7838-40B8-86C8-0A441B247DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{871E60BB-7838-40B8-86C8-0A441B247DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{871E60BB-7838-40B8-86C8-0A441B247DBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F134D5F-76D2-4301-83FB-7EC32586C2E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F134D5F-76D2-4301-83FB-7EC32586C2E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F134D5F-76D2-4301-83FB-7EC32586C2E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F134D5F-76D2-4301-83FB-7EC32586C2E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6A09200-C332-43C9-857A-1BAA5C596D71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A09200-C332-43C9-857A-1BAA5C596D71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6A09200-C332-43C9-857A-1BAA5C596D71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6A09200-C332-43C9-857A-1BAA5C596D71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,8 @@ Global
 		{B8118E88-1001-4134-9504-9E3E928C2254} = {332F0DFE-23E9-4216-89DD-DFF8226E6D5A}
 		{ABA8ECA0-D247-4E7A-B554-7843380B5B40} = {332F0DFE-23E9-4216-89DD-DFF8226E6D5A}
 		{871E60BB-7838-40B8-86C8-0A441B247DBE} = {332F0DFE-23E9-4216-89DD-DFF8226E6D5A}
+		{0F134D5F-76D2-4301-83FB-7EC32586C2E7} = {332F0DFE-23E9-4216-89DD-DFF8226E6D5A}
+		{F6A09200-C332-43C9-857A-1BAA5C596D71} = {332F0DFE-23E9-4216-89DD-DFF8226E6D5A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1265409B-6946-4D56-AE60-43DB7061D8AE}

@@ -26,9 +26,9 @@ public class PublicModel : PageModel
 
     public IEnumerable<CheepDTO> Cheeps { get; set; } = null!;
 
-    public PublicModel(IChirpService service)
+    public PublicModel(IChirpService chirpService)
     {
-        this.chirpService = service;
+        this.chirpService = chirpService;
     }
 
 

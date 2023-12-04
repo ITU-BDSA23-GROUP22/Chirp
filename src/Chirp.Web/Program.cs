@@ -6,6 +6,8 @@ using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.EntityFrameworkCore;
 using Chirp.Infrastructure;
+using Chirp.Infrastructure.Services;
+using Chirp.Core.Services;
 
 
 
@@ -17,32 +19,53 @@ namespace Chirp.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Add logging to console if env = development
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Logging.AddConsole();
+            }
+
+            using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
+                .SetMinimumLevel(LogLevel.Trace)
+                .AddConsole());
+            var loggerDuringStartUp = loggerFactory.CreateLogger<Program>();
+
             // Add authentication
             builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureADB2C"));
+
             builder.Services.AddAuthorization(options =>
             {
-                // By default, all incoming requests will be authorized according to 
-                // the default policy
+                // By default, all incoming requests will be authorized according to the default policy
                 options.FallbackPolicy = options.DefaultPolicy;
             });
+
+            // Configure razorpages
             builder.Services.AddRazorPages(options =>
             {
                 options.Conventions.AllowAnonymousToPage("/Public");
             })
             .AddMvcOptions(options => { })
             .AddMicrosoftIdentityUI();
-            builder.Services.AddSingleton<ICheepRepository, CheepRepository>();
-            builder.Services.AddDbContext<ChirpDBContext>();
+
+            // Add dbContext with options
+            builder.Services.AddDbContext<ChirpDBContext>(options =>
+                {
+                    DbContextOptionsHelper.Configure(
+                        options,
+                        builder.Configuration,
+                        loggerDuringStartUp);
+                });
+
+            builder.Services.AddScoped<IDbContext>(x => x.GetService<ChirpDBContext>()
+                ?? throw new Exception("Failed to get service ChirpDBContext for IDbContext"));
+
+            // Adding services
+            builder.Services.AddTransient<ICheepRepository, CheepRepository>();
+            builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
+            builder.Services.AddTransient<IChirpService, ChirpService>();
 
             var app = builder.Build();
-
-            // using (var context = new ChirpDBContext()
-            // {
-            //     // context.Database.EnsureCreated();
-            //     // DbInitializer.SeedDatabase(context);
-            // }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

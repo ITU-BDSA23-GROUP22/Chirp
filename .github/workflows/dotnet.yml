@@ -16,7 +16,7 @@ jobs:
         run: dotnet restore ./src/Chirp.Web/Chirp.web.csproj
       - name: Build src
         run: dotnet build --no-restore ./src/Chirp.Web/Chirp.web.csproj
-      - name: Test
-        run: dotnet test --verbosity normal "test/*.Test/*.Test.@(csproj|vbproj|fsproj)"
-      # - name: Test Chirp.Web
-      #   run: dotnet test --verbosity normal Chirp/test/Chirp.Web.Test/Chirp.Web.Test.csproj
+      - name: Test Chirp.Infrastructure
+        run: dotnet test --verbosity normal ./test/Chirp.Infrastructure.Test/
+      - name: Test Chirp.Web
+        run: dotnet test --verbosity normal ./test/Chirp.Web.Test/

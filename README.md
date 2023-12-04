@@ -14,7 +14,24 @@ https://bdsagroup22chirprazor.azurewebsites.net/
 		git push --tags
 
 # Running the mssql image with Docker Desktop
-...
+**[macos]**
+(https://hub.docker.com/_/microsoft-azure-sql-edge)
+1) Pull docker image Azure SQL Edge (for macosArm)
+	```docker pull mcr.microsoft.com/azure-sql-edge```
+2) Run docker image
+	```docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=<ChoosePassword>' -p 1433:1433 --name <ChooseDatavaseServerName> -d mcr.microsoft.com/azure-sql-edge```
+
+3) From now on start/stop image from docker desktop
+
+**[windows]**
+(https://hub.docker.com/_/microsoft-mssql-server)
+1) Pull docker image Microsoft SQL Server 
+	```docker pull mcr.microsoft.com/mssql/server```
+2) Run docker image
+	```docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=<ChoosePassword>" -p 1433:1433 -name <ChooseDatavaseServerName> -d mcr.microsoft.com/mssql/server:latest```
+
+3) From now on start/stop image from docker desktop
+   
 
 # Using the Chirp.Migrations project
 

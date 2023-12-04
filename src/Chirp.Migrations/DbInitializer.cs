@@ -1,8 +1,9 @@
 using System;
+using Chirp.Infrastructure;
 
 public static class DbInitializer
 {
-    public static void SeedDatabase(ChirpContext chirpContext)
+    public static void SeedDatabase(ChirpDBContext chirpDBContext)
     {
         var a1 = new Author() { Name = "Roger Histand", Email = "Roger+Histand@hotmail.com", Cheeps = new List<Cheep>() };
         var a2 = new Author() { Name = "Luanna Muro", Email = "Luanna-Muro@ku.dk", Cheeps = new List<Cheep>() };
@@ -18,7 +19,7 @@ public static class DbInitializer
         var a12 = new Author() { Name = "Rasmus", Email = "rnie@itu.dk", Cheeps = new List<Cheep>() };
 
         var authors = new List<Author>() { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12 };
-        chirpContext.Authors.AddRange(authors);
+        chirpDBContext.Authors.AddRange(authors);
 
 
         var c1 = new Cheep() { AuthorId = a10.AuthorId, Author = a10, Text = "They were married in Chicago, with old Smith, and was expected aboard every day; meantime, the two went past me.", TimeStamp = DateTime.Parse("2023-08-01 13:14:37") };
@@ -693,7 +694,7 @@ public static class DbInitializer
         a11.Cheeps = new List<Cheep>() { c656 };
         a12.Cheeps = new List<Cheep>() { c657 };
 
-        chirpContext.Cheeps.AddRange(cheeps);
-        chirpContext.SaveChanges();
+        chirpDBContext.Cheeps.AddRange(cheeps);
+        chirpDBContext.SaveChanges();
     }
 }

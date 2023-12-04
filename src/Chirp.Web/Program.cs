@@ -7,52 +7,63 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.EntityFrameworkCore;
 using Chirp.Infrastructure;
 
-var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Add authentication
-builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-        .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureADB2C"));
-builder.Services.AddAuthorization(options =>
+
+namespace Chirp.Web
 {
-    // By default, all incoming requests will be authorized according to 
-    // the default policy
-    options.FallbackPolicy = options.DefaultPolicy;
-});
-builder.Services.AddRazorPages(options =>
-{
-    options.Conventions.AllowAnonymousToPage("/Public");
-})
-.AddMvcOptions(options => { })
-.AddMicrosoftIdentityUI();
-builder.Services.AddSingleton<ICheepRepository, CheepRepository>();
-builder.Services.AddDbContext<ChirpDBContext>();
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+            // Add services to the container.
+            // Add authentication
+            builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+                    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureADB2C"));
+            builder.Services.AddAuthorization(options =>
+            {
+                // By default, all incoming requests will be authorized according to 
+                // the default policy
+                options.FallbackPolicy = options.DefaultPolicy;
+            });
+            builder.Services.AddRazorPages(options =>
+            {
+                options.Conventions.AllowAnonymousToPage("/Public");
+            })
+            .AddMvcOptions(options => { })
+            .AddMicrosoftIdentityUI();
+            builder.Services.AddSingleton<ICheepRepository, CheepRepository>();
+            builder.Services.AddDbContext<ChirpDBContext>();
 
-// using (var context = new ChirpDBContext()
-// {
-//     // context.Database.EnsureCreated();
-//     // DbInitializer.SeedDatabase(context);
-// }
+            var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+            // using (var context = new ChirpDBContext()
+            // {
+            //     // context.Database.EnsureCreated();
+            //     // DbInitializer.SeedDatabase(context);
+            // }
+
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            // app.UseHsts();
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.MapRazorPages();
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
 }
-
-// app.UseHsts();
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapRazorPages();
-app.MapControllers();
-
-app.Run();

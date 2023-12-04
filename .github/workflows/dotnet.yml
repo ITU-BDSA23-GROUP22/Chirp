@@ -14,8 +14,10 @@ jobs:
           dotnet-version: 7.0.x
       - name: Restore dependencies
         run: dotnet restore ./src/Chirp.Web/Chirp.web.csproj
-      - name: Build
+      - name: Build src
         run: dotnet build --no-restore ./src/Chirp.Web/Chirp.web.csproj
+      - name: Build Chirp.Infrastructure.Test
+        run: dotnet build --no-restore ./test/Chirp.Infrastructure.Test/Chirp.Infrastructure.Test.csproj
       - name: Test Chirp.Infrastructure
         run: dotnet test --verbosity normal ./test/Chirp.Infrastructure.Test/Chirp.Infrastructure.Test.csproj
       - name: Test Chirp.Web

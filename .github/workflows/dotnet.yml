@@ -17,7 +17,6 @@ jobs:
       - name: Build src
         run: dotnet build --no-restore ./src/Chirp.Web/Chirp.web.csproj
       - name: Test Chirp.Infrastructure
-        working-directory: ./test/Chirp.Infrastructure.Test/
-        run: dotnet test --verbosity normal Chirp.Infrastructure.Test.csproj
+        run: dotnet test --verbosity normal
       - name: Test Chirp.Web
         run: dotnet test --verbosity normal ./test/Chirp.Web.Test/

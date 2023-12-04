@@ -18,52 +18,53 @@ https://bdsagroup22chirprazor.azurewebsites.net/
 
 # Using the Chirp.Migrations project
 
-## How to run: ##
+## How to run:
 
 **[macos]**
 * open Terminal
-    export ASPNETCORE_ENVIRONMENT=<Development | Production>
+
+		export ASPNETCORE_ENVIRONMENT=<Development | Production>
 
 **[windows]**
 * open Command Console
-```set ASPNETCORE_ENVIRONMENT=<Development | Production>```
+  
+		set ASPNETCORE_ENVIRONMENT=<Development | Production>
 
-    ```cd chirp/src/chirp.migrations```
+**[macos & windows]**
+* go the project:  
+    ```cd chirp/src/Chirp.Migrations```
 
-.. and then any of the following:
-
-* For EF commands see:
-
-    https://learn.microsoft.com/en-us/ef/core/cli/dotnet
+### Available commands:
+_(For EF commands see: https://learn.microsoft.com/en-us/ef/core/cli/dotnet) _
 
 * Adding migrations to project first time:
 
-    ```dotnet ef migrations add Initial -o Migrations```
+    	dotnet ef migrations add Initial -o Migrations
 
 * Adding migrations to project with changes:
 
-    ```dotnet ef migrations add <nameofchange> -o Migrations```
+    	dotnet ef migrations add <nameofchange> -o Migrations
 
 
 * Removing migrations from project:
 
-    ```dotnet ef migrations remove```
+    	dotnet ef migrations remove
 
 
 * Creating or updating database with migrations:
 
-    ```dotnet ef database update```
+    	dotnet ef database update
 
 * Removing database:
 
-    ```dotnet ef database drop```
+    	dotnet ef database drop
 
 
 * Adding seeding data to database:
 
-    ```dotnet run seed```
+    	dotnet run seed	
 
 * Adding recreating data to database:
 
-    ```dotnet run recreate```
+    	dotnet run recreate
 

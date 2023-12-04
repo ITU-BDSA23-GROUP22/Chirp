@@ -4,12 +4,12 @@ using Xunit;
 
 namespace Chirp.Infrastructure.test.Repositories
 {
-    public class AuthorRepositoryUnitTests
+    public class CheepRepositoryUnitTests
     {
         private readonly ChirpDBContext chirpDbContext;
         private readonly IDbContext dbContext;
 
-        public AuthorRepositoryUnitTests()
+        public CheepRepositoryUnitTests()
         {
             var connection = new SqliteConnection($"DataSource=:memory:");
             connection.Open();

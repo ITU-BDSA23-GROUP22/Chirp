@@ -57,7 +57,7 @@ public class PublicModel : PageModel
     public bool IsUserAuthenticated()
     {
 #if (USE_FAKE_AUTHENTICATION)
-		return true;
+        return true;
 #else
         return User.Identity?.IsAuthenticated == true;
 #endif
@@ -68,7 +68,7 @@ public class PublicModel : PageModel
     private AuthorDTO? GetAuthenticatedAuthor()
     {
 #if (USE_FAKE_AUTHENTICATION)
-		return new AuthorDTO(Guid.Empty, "FAKENAME", "FAKE@EMAIL");
+        return new AuthorDTO(Guid.Empty, "FAKENAME", "FAKE@EMAIL");
 #else
         if (IsUserAuthenticated())
         {

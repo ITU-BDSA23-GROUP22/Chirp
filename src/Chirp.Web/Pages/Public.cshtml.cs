@@ -34,42 +34,23 @@ public class PublicModel : PageModel
 
     public async Task<ActionResult> OnGet()
     {
-        int pageNumber = 1;
-        try
-        {
-            pageNumber = int.Parse(page);
-        }
-        catch (Exception) { }
-        finally
-        {
-            Cheeps = await this.chirpService.GetAllCheeps(pageNumber);
-        }
+        this.Cheeps = await this.chirpService.GetAllCheeps(this.GetPageNumber());
         return Page();
     }
 
-    public Task<ActionResult> OnPost()
+    public async Task<ActionResult> OnPost()
     {
-        // TODO: Find a way to get email in a better way
-        var userEmail = "";
-        foreach (Claim claim in User.Claims)
+        var authorDto = this.GetAuthenticatedAuthor();
+        if (authorDto == null)
         {
-            if (claim.Type.Equals("emails"))
-            {
-                userEmail = claim.Value;
-            }
+            return BadRequest();
         }
-        var Text = Request.Form["testing"];
-        if (Text.FirstOrDefault() != null)
-        {
-            var text = Text;
 
-            var author = new AuthorDTO(User.Identity.Name, userEmail);
-            chirpService.CreateCheep(author, text);
+        var cheepText = this.CheepText
+            ?? throw new Exception($"Failed to post cheep - no text specified");
 
-        }
-        else
-        {
-        }
+        await this.chirpService.CreateCheep(authorDto, cheepText);
+
         return RedirectToPage("/Public");
     }
 

@@ -2,33 +2,46 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Chirp.Core;
 using Microsoft.AspNetCore.Authorization;
+using Chirp.Core.Services;
 namespace Chirp.Razor.Pages;
 
 [AllowAnonymous]
 public class UserTimelineModel : PageModel
 {
-    private readonly ICheepRepository _service;
-    public IEnumerable<CheepDTO> Cheeps { get; set; } = null!;
+    #region Mapped Razor properties 
+
+    [BindProperty(SupportsGet = true, Name = "author")]
+    public Guid AuthorId { get; set; }
+
     [FromQuery(Name = "page")]
     public string page { get; set; } = null!;
 
-    public UserTimelineModel(ICheepRepository service)
+    #endregion
+    private readonly IChirpService chirpService;
+
+    public AuthorDTO? Author { get; set; } = null;
+
+    public IEnumerable<CheepDTO> Cheeps { get; set; } = null!;
+
+    public UserTimelineModel(IChirpService chirpService)
     {
-        _service = service;
+        this.chirpService = chirpService;
     }
 
-    public ActionResult OnGet(string author)
+    public async Task<ActionResult> OnGet(string author)
     {
-        int pageNumber = 1;
-        try
-        {
-            pageNumber = int.Parse(page);
-        }
-        catch (Exception) { }
-        finally
-        {
-            Cheeps = _service.GetCheepsByAuthor(author, pageNumber);
-        }
+        this.Author = await chirpService.GetAuthor(AuthorId);
+        this.Cheeps = await chirpService.GetCheepsByAuthor(AuthorId, this.GetPageNumber());
         return Page();
     }
+
+    private int GetPageNumber()
+    {
+        if (int.TryParse(this.page, out var pageNumber))
+        {
+            return pageNumber;
+        }
+        return 1;
+    }
+
 }

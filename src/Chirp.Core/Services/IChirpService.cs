@@ -2,7 +2,7 @@ namespace Chirp.Core.Services
 {
     public interface IChirpService
     {
-        public Task<AuthorDTO> GetAuthor(int authorId);
+        public Task<AuthorDTO> GetAuthor(Guid authorId);
 
         public Task CreateCheep(AuthorDTO authorDto, string text);
 

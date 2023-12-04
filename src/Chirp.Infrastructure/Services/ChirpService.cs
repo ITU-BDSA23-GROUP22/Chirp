@@ -88,11 +88,6 @@ namespace Chirp.Infrastructure.Services
                 );
         }
 
-        public Task<AuthorDTO> GetAuthor(int authorId)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
     }
 }

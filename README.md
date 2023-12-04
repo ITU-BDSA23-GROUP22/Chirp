@@ -12,3 +12,58 @@ https://bdsagroup22chirprazor.azurewebsites.net/
 * Then push tag to trigger the release workflow
 
 		git push --tags
+
+# Running the mssql image with Docker Desktop
+...
+
+# Using the Chirp.Migrations project
+
+## How to run: ##
+
+**[macos]**
+* open Terminal
+    export ASPNETCORE_ENVIRONMENT=<Development | Production>
+
+**[windows]**
+* open Command Console
+```set ASPNETCORE_ENVIRONMENT=<Development | Production>```
+
+    ```cd chirp/src/chirp.migrations```
+
+.. and then any of the following:
+
+* For EF commands see:
+
+    https://learn.microsoft.com/en-us/ef/core/cli/dotnet
+
+* Adding migrations to project first time:
+
+    ```dotnet ef migrations add Initial -o Migrations```
+
+* Adding migrations to project with changes:
+
+    ```dotnet ef migrations add <nameofchange> -o Migrations```
+
+
+* Removing migrations from project:
+
+    ```dotnet ef migrations remove```
+
+
+* Creating or updating database with migrations:
+
+    ```dotnet ef database update```
+
+* Removing database:
+
+    ```dotnet ef database drop```
+
+
+* Adding seeding data to database:
+
+    ```dotnet run seed```
+
+* Adding recreating data to database:
+
+    ```dotnet run recreate```
+

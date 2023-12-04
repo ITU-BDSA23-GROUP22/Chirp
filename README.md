@@ -21,21 +21,22 @@ https://bdsagroup22chirprazor.azurewebsites.net/
 ## How to run:
 
 **[macos]**
-* open Terminal
+1) open Terminal
 
 		export ASPNETCORE_ENVIRONMENT=<Development | Production>
 
 **[windows]**
-* open Command Console
+1) open Command Console
   
 		set ASPNETCORE_ENVIRONMENT=<Development | Production>
 
 **[macos & windows]**
-* go the project:  
-    ```cd chirp/src/Chirp.Migrations```
+2) go to project folder:
+
+    	cd chirp/src/Chirp.Migrations
 
 ### Available commands:
-_(For EF commands see: https://learn.microsoft.com/en-us/ef/core/cli/dotnet) _
+(For EF commands see: https://learn.microsoft.com/en-us/ef/core/cli/dotnet )
 
 * Adding migrations to project first time:
 

@@ -1,30 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// #define USE_FAKE_AUTHENTICATION // NOTE: allows for easily faking authenticated user for development support
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Chirp.Core;
-using Microsoft.VisualBasic;
 using System.Security.Claims;
+using Chirp.Core.Services;
+using Microsoft.Identity.Client;
+using System.ComponentModel.DataAnnotations;
 namespace Chirp.Razor.Pages;
 
 public class PublicModel : PageModel
 {
+    #region Mapped Razor properties 
 
-    private readonly ICheepRepository _service;
-
-    public IEnumerable<CheepDTO> Cheeps { get; set; } = null!;
     [FromQuery(Name = "page")]
     public string page { get; set; } = null!;
 
-    [BindProperty]
-    public string Text { get; set; }
+    [FromForm(Name = "cheepText")]
+    [MaxLength(160)]
+    public string CheepText { get; set; } = string.Empty;
 
+    #endregion
 
-    public PublicModel(ICheepRepository service)
+    private readonly IChirpService chirpService;
+
+    public IEnumerable<CheepDTO> Cheeps { get; set; } = null!;
+
+    public PublicModel(IChirpService service)
     {
-        _service = service;
+        this.chirpService = service;
     }
 
 
-    public ActionResult OnGet()
+    public async Task<ActionResult> OnGet()
     {
         int pageNumber = 1;
         try
@@ -34,12 +42,12 @@ public class PublicModel : PageModel
         catch (Exception) { }
         finally
         {
-            Cheeps = _service.GetAllCheeps(pageNumber);
+            Cheeps = await this.chirpService.GetAllCheeps(pageNumber);
         }
         return Page();
     }
 
-    public ActionResult OnPost()
+    public Task<ActionResult> OnPost()
     {
         // TODO: Find a way to get email in a better way
         var userEmail = "";
@@ -56,7 +64,7 @@ public class PublicModel : PageModel
             var text = Text;
 
             var author = new AuthorDTO(User.Identity.Name, userEmail);
-            _service.WriteCheep(text, DateTime.Now, author);
+            chirpService.CreateCheep(author, text);
 
         }
         else
@@ -65,4 +73,42 @@ public class PublicModel : PageModel
         return RedirectToPage("/Public");
     }
 
+    public bool IsUserAuthenticated()
+    {
+#if (USE_FAKE_AUTHENTICATION)
+		return true;
+#else
+        return User.Identity?.IsAuthenticated == true;
+#endif
+    }
+
+    #region Private methods
+
+    private AuthorDTO? GetAuthenticatedAuthor()
+    {
+#if (USE_FAKE_AUTHENTICATION)
+		return new AuthorDTO(Guid.Empty, "FAKENAME", "FAKE@EMAIL");
+#else
+        if (IsUserAuthenticated())
+        {
+            return new AuthorDTO(
+                Guid.Empty,
+                User.Identity?.Name ?? string.Empty,
+                User.Claims?.SingleOrDefault(x => x.Type == "emails")?.Value ?? string.Empty
+            );
+        }
+        return null;
+#endif
+    }
+
+    private int GetPageNumber()
+    {
+        if (int.TryParse(this.page, out var pageNumber))
+        {
+            return pageNumber;
+        }
+        return 1;
+    }
+
+    #endregion
 }

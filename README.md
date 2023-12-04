@@ -23,12 +23,12 @@ https://bdsagroup22chirprazor.azurewebsites.net/
 **[macos]**
 open Terminal
 
-		export ASPNETCORE_ENVIRONMENT=<Development | Production>
+	export ASPNETCORE_ENVIRONMENT=<Development | Production>
 
 **[windows]**
 open Command Console
   
-		set ASPNETCORE_ENVIRONMENT=<Development | Production>
+	set ASPNETCORE_ENVIRONMENT=<Development | Production>
 
 **[macos & windows]**
 go to project folder:

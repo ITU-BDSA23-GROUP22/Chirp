@@ -17,6 +17,6 @@ jobs:
       - name: Build src
         run: dotnet build --no-restore ./src/Chirp.Web/Chirp.web.csproj
       - name: Test
-        run: dotnet test --verbosity normal ./test/Chirp.Infrastructure.Test/Chirp.Infrastructure.Test.csproj
+        run: dotnet test --verbosity normal ../../test/Chirp.Infrastructure.Test/Chirp.Infrastructure.Test.csproj
       # - name: Test Chirp.Web
       #   run: dotnet test --verbosity normal Chirp/test/Chirp.Web.Test/Chirp.Web.Test.csproj

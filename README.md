@@ -33,7 +33,7 @@ open Command Console
 **[macos & windows]**
 go to project folder:
 
-    		cd chirp/src/Chirp.Migrations
+	cd chirp/src/Chirp.Migrations
 
 ### Available commands:
 (For EF commands see: https://learn.microsoft.com/en-us/ef/core/cli/dotnet )

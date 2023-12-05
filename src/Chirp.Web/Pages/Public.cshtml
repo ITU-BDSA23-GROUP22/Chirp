@@ -1,5 +1,5 @@
 ﻿@page "/"
-@model Chirp.Razor.Pages.PublicModel
+@model Chirp.Web.Pages.PublicModel
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
@@ -18,29 +18,10 @@
                 <input style="float: left" type="text" name="cheepText" maxlength=160>
                 <input type="submit" value="Share">
             </form>
+            @Model.ModelState.
         </div>
     }
 
 
-    @if (Model.Cheeps.Any())
-    {
-        <ul id="messagelist" class="cheeps">
-            @foreach (var cheep in Model.Cheeps)
-            {
-                <li>
-                    <p>
-                        <strong>
-                            <a href="/@cheep.Author.Id">@cheep.Author.Name</a>
-                        </strong>
-                        @cheep.Message
-                        <small>&mdash; @cheep.Timestamp</small>
-                    </p>
-                </li>
-            }
-        </ul>
-    }
-    else
-    {
-        <em>There are no cheeps so far.</em>
-    }
+   @Html.DisplayFor(model => model.Cheeps, "CheepsTemplate")
 </div>

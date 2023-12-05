@@ -60,6 +60,36 @@ namespace Chirp.Infrastructure.test.Repositories
 
         }
 
+        [Fact]
+        public async Task TestCheep()
+        {
+            // Arrange
+            var name = "John Doe";
+            var email = "john.doe@example.com";
+
+            var authorRepository = new AuthorRepository(this.chirpDbContext);
+            var author = await authorRepository.Create(name, email);
+
+            var cheepText = "hello hello";
+            var cheepTimeStamp = DateTime.Now;
+
+            var cheepRepository = new CheepRepository(this.chirpDbContext);
+
+            var cheep = await cheepRepository.Create(author, cheepText, cheepTimeStamp);
+            await dbContext.SaveChanges();
+
+            // Act
+            var cheeps = await cheepRepository.GetAll(1);
+
+
+            // Aassert
+            Assert.Equal(author.AuthorId, cheeps.First().Author.AuthorId);
+            var test = cheeps.ToArray();
+
+        }
+
+
+
 
         /*
         [Fact]

@@ -9,25 +9,5 @@
 <div>
     <h2> @Model.Author!.Name's Timeline </h2>
 
-    @if (Model.Cheeps.Any())
-    {
-        <ul id="messagelist" class="cheeps">
-            @foreach (var cheep in Model.Cheeps)
-            {
-                <li>
-                    <p>
-                        <strong>
-                            <a href="/@cheep.Author.Id">@cheep.Author.Name</a>
-                        </strong>
-                        @cheep.Message
-                        <small>&mdash; @cheep.Timestamp</small>
-                    </p>
-                </li>
-            }
-        </ul>
-    }
-    else
-    {
-        <em>There are no cheeps so far.</em>
-    }
+    @Html.DisplayFor(model => model.Cheeps, "CheepsTemplate")
 </div>

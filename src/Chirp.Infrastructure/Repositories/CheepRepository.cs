@@ -26,7 +26,7 @@ namespace Chirp.Infrastructure
                 .Skip(32 * (page - 1))
                 .Take(32)
                 .ToListAsync();
-
+            
             return cheeps;
         }
 

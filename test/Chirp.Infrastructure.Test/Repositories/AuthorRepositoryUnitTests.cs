@@ -62,13 +62,8 @@ namespace Chirp.Infrastructure.test.Repositories
             await this.dbContext.SaveChanges();
 
             // Act and Assert
-            await Assert.ThrowsAsync<Exception>(async () =>
-            {
-                var author1 = await authorRepository.Create(name1, email1);
-                await this.dbContext.SaveChanges();
-            });
-
+            var exception = await Assert.ThrowsAsync<Exception>(async () => await authorRepository.Create(name1, email1));
+            Assert.Equal($"Failed to create author - an author with email [{email1}] already exists", exception.Message);
         }
-
     }
 }

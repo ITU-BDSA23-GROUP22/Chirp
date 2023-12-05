@@ -101,7 +101,7 @@ namespace Chirp.Web.Test.Pages
             var actual = await this.httpClient.PostAsync("/", content);
 
             // Assert
-            Assert.Equal(HttpStatusCode.BadRequest, actual.StatusCode);
+            Assert.Equal(HttpStatusCode.Unauthorized, actual.StatusCode);
         }
 
         #region Private helpers

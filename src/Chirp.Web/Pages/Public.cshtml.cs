@@ -1,4 +1,4 @@
-﻿#define USE_FAKE_AUTHENTICATION // NOTE: allows for easily faking authenticated user for development support
+﻿// #define USE_FAKE_AUTHENTICATION // NOTE: allows for easily faking authenticated user for development support
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

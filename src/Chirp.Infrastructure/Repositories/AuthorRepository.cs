@@ -41,5 +41,21 @@ namespace Chirp.Infrastructure
             var author = await dbContext.Authors.SingleOrDefaultAsync(b => b.Email == email);
             return author;
         }
+
+        public async Task<Author> AddFollowing(Author author, Author following)
+        {
+            await dbContext.Authors.Where(dbAuthor => dbAuthor.AuthorId == author.AuthorId).AddAsync(following);
+            // OR add following dbSet on ChirpDBContext?
+            // await dbContext.Following....
+        }
+
+        public async Task<IEnumerable<Author?>> GetFollowing(Author author)
+        {
+            var following = await db.Authors
+                .Where(cheep => cheep.Author.AuthorId == author.AuthorId)
+                .ToListAsync();
+
+            return following;
+        }
     }
 }

@@ -7,5 +7,9 @@ namespace Chirp.Infrastructure
         Task<Author?> Get(Guid authorId);
 
         Task<Author?> Get(string email);
+
+        Task<Author> AddFollowing(Author author, Author following);
+
+        Task<IEnumerable<Author?>> GetFollowing(Author author);
     }
 }

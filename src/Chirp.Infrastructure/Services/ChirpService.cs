@@ -66,6 +66,40 @@ namespace Chirp.Infrastructure.Services
             return cheeps.Select(cheep => this.MapCheepToDto(cheep, authorDto)).ToList();
         }
 
+        public async Task AddFollowing(Guid authorId, Guid followingId)
+        {
+            var author = await this.authorRepository.Get(authorId);
+
+            if (author == null)
+            {
+                author = await this.authorRepository.Create(authorDto.Name, authorDto.Email);
+            }
+
+            var following = await this.authorRepository.Get(followingId);
+
+            await this.authorRepository.AddFollowing(author, following);
+
+            await dbContext.SaveChanges();
+        }
+
+        public Task<IEnumerable<AuthorDTO>> GetFollowingByAuthor(Guid authorId)
+        {
+            // var following = await this.authorRepository.GetFollowing(authorId)
+
+
+            // var result = new List<AuthorDTO>();
+            // foreach (var author in following)
+            // {
+            //     var authorDto = await this.GetAuthor(author.AuthorId)
+
+
+            //     result.Add(authorDto);
+            // }
+            // return result;
+        }
+
+
+
 
         #region Private methods
 

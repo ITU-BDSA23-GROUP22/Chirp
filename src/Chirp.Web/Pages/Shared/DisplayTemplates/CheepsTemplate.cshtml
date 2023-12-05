@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Chirp.Core.CheepDTO>  
+﻿@model IEnumerable<Chirp.Core.CheepDTO>
 
 @if (Model.Any())
 {
     <ul id="messagelist" class="cheeps">
-        @foreach (var cheep in Model)
+    @foreach (var cheep in Model)
         {
             <li>
                 <p>
@@ -11,9 +11,14 @@
                         <a href="/@cheep.Author.Id">@cheep.Author.Name</a>
                     </strong>
                     @* OR Button to follow? and logic to display unfollow *@
-                    <a href="">Follow</a>
+
+                <form method="post(/@cheep.Author.Id)">
+                        @Html.AntiForgeryToken()
+                    <input type="submit" value="Follow">
+                </form>
+
                     @cheep.Message
-                    <small>&mdash; @cheep.Timestamp</small>
+                <small>&mdash; @cheep.Timestamp</small>
                 </p>
             </li>
         }

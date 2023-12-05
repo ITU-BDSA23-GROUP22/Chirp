@@ -56,6 +56,22 @@ namespace Chirp.Web.Pages
             return RedirectToPage("/Public");
         }
 
+        public async Task<ActionResult> OnPost(AuthorDTO following)
+        {
+            var authorDto = this.GetAuthenticatedAuthor();
+            if (authorDto == null)
+            {
+                return BadRequest();
+            }
+
+            var author = following;
+
+            await this.chirpService.AddFollowing(authorDto.Id, author.Id);
+
+            return RedirectToPage("/Public");
+        }
+
+
         public bool IsUserAuthenticated()
         {
 #if         (USE_FAKE_AUTHENTICATION)

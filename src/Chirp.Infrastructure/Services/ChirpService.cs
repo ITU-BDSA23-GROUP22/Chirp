@@ -27,6 +27,15 @@ namespace Chirp.Infrastructure.Services
 
         public async Task CreateCheep(AuthorDTO authorDto, string text)
         {
+            if (authorDto == null)
+            {
+                throw new ArgumentNullException(nameof(authorDto));
+            }
+            if (string.IsNullOrEmpty(text))
+            {
+                throw new ArgumentException(nameof(text));
+            }
+
             var author = await this.authorRepository.Get(authorDto.Email);
 
             if (author == null)

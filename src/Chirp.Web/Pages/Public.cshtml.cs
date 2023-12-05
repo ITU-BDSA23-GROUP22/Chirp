@@ -1,4 +1,4 @@
-﻿// #define USE_FAKE_AUTHENTICATION // NOTE: allows for easily faking authenticated user for development support
+﻿#define USE_FAKE_AUTHENTICATION // NOTE: allows for easily faking authenticated user for development support
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Chirp.Core.Services;
 using Microsoft.Identity.Client;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace Chirp.Razor.Pages;
 
 public class PublicModel : PageModel
@@ -14,9 +15,10 @@ public class PublicModel : PageModel
     #region Mapped Razor properties 
 
     [FromQuery(Name = "page")]
-    public string page { get; set; } = null!;
+    public string? page { get; set; } = null!;
 
     [FromForm(Name = "cheepText")]
+    [Required(ErrorMessage = "Cheep text is required")]
     [MaxLength(160)]
     public string CheepText { get; set; } = string.Empty;
 
@@ -43,16 +45,29 @@ public class PublicModel : PageModel
         var authorDto = this.GetAuthenticatedAuthor();
         if (authorDto == null)
         {
-            return BadRequest();
+            return Unauthorized();
         }
 
-        var cheepText = this.CheepText
-            ?? throw new Exception($"Failed to post cheep - no text specified");
+        if (!ModelState.IsValid)
+        {
+            this.Cheeps = await this.chirpService.GetAllCheeps(this.GetPageNumber());
+            return Page();
+        }
 
-        await this.chirpService.CreateCheep(authorDto, cheepText);
+        await this.chirpService.CreateCheep(authorDto, this.CheepText);
 
         return RedirectToPage("/Public");
     }
+
+    public bool ShouldShowValidation()
+    {
+        if (Request.Method.ToLower() == "post" && !ModelState.IsValid)
+        {
+            return true;
+        }
+        return false;
+    }
+
 
     public bool IsUserAuthenticated()
     {

@@ -15,14 +15,27 @@
             <h3>What's on your mind, friend?</h3>
             <form method="post">
                 @Html.AntiForgeryToken()
-                <input style="float: left" type="text" name="cheepText" maxlength=160>
-                <input type="submit" value="Share">
+                <div class="form-group" style="display:flex;">
+
+                    @Html.EditorFor(model => model.CheepText)
+
+                    <input type="submit" value="Share">
+                </div>
+
+                @if (Model.ShouldShowValidation())
+                {
+                    <div class="form-group">
+
+                        @Html.ValidationSummary()
+
+                    </div>
+                }
             </form>
         </div>
     }
 
 
-    @if (Model.Cheeps.Any())
+    @if (Model.Cheeps != null && Model.Cheeps.Any())
     {
         <ul id="messagelist" class="cheeps">
             @foreach (var cheep in Model.Cheeps)

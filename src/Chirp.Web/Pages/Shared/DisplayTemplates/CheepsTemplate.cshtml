@@ -1,0 +1,45 @@
+﻿@model Chirp.Web.Pages.CheepsPageModel 
+
+@if (Model.cheeps.Any())
+{
+    <form method="post">
+        <ul id="messagelist" class="cheeps">
+            @foreach (var cheep in Model.cheeps)
+            {
+                <li>
+                    <p>
+                        <strong>
+                            <a href="/@cheep.Author.Id">@cheep.Author.Name</a>
+                        </strong>
+                        @* OR Button to follow? and logic to display unfollow *@
+
+                        @if (Model.authorsFollowedByAuthenticatedUser.Contains(cheep.Author.Id) /*IsCurrentAuthenticatedAuthorFollowingThisAuthor*/)
+                        {
+                            @* Unfollow *@
+                            @Html.AntiForgeryToken()
+                            <input asp-page-handler="Unfollow" asp-route-authorToUnfollowId="@cheep.Author.Id" type="submit" value="UnFollow">
+                          
+                        }
+                        else
+                        {
+                            @* Follow *@
+
+                            @Html.AntiForgeryToken()
+                            <input asp-page-handler="Follow" asp-route-authorToFollowId="@cheep.Author.Id" type="submit" value="Follow">
+
+                        }
+
+
+
+                        @cheep.Message
+                        <small>&mdash; @cheep.Timestamp</small>
+                    </p>
+                </li>
+            }
+        </ul>
+    </form>
+}
+else
+{
+<em>There are no cheeps so far.</em>
+}

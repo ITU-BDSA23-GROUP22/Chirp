@@ -1,0 +1,19 @@
+﻿@page "/Profile"
+@model Chirp.Pages.ProfileModel
+@{
+    ViewData["Title"] = "Chirp!";
+    Layout = "Shared/_Layout";
+}
+
+<div>
+    <h2>Claims</h2>
+
+    <ul>
+        @foreach (System.Security.Claims.Claim claim in User.Claims)
+        {
+            <li><b>@(claim.Type): </b></li>
+            <p>@claim.Value</p>
+
+        }
+    </ul>
+</div>

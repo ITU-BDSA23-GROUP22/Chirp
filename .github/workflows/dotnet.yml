@@ -1,0 +1,21 @@
+name: .NET
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - name: Restore dependencies
+        run: dotnet restore ./src/Chirp.Web/Chirp.web.csproj
+      - name: Build
+        run: dotnet build --no-restore ./src/Chirp.Web/Chirp.web.csproj
+      - name: Test Chirp.Infrastructure
+        run: dotnet test --verbosity normal ./test/Chirp.Infrastructure.Test/Chirp.Infrastructure.Test.csproj
+      - name: Test Chirp.Web
+        run: dotnet test --verbosity normal ./test/Chirp.Web.Test/Chirp.Web.Test.csproj

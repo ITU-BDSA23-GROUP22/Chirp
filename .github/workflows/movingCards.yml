@@ -1,0 +1,17 @@
+# worklfow from https://docs.github.com/en/actions/managing-issues-and-pull-requests/moving-assigned-issues-on-project-boards
+# moves issue cards into the in progress collumn if they become assigned
+
+name: Move assigned card
+on:
+  issues:
+    types:
+      - assigned
+jobs:
+  move-assigned-card:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: alex-page/github-project-automation-plus@7ffb872c64bd809d23563a130a0a97d01dfa8f43
+        with:
+          project: ITU-BDSA23-GROUP22 Chirp
+          column: In Progress
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

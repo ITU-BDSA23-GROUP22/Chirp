@@ -1,4 +1,0 @@
-{
-    "dotnet-test-explorer.testProjectPath": "test/*.Test/*.Test.@(csproj|vbproj|fsproj)"
-}
-

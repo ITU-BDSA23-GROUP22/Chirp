@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Chirp.Core.Services;
 namespace Chirp.Razor.Pages;
 
-[AllowAnonymous]
 public class UserTimelineModel : PageModel
 {
     #region Mapped Razor properties 

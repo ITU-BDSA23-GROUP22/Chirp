@@ -1,26 +1,48 @@
 @using System.Security.Principal
+@inject IWebHostEnvironment hostEnvironment
+@inject Chirp.Web.IHelperService helperService
 
 <div>
+    
     @if (User.Identity?.IsAuthenticated == true)
     {
         <div>
-            <a href="/@(User.Identity.Name)">my timeline</a> |
-            <a href="/">public timeline </a> |
-            @* <span class="navbar-text text-dark">Hello @User.Identity?.Name!</span> *@
-            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout
-                [@(User.Identity.Name)]</a> |
+            <a href="/@await helperService.getAuthorId()">my timeline</a>
+            <span>|</span>
+            <a href="/">public timeline </a>
+            <span>|</span>
+            @if (hostEnvironment.IsDevelopment())
+            {
+                @* link to local development signout *@
+                <a class="nav-link text-dark" asp-page="signin" asp-page-handler="signout">Logout [@(User.Identity.Name)]</a>
+            }
+            else
+            {
+                @* link to azure signout *@
+                <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout [@(User.Identity.Name)]</a>
+            }
+            <span>|</span>
             <a href="/Profile"> Profile </a>
         </div>
     }
     else
     {
         <div>
-            <a href="/">public timeline </a> |
-            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account"
-                asp-action="SignIn">Register</a> |
-            <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account"
-                asp-action="SignIn">Login</a>
-
+            <a href="/">public timeline </a>
+            <span>|</span>
+            @if (hostEnvironment.IsDevelopment())
+            {
+                @* link to local development signin *@
+                <a class="nav-link text-dark" asp-page="signin" asp-page-handler="signin">Login</a>
+            }
+            else
+            {
+                <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Register</a>
+                <span>|</span>
+                @* link to azure signin *@
+                <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Login</a>
+            }
         </div>
     }
+
 </div>

@@ -33,19 +33,19 @@ namespace Chirp.Infrastructure
 
         public async Task<Author?> Get(Guid authorId)
         {
-            var author = await dbContext.Authors.SingleOrDefaultAsync(b => b.AuthorId == authorId);
-            author.Following = await dbContext.AuthorAuthorRelations
-                .Where(x => x.AuthorId == authorId).ToListAsync();
-
+            var author = await dbContext.Authors
+                .Include(x => x.Following)
+                .SingleOrDefaultAsync(b => b.AuthorId == authorId);
+           
             return author;
         }
 
-        // Add 
         public async Task<Author?> Get(string email)
         {
-            var author = await dbContext.Authors.SingleOrDefaultAsync(b => b.Email == email);
-            author.Following = await dbContext.AuthorAuthorRelations
-                .Where(x => x.AuthorId == author.AuthorId).ToListAsync();
+            var author = await dbContext.Authors
+                .Include(x => x.Following)
+                .SingleOrDefaultAsync(b => b.Email == email);
+
             return author;
         }
 

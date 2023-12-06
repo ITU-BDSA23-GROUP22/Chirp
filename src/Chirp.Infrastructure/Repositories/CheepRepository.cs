@@ -22,6 +22,7 @@ namespace Chirp.Infrastructure
         public async Task<IEnumerable<Cheep>> GetAll(int page)
         {
             var cheeps = await db.Cheeps
+                .Include(x => x.Author)
                 .OrderByDescending(c => c.TimeStamp)
                 .Skip(32 * (page - 1))
                 .Take(32)
@@ -33,6 +34,7 @@ namespace Chirp.Infrastructure
         public async Task<IEnumerable<Cheep>> GetByAuthor(Author author, int page)
         {
             var cheeps = await db.Cheeps
+                .Include(x => x.Author)
                 .OrderByDescending(c => c.TimeStamp)
                 .Where(cheep => cheep.Author.AuthorId == author.AuthorId)
                 .Skip(32 * (page - 1))

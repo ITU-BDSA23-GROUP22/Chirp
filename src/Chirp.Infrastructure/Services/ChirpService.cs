@@ -25,6 +25,14 @@ namespace Chirp.Infrastructure.Services
             return this.MapAuthorToDto(author);
         }
 
+        public async Task<AuthorDTO> GetAuthor(string email)
+        {
+            var author = await this.authorRepository.Get(email)
+                ?? throw new Exception($"Failed to get author - Author not found for id [{email}]");
+
+            return this.MapAuthorToDto(author);
+        }
+
         public async Task CreateCheep(AuthorDTO authorDto, string text)
         {
             if (authorDto == null)

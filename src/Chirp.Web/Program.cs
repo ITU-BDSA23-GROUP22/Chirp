@@ -8,8 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Chirp.Infrastructure;
 using Chirp.Infrastructure.Services;
 using Chirp.Core.Services;
-
-
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Chirp.Web
 {
@@ -24,15 +23,24 @@ namespace Chirp.Web
             {
                 builder.Logging.AddConsole();
             }
-
+            
             using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
                 .SetMinimumLevel(LogLevel.Trace)
                 .AddConsole());
             var loggerDuringStartUp = loggerFactory.CreateLogger<Program>();
 
-            // Add authentication
-            builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-                    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureADB2C"));
+            if (builder.Environment.IsDevelopment())
+            {
+                // Configure local development authentication
+                builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie();
+            }
+            else
+            {
+                // Configure azure authentication
+                builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+                        .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureADB2C"));
+            }
 
             builder.Services.AddAuthorization(options =>
             {
@@ -43,7 +51,13 @@ namespace Chirp.Web
             // Configure razorpages
             builder.Services.AddRazorPages(options =>
             {
+                if(builder.Environment.IsDevelopment())
+                {
+                    options.Conventions.AllowAnonymousToPage("/SignIn");
+                }
                 options.Conventions.AllowAnonymousToPage("/Public");
+                options.Conventions.AllowAnonymousToPage("/UserTimeline");
+
             })
             .AddMvcOptions(options => { })
             .AddMicrosoftIdentityUI();
@@ -64,6 +78,9 @@ namespace Chirp.Web
             builder.Services.AddTransient<ICheepRepository, CheepRepository>();
             builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
             builder.Services.AddTransient<IChirpService, ChirpService>();
+            builder.Services.AddTransient<IHelperService, HelperService>();
+
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             var app = builder.Build();
 

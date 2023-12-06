@@ -1,0 +1,48 @@
+﻿@page "/signin"
+@model Chirp.web.Pages.SignInModel
+@{
+    ViewData["Title"] = "Chirp!";
+    Layout = "Shared/_Layout";
+}
+<div>
+    <h2> SignIn </h2>
+
+    <div class="cheepbox">
+        <h3>SignIn</h3>
+        <form method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName)
+                    @Html.EditorFor(model => model.UserName)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserEmail)
+                    @Html.EditorFor(model => model.UserEmail)
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Login" asp-page-handler="signin">
+                </div>
+
+                <div class="form-group">
+
+                    @if (Request.Method.ToLower() == "post")
+                    {
+                        <div class="form-group">
+
+                            @Html.ValidationSummary()
+
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+

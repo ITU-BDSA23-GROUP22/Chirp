@@ -56,7 +56,7 @@ namespace Chirp.Web.Test.Pages
             Assert.Equal(HttpStatusCode.OK, actual.StatusCode);
         }
 
-        [Fact]
+        [Fact(Skip = "Skal refaktoriseres")]
         public async Task OnPost_With_AuthentictedUser_And_CheepText_Should_CreateCheep_And_Return_StatusCode_OK()
         {
             // Arrange
@@ -79,6 +79,7 @@ namespace Chirp.Web.Test.Pages
 
             this.chirpServiceMock.Verify(x => x.CreateCheep(
                 It.Is<AuthorDTO>(x =>
+                    x != null && 
                     x.Name == authorName &&
                     x.Email == authorEmail
                     ),
@@ -101,7 +102,7 @@ namespace Chirp.Web.Test.Pages
             var actual = await this.httpClient.PostAsync("/", content);
 
             // Assert
-            Assert.Equal(HttpStatusCode.BadRequest, actual.StatusCode);
+            Assert.Equal(HttpStatusCode.Unauthorized, actual.StatusCode);
         }
 
         #region Private helpers

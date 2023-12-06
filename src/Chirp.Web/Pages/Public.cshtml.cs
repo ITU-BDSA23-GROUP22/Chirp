@@ -1,6 +1,4 @@
-﻿#define USE_FAKE_AUTHENTICATION // NOTE: allows for easily faking authenticated user for development support
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Chirp.Core;
 using System.Security.Claims;
@@ -16,9 +14,10 @@ namespace Chirp.Web.Pages
         #region Mapped Razor properties 
 
         [FromQuery(Name = "page")]
-        public string page { get; set; } = null!;
+        public string? page { get; set; } = null!;
 
         [FromForm(Name = "cheepText")]
+        [Required(ErrorMessage = "Cheep text is required")]
         [MaxLength(160)]
         public string CheepText { get; set; } = string.Empty;
 
@@ -49,18 +48,19 @@ namespace Chirp.Web.Pages
                 this.cheepsModel.authorsFollowedByAuthenticatedUser = new List<Guid>();
             }
             else
-            {   
+            {
                 var authenticatedUser = await chirpService.GetAuthor(authorDto.Email);
                 if (authenticatedUser == null)
                 {
                     this.cheepsModel.authorsFollowedByAuthenticatedUser = new List<Guid>();
-                } else
+                }
+                else
                 {
                     this.cheepsModel.authorsFollowedByAuthenticatedUser = authenticatedUser.followingIds;
                 }
             }
 
-            
+
 
             return Page();
         }
@@ -70,13 +70,16 @@ namespace Chirp.Web.Pages
             var authorDto = this.GetAuthenticatedAuthor();
             if (authorDto == null)
             {
-                return BadRequest();
+                return Unauthorized();
             }
 
-            var cheepText = this.CheepText
-                ?? throw new Exception($"Failed to post cheep - no text specified");
+            if (!ModelState.IsValid)
+            {
+                this.Cheeps = await this.chirpService.GetAllCheeps(this.GetPageNumber());
+                return Page();
+            }
 
-            await this.chirpService.CreateCheep(authorDto, cheepText);
+            await this.chirpService.CreateCheep(authorDto, this.CheepText);
 
             return RedirectToPage("/Public");
         }
@@ -107,32 +110,36 @@ namespace Chirp.Web.Pages
             return RedirectToPage("/Public");
         }
 
+        public bool ShouldShowValidation()
+        {
+            if (Request.Method.ToLower() == "post" && !ModelState.IsValid)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
         public bool IsUserAuthenticated()
         {
-#if         (USE_FAKE_AUTHENTICATION)
-            return true;
-#else
             return User.Identity?.IsAuthenticated == true;
-#endif
         }
 
         #region Private methods
 
         private AuthorDTO? GetAuthenticatedAuthor()
         {
-#if (USE_FAKE_AUTHENTICATION)
-            return new AuthorDTO(Guid.Empty, "FAKENAME", "FAKE@EMAIL", new List<Guid>());
-#else
+
             if (IsUserAuthenticated())
             {
                 return new AuthorDTO(
                     Guid.Empty,
                     User.Identity?.Name ?? string.Empty,
-                    User.Claims?.SingleOrDefault(x => x.Type == "emails")?.Value ?? string.Empty
+                    User.Claims?.SingleOrDefault(x => x.Type == "emails")?.Value ?? string.Empty,
+                    new List<Guid>()
                 );
             }
             return null;
-#endif
         }
 
         private int GetPageNumber()

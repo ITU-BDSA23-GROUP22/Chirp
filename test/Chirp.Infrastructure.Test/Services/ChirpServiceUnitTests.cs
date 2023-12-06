@@ -35,6 +35,7 @@ namespace Chirp.Infrastructure.test.Services
                             Name = authorName,
                             Email = authorEmail,
                             Cheeps = Enumerable.Empty<Cheep>(),
+                            Following = Enumerable.Empty<AuthorAuthorRelation>()
                         }
                     ));
 
@@ -87,6 +88,7 @@ namespace Chirp.Infrastructure.test.Services
                             Name = authorName,
                             Email = authorEmail,
                             Cheeps = Enumerable.Empty<Cheep>(),
+                            Following = Enumerable.Empty<AuthorAuthorRelation>()
                         }
                     ));
 
@@ -134,6 +136,7 @@ namespace Chirp.Infrastructure.test.Services
                             Name = authorName,
                             Email = authorEmail,
                             Cheeps = Enumerable.Empty<Cheep>(),
+                            Following = Enumerable.Empty<AuthorAuthorRelation>()
                         }
                     ));
 
@@ -170,6 +173,7 @@ namespace Chirp.Infrastructure.test.Services
                 Name = "name",
                 Email = "email",
                 Cheeps = Enumerable.Empty<Cheep>(),
+                Following = Enumerable.Empty<AuthorAuthorRelation>()
             };
 
             var cheep = new Cheep
@@ -221,6 +225,7 @@ namespace Chirp.Infrastructure.test.Services
                 Name = "name",
                 Email = "email",
                 Cheeps = Enumerable.Empty<Cheep>(),
+                Following = Enumerable.Empty<AuthorAuthorRelation>()
             };
 
             var cheep = new Cheep
@@ -258,6 +263,7 @@ namespace Chirp.Infrastructure.test.Services
                 Name = "name",
                 Email = "email",
                 Cheeps = Enumerable.Empty<Cheep>(),
+                Following = Enumerable.Empty<AuthorAuthorRelation>()
             };
 
             var cheep = new Cheep
@@ -309,6 +315,7 @@ namespace Chirp.Infrastructure.test.Services
                 Name = "name",
                 Email = "email",
                 Cheeps = Enumerable.Empty<Cheep>(),
+                Following = Enumerable.Empty<AuthorAuthorRelation>()
             };
 
             this.authorRepositoryMock.Setup(x => x.Get(author.AuthorId))

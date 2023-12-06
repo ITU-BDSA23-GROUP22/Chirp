@@ -4,6 +4,6 @@ public class Author
     public required string Email { get; set; }
     public required string Name { get; set; }
 
-    public required IEnumerable<Cheep> Cheeps { get; set; }
-    public required IEnumerable<AuthorAuthorRelation> Following { get; set; } = new List<AuthorAuthorRelation>();
+    public IEnumerable<Cheep> Cheeps { get; set; } = new List<Cheep>();
+    public IEnumerable<AuthorAuthorRelation> Following { get; set; } = new List<AuthorAuthorRelation>();
 }

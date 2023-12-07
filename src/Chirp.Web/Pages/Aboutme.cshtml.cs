@@ -10,7 +10,7 @@ namespace Chirp.Pages
 
         public AuthorDTO? Author { get; set; } = null;
 
-        public async Task<ActionResult> OnGet()
+        public async Task<ActionResult> OnPost()
         {
             if (!User.Identity.IsAuthenticated) return Unauthorized();
 

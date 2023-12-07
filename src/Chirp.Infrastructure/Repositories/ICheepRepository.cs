@@ -2,9 +2,11 @@
 {
     public interface ICheepRepository
     {
-        public Task<Cheep> Create(Author author, string text, DateTime timestamp);
-        public Task<IEnumerable<Cheep>> GetAll(int page);
-        public Task<IEnumerable<Cheep>> GetByAuthor(Author author, int page);
+        Task<Cheep> Create(Author author, string text, DateTime timestamp);
+        Task<IEnumerable<Cheep>> GetAll(int page, int skipCount, int takeCount);
+
+        Task<IEnumerable<Cheep>> GetByAuthors(IEnumerable<Guid> authors, int page, int skipCount, int takeCount);
+
 
     }
 }

@@ -29,4 +29,10 @@
   </ItemGroup>
   
 
+  <ItemGroup>
+    <None Remove="Pages\Shared\DisplayTemplates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Shared\DisplayTemplates\" />
+  </ItemGroup>
 </Project>

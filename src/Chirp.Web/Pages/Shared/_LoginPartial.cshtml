@@ -3,11 +3,11 @@
 @inject Chirp.Web.IHelperService helperService
 
 <div>
-    
+
     @if (User.Identity?.IsAuthenticated == true)
     {
         <div>
-            <a href="/@await helperService.getAuthorId()">my timeline</a>
+            <a href="/@await helperService.GetAuthorId()">my timeline</a>
             <span>|</span>
             <a href="/">public timeline </a>
             <span>|</span>
@@ -19,10 +19,12 @@
             else
             {
                 @* link to azure signout *@
-                <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout [@(User.Identity.Name)]</a>
+                <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout
+                    [@(User.Identity.Name)]</a>
             }
             <span>|</span>
             <a href="/Profile"> Profile </a>
+            <a href="">About me</a>
         </div>
     }
     else
@@ -37,10 +39,12 @@
             }
             else
             {
-                <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Register</a>
+                <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account"
+                    asp-action="SignIn">Register</a>
                 <span>|</span>
                 @* link to azure signin *@
-                <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Login</a>
+                <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account"
+                    asp-action="SignIn">Login</a>
             }
         </div>
     }

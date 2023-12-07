@@ -8,6 +8,9 @@ namespace Chirp.Infrastructure
     {
         public DbSet<Cheep> Cheeps { get; set; } = null!;
         public DbSet<Author> Authors { get; set; } = null!;
+        public DbSet<AuthorAuthorRelation> AuthorAuthorRelations { get; set; }
+
+
         public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options)
         {
         }

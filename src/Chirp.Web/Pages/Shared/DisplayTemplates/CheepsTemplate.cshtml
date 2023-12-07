@@ -1,0 +1,46 @@
+﻿@model Chirp.Web.ViewModels.CheepListViewModel
+
+
+@if (Model != null && Model.Cheeps.Any())
+{
+    <ul id="messagelist" class="cheeps">
+        <form method="post" action="">
+            <input asp-for="@Model.PageNumber" name="pageNumber" type="hidden" />
+
+            @foreach (var cheep in Model.Cheeps)
+            {
+            <li>
+                <p>
+                    <strong>
+                        <a href="/@cheep.Author.Id">@cheep.Author.Name</a>
+                    </strong>
+
+                    @if (cheep.Author.CanFollow)
+                    {
+                        <input class="btn" type="submit" asp-page-handler="follow" asp-route-authorToFollowId="@cheep.Author.Id" value="Follow" />
+                    }                       
+                    @if (cheep.Author.CanUnfollow)
+                    {
+                        <input class="btn" type="submit" asp-page-handler="unfollow" asp-route-authorToUnfollowId="@cheep.Author.Id" value="Unfollow" />
+                    }
+
+                    @cheep.Message
+                    <small>&mdash; @cheep.Timestamp</small>
+                </p>
+            </li>
+            }
+        </form>
+    </ul>
+    @if(Model.NavigateToPreviousPageUrl != string.Empty)
+    {
+        <a href="@Model.NavigateToPreviousPageUrl">Previous Page</a>
+    }
+    @if(Model.NavigateToNextPageUrl != string.Empty)
+    {
+        <a href="@Model.NavigateToNextPageUrl">Next Page</a>
+    }
+}
+else
+{
+    <em>There are no cheeps so far.</em>
+}

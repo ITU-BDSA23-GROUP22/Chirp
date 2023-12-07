@@ -8,7 +8,7 @@ namespace Chirp.Infrastructure
 
         public AuthorRepository(ChirpDBContext chirpDbContext)
         {
-            this.dbContext = chirpDbContext;
+            dbContext = chirpDbContext ?? throw new ArgumentNullException(nameof(chirpDbContext));
         }
 
         public async Task<Author> Create(string name, string email)
@@ -22,7 +22,6 @@ namespace Chirp.Infrastructure
                 throw new ArgumentException(nameof(email));
             }
 
-
             if (dbContext.Authors.Any(a => a.Email == email))
             {
                 throw new Exception($"Failed to create author - an author with email [{email}] already exists");
@@ -32,7 +31,8 @@ namespace Chirp.Infrastructure
             {
                 Name = name,
                 Email = email,
-                Cheeps = new List<Cheep>()
+                Cheeps = new List<Cheep>(),
+                Following = new List<AuthorAuthorRelation>()
             };
 
             await dbContext.Authors.AddAsync(author);
@@ -46,20 +46,94 @@ namespace Chirp.Infrastructure
             {
                 throw new ArgumentException(nameof(authorId));
             }
+            var author = await dbContext.Authors
+                .Include(x => x.Following)
+                .SingleOrDefaultAsync(b => b.AuthorId == authorId);
 
-            var author = await dbContext.Authors.SingleOrDefaultAsync(b => b.AuthorId == authorId);
             return author;
         }
 
-        public async Task<Author?> Get(string email)
+        public async Task<Author?> Get(string? name, string email)
         {
             if (string.IsNullOrEmpty(email))
             {
                 throw new ArgumentException(nameof(email));
             }
+            var author = await dbContext.Authors
+                .Include(x => x.Following)
+                .SingleOrDefaultAsync(b => b.Email == email);
 
-            var author = await dbContext.Authors.SingleOrDefaultAsync(b => b.Email == email);
             return author;
+        }
+
+        public async Task<AuthorAuthorRelation> FollowAuthor(Author author, Author authorToFollow, DateTime timeStamp)
+        {
+            if (author == null)
+            {
+                throw new ArgumentNullException(nameof(author));
+            }
+
+            if (authorToFollow == null)
+            {
+                throw new ArgumentNullException(nameof(authorToFollow));
+            }
+
+            if (author.AuthorId == authorToFollow.AuthorId)
+            {
+                throw new Exception($"Failed to FollowAuthor - Author cannot follow self");
+            }
+
+            if (author.Following.Any(x => x.AuthorToFollowId == authorToFollow.AuthorId))
+            {
+                throw new Exception($"Failed to FollowAuthor - Already following Author");
+            }
+
+            var authorAuthorRelation = new AuthorAuthorRelation
+            {
+                Author = author,
+                AuthorId = author.AuthorId,
+                AuthorToFollow = authorToFollow,
+                AuthorToFollowId = authorToFollow.AuthorId,
+                TimeStamp = timeStamp,
+            };
+
+            await dbContext.AuthorAuthorRelations.AddAsync(authorAuthorRelation);
+
+            return authorAuthorRelation;
+        }
+
+        public async Task UnfollowAuthor(Author author, Author authorToUnFollow)
+        {
+            if (author == null)
+            {
+                throw new ArgumentNullException(nameof(author));
+            }
+
+            if (authorToUnFollow == null)
+            {
+                throw new ArgumentNullException(nameof(authorToUnFollow));
+            }
+
+            if (author.AuthorId == authorToUnFollow.AuthorId)
+            {
+                throw new Exception($"Failed to UnfollowAuthor - Author cannot unfollow self");
+            }
+
+            if (!author.Following.Any(x => x.AuthorToFollowId == authorToUnFollow.AuthorId))
+            {
+                throw new Exception($"Failed to UnfollowAuthor - Author is not following Author");
+            }
+
+            var authorAuthorRelation = await dbContext.AuthorAuthorRelations.SingleOrDefaultAsync(x =>
+                x.AuthorId == author.AuthorId &&
+                x.AuthorToFollowId == authorToUnFollow.AuthorId);
+
+            if (authorAuthorRelation == null)
+            {
+                throw new Exception($"Failed to UnfollowAuthor - Relation not found");
+            }
+
+            dbContext.AuthorAuthorRelations.Remove(authorAuthorRelation);
         }
     }
 }

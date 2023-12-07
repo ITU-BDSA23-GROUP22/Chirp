@@ -25,6 +25,31 @@ namespace Chirp.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AuthorAuthorRelation",
+                columns: table => new
+                {
+                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AuthorToFollowId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuthorAuthorRelation", x => new { x.AuthorId, x.AuthorToFollowId });
+                    table.ForeignKey(
+                        name: "FK_AuthorAuthorRelation_Author_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Author",
+                        principalColumn: "AuthorId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AuthorAuthorRelation_Author_AuthorToFollowId",
+                        column: x => x.AuthorToFollowId,
+                        principalTable: "Author",
+                        principalColumn: "AuthorId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cheep",
                 columns: table => new
                 {
@@ -51,6 +76,11 @@ namespace Chirp.Migrations.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_AuthorAuthorRelation_AuthorToFollowId",
+                table: "AuthorAuthorRelation",
+                column: "AuthorToFollowId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cheep_AuthorId",
                 table: "Cheep",
                 column: "AuthorId");
@@ -59,6 +89,9 @@ namespace Chirp.Migrations.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AuthorAuthorRelation");
+
             migrationBuilder.DropTable(
                 name: "Cheep");
 

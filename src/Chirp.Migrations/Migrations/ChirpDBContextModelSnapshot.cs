@@ -46,6 +46,24 @@ namespace Chirp.Migrations.Migrations
                     b.ToTable("Author", (string)null);
                 });
 
+            modelBuilder.Entity("AuthorAuthorRelation", b =>
+                {
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AuthorToFollowId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("AuthorId", "AuthorToFollowId");
+
+                    b.HasIndex("AuthorToFollowId");
+
+                    b.ToTable("AuthorAuthorRelation", (string)null);
+                });
+
             modelBuilder.Entity("Cheep", b =>
                 {
                     b.Property<Guid>("CheepId")
@@ -70,6 +88,25 @@ namespace Chirp.Migrations.Migrations
                     b.ToTable("Cheep", (string)null);
                 });
 
+            modelBuilder.Entity("AuthorAuthorRelation", b =>
+                {
+                    b.HasOne("Author", "Author")
+                        .WithMany("Following")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Author", "AuthorToFollow")
+                        .WithMany()
+                        .HasForeignKey("AuthorToFollowId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("AuthorToFollow");
+                });
+
             modelBuilder.Entity("Cheep", b =>
                 {
                     b.HasOne("Author", "Author")
@@ -84,6 +121,8 @@ namespace Chirp.Migrations.Migrations
             modelBuilder.Entity("Author", b =>
                 {
                     b.Navigation("Cheeps");
+
+                    b.Navigation("Following");
                 });
 #pragma warning restore 612, 618
         }

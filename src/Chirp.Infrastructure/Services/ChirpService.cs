@@ -1,4 +1,3 @@
-// The service to communicate with front-end, instead of the frontend communicating directly with the repositories
 using Chirp.Core;
 using Chirp.Core.Services;
 
@@ -12,22 +11,14 @@ namespace Chirp.Infrastructure.Services
 
         public ChirpService(ICheepRepository cheepRepository, IAuthorRepository authorRepository, IDbContext dbContext)
         {
-            this.cheepRepository = cheepRepository;
-            this.authorRepository = authorRepository;
-            this.dbContext = dbContext;
+            this.cheepRepository = cheepRepository ?? throw new ArgumentNullException(nameof(cheepRepository));
+            this.authorRepository = authorRepository ?? throw new ArgumentNullException(nameof(authorRepository));
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public async Task<AuthorDTO> GetAuthor(Guid authorId)
+        public async Task<AuthorDTO?> GetAuthor(Guid authorId)
         {
-            var author = await this.authorRepository.Get(authorId)
-                ?? throw new Exception($"Failed to get author - Author not found for id [{authorId}]");
-
-            return this.MapAuthorToDto(author);
-        }
-
-        public async Task<AuthorDTO?> GetAuthor(string authorEmail)
-        {
-            var author = await this.authorRepository.Get(authorEmail);
+            var author = await this.authorRepository.Get(authorId);
 
             if (author == null)
             {
@@ -37,33 +28,21 @@ namespace Chirp.Infrastructure.Services
             return this.MapAuthorToDto(author);
         }
 
-        public async Task CreateCheep(AuthorDTO authorDto, string text)
+        public async Task<AuthorDTO?> GetAuthor(AuthenticatedAuthorDTO authenticatedAuthorDto)
         {
-            if (authorDto == null)
-            {
-                throw new ArgumentNullException(nameof(authorDto));
-            }
-            if (string.IsNullOrEmpty(text))
-            {
-                throw new ArgumentException(nameof(text));
-            }
-
-            var author = await this.authorRepository.Get(authorDto.Email);
+            var author = await this.authorRepository.Get(authenticatedAuthorDto.Name, authenticatedAuthorDto.Email);
 
             if (author == null)
             {
-                author = await this.authorRepository.Create(authorDto.Name, authorDto.Email);
+                author = await GetOrCreateAuthor(authenticatedAuthorDto);
             }
 
-            var timestamp = DateTime.Now;
-            await this.cheepRepository.Create(author, text, timestamp);
-
-            await dbContext.SaveChanges();
+            return this.MapAuthorToDto(author);
         }
 
-        public async Task<IEnumerable<CheepDTO>> GetAllCheeps(int page)
+        public async Task<IEnumerable<CheepDTO>> GetAllCheeps(int page, int skipCount, int takeCount)
         {
-            var cheeps = await this.cheepRepository.GetAll(page);
+            var cheeps = await this.cheepRepository.GetAll(page, skipCount, takeCount);
 
             var result = new List<CheepDTO>();
             foreach (var cheep in cheeps)
@@ -76,76 +55,101 @@ namespace Chirp.Infrastructure.Services
             return result;
         }
 
-        public async Task<IEnumerable<CheepDTO>> GetCheepsByAuthor(Guid authorId, int page)
+        public async Task<IEnumerable<CheepDTO>> GetCheepsByAuthors(IEnumerable<Guid> authorIds, int page, int skipCount, int takeCount)
         {
-            var author = await this.authorRepository.Get(authorId)
-                ?? throw new Exception($"Failed to get author - Author not found for id [{authorId}]");
-
-            var cheeps = await this.cheepRepository.GetByAuthor(author, page);
-
-            var authorDto = this.MapAuthorToDto(author);
-            return cheeps.Select(cheep => this.MapCheepToDto(cheep, authorDto)).ToList();
-        }
-
-        public async Task FollowAuthor(AuthorDTO authorDto, Guid authorToFollowId)
-        {
-            var author = await this.authorRepository.Get(authorDto.Email);
-
-            if (author == null)
+            if (authorIds == null)
             {
-                author = await this.authorRepository.Create(authorDto.Name, authorDto.Email);
+                throw new ArgumentNullException(nameof(authorIds));
             }
 
-            var authorToFollow = await this.authorRepository.Get(authorToFollowId);
-            //Check null?
+            if (!authorIds.Any())
+            {
+                throw new Exception("Failed to GetCheepsByAuthors - AuthorIds empty");
+            }
+            var cheeps = await this.cheepRepository.GetByAuthors(authorIds, page, skipCount, takeCount);
 
-            await this.authorRepository.FollowAuthor(author, authorToFollow);
+            var authorDtos = cheeps
+                .DistinctBy(x => x.Author)
+                .Select(x => this.MapAuthorToDto(x.Author)).ToArray();
+
+            return cheeps.Select(cheep => this.MapCheepToDto(cheep, authorDtos)).ToList();
+        }
+
+        public async Task CreateCheep(AuthenticatedAuthorDTO authenticatedAuthorDto, string text)
+        {
+            if (authenticatedAuthorDto == null)
+            {
+                throw new ArgumentNullException(nameof(authenticatedAuthorDto));
+            }
+
+            var author = await this.GetOrCreateAuthor(authenticatedAuthorDto)
+                ?? throw new Exception("Failed to CreateCheep - Author not created");
+
+            await this.CreateCheep(author, text);
+        }
+
+        public async Task FollowAuthor(AuthenticatedAuthorDTO authenticatedAuthorDto, Guid authorToFollowId)
+        {
+            var author = await this.GetOrCreateAuthor(authenticatedAuthorDto)
+                ?? throw new Exception($"Failed to FollowAuthor - Author not created");
+
+            var authorToFollow = await this.authorRepository.Get(authorToFollowId)
+                ?? throw new Exception($"Failed to FollowAuthor - Author not found");
+
+            var timeStamp = DateTime.Now;
+            await this.authorRepository.FollowAuthor(author, authorToFollow, timeStamp);
 
             await dbContext.SaveChanges();
         }
 
-        public async Task UnfollowAuthor(AuthorDTO authorDto, Guid authorToUnfollowId)
+        public async Task UnfollowAuthor(AuthenticatedAuthorDTO authenticatedAuthorDto, Guid authorToUnfollowId)
         {
-            var author = await this.authorRepository.Get(authorDto.Email);
+            var author = await this.GetOrCreateAuthor(authenticatedAuthorDto)
+                ?? throw new Exception($"Failed to UnfollowAuthor - Author not created");
 
-            if (author == null)
-            {
-                throw new Exception("Author not found");
-            }
-
-            var authorToUnfollow = await this.authorRepository.Get(authorToUnfollowId);
-            //Check null?
+            var authorToUnfollow = await this.authorRepository.Get(authorToUnfollowId)
+                ?? throw new Exception($"Failed to UnfollowAuthor - Author not found");
 
             await this.authorRepository.UnfollowAuthor(author, authorToUnfollow);
 
             await dbContext.SaveChanges();
         }
 
-        //public Task<IEnumerable<AuthorDTO>> GetFollowingByAuthor(Guid authorId)
-        //{
-        //    // var following = await this.authorRepository.GetFollowing(authorId)
 
+        private async Task<Author> GetOrCreateAuthor(AuthenticatedAuthorDTO authenticatedAuthorDto)
+        {
+            var author = await this.authorRepository.Get(authenticatedAuthorDto.Name, authenticatedAuthorDto.Email);
 
-        //    // var result = new List<AuthorDTO>();
-        //    // foreach (var author in following)
-        //    // {
-        //    //     var authorDto = await this.GetAuthor(author.AuthorId)
+            if (author == null)
+            {
+                author = await this.authorRepository.Create(authenticatedAuthorDto.Name, authenticatedAuthorDto.Email);
+            }
 
+            return author;
+        }
 
-        //    //     result.Add(authorDto);
-        //    // }
-        //    // return result;
-        //}
+        private async Task CreateCheep(Author author, string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                throw new ArgumentException(nameof(text));
+            }
 
+            var timestamp = DateTime.Now;
+            await this.cheepRepository.Create(author, text, timestamp);
 
-
-
-        #region Private methods
+            await dbContext.SaveChanges();
+        }
 
         private CheepDTO MapCheepToDto(Cheep cheep, AuthorDTO authorDto)
         {
+            return MapCheepToDto(cheep, new[] { authorDto });
+        }
+
+        private CheepDTO MapCheepToDto(Cheep cheep, IEnumerable<AuthorDTO> authorDtos)
+        {
             return new CheepDTO(
-                authorDto,
+                authorDtos.SingleOrDefault(x => x.Id == cheep.AuthorId) ?? throw new Exception("Author not selected"),
                 cheep.CheepId,
                 cheep.Text,
                 cheep.TimeStamp.ToString()
@@ -158,10 +162,8 @@ namespace Chirp.Infrastructure.Services
                 author.AuthorId,
                 author.Name,
                 author.Email,
-                author.Following.Select(x => x.AuthorToFollowId).ToList()
+                author.Following?.Select(x => x.AuthorToFollowId).ToArray() // ?? Enumerable.Empty<Guid>()
                 );
         }
-
-        #endregion
     }
 }

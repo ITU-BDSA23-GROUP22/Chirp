@@ -1,13 +1,12 @@
-﻿@page "/{author}"
-@model Chirp.Razor.Pages.UserTimelineModel
+﻿@page "/{author:guid}"
+@model Chirp.Web.Pages.UserTimelineModel
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
-    @* var routeName = HttpContext.GetRouteValue("author"); *@
 }
 
 <div>
-    <h2> @Model.Author!.Name's Timeline </h2>
+    <h2> @Model.Author?.Name's Timeline </h2>
 
-    @Html.DisplayFor(model => model.cheepsModel, "CheepsTemplate")
+    @Html.DisplayFor(model => model.CheepsListViewModel, "CheepsTemplate")
 </div>

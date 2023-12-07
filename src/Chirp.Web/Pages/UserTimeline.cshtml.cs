@@ -1,118 +1,81 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Chirp.Core;
-using Microsoft.AspNetCore.Authorization;
-using Chirp.Core.Services;
-using Chirp.Web.Pages;
+using System.ComponentModel.DataAnnotations;
+using Chirp.Web.ViewModels;
 
-namespace Chirp.Razor.Pages;
-
-public class UserTimelineModel : PageModel
+namespace Chirp.Web.Pages
 {
-    #region Mapped Razor properties 
-
-    [BindProperty(SupportsGet = true, Name = "author")]
-    public Guid AuthorId { get; set; }
-
-    [FromQuery(Name = "page")]
-    public string page { get; set; } = null!;
-
-    #endregion
-    private readonly IChirpService chirpService;
-
-    public AuthorDTO? Author { get; set; } = null;
-
-    public CheepsPageModel cheepsModel { get; set; }
-
-    public UserTimelineModel(IChirpService chirpService )
+    public class UserTimelineModel : PageModel
     {
-        this.chirpService = chirpService;
-    }
+        private const int DEFAULT_PAGE_NUMBER = 1;
 
-    public async Task<ActionResult> OnGet()
-    {
-        this.Author = await chirpService.GetAuthor(AuthorId);
+        #region Mapped Razor properties 
 
-        //-----------
-        var cheeps = await chirpService.GetCheepsByAuthor(AuthorId, this.GetPageNumber());
+        [BindProperty(SupportsGet = true, Name = "author")]
+        [Required()]
+        public Guid AuthorId { get; set; }
 
-        this.cheepsModel = new CheepsPageModel();
-        this.cheepsModel.cheeps = cheeps;
+        #endregion
 
-        var authorDto = this.GetAuthenticatedAuthor();
-        if (authorDto == null)
+        private readonly IHelperService helperService;
+
+        public AuthorDTO? Author { get; private set; }
+
+        public CheepListViewModel CheepsListViewModel { get; private set; }
+
+
+        public UserTimelineModel(IHelperService helperService)
         {
-            this.cheepsModel.authorsFollowedByAuthenticatedUser = new List<Guid>();
+            this.helperService = helperService
+                ?? throw new ArgumentNullException(nameof(helperService));
+
+            this.CheepsListViewModel = new CheepListViewModel();
         }
-        else
+
+        public async Task<ActionResult> OnGet([FromQuery(Name = "page")] int? pageNumber)
         {
-            var authenticatedUser = await chirpService.GetAuthor(authorDto.Email);
-            if (authenticatedUser == null)
+            if (this.AuthorId == null && this.AuthorId == Guid.Empty)
             {
-                this.cheepsModel.authorsFollowedByAuthenticatedUser = new List<Guid>();
+
             }
-            else
+            this.Author = await this.helperService.GetAuthor(this.AuthorId);
+
+            var authorIds = new List<Guid> { this.AuthorId };
+
+            var authenticatedAuthor = await this.helperService.GetAuthor();
+            if (authenticatedAuthor?.Id == this.Author?.Id)
             {
-                this.cheepsModel.authorsFollowedByAuthenticatedUser = authenticatedUser.followingIds;
+                authorIds.AddRange(this.Author.followingIds);
             }
+
+            this.CheepsListViewModel = await this.helperService.GetCheepsByAuthorsViewModel(authorIds, this.GetPageNumber(pageNumber), $"/{this.AuthorId}");
+
+            return Page();
         }
 
-        return Page();
-    }
-
-    public async Task<ActionResult> OnPostFollow(Guid authorToFollowId)
-    {
-        var authorDto = this.GetAuthenticatedAuthor();
-        if (authorDto == null)
+        public async Task<ActionResult> OnPostFollow(Guid authorToFollowId, int pageNumber)
         {
-            return BadRequest();
+            await this.helperService.FollowAuthor(authorToFollowId);
+
+            return Redirect($"/{this.AuthorId}?page={this.GetPageNumber(pageNumber)}");
         }
 
-        await this.chirpService.FollowAuthor(authorDto, authorToFollowId);
-
-        return Redirect($"/{AuthorId}");
-    }
-
-    public async Task<ActionResult> OnPostUnfollow(Guid authorToUnfollowId)
-    {
-        var authorDto = this.GetAuthenticatedAuthor();
-        if (authorDto == null)
+        public async Task<ActionResult> OnPostUnfollow(Guid authorToUnfollowId, int pageNumber)
         {
-            return BadRequest();
+            await this.helperService.UnfollowAuthor(authorToUnfollowId);
+
+            return Redirect($"/{this.AuthorId}?page={this.GetPageNumber(pageNumber)}");
         }
 
-        await this.chirpService.UnfollowAuthor(authorDto, authorToUnfollowId);
-
-        return Redirect($"/{AuthorId}");
-    }
-
-    public bool IsUserAuthenticated()
-    {
-        return User.Identity?.IsAuthenticated == true;
-    }
-
-    private AuthorDTO? GetAuthenticatedAuthor()
-    {
-
-        if (IsUserAuthenticated())
+        private int GetPageNumber(int? pageNumber)
         {
-            return new AuthorDTO(
-                Guid.Empty,
-                User.Identity?.Name ?? string.Empty,
-                User.Claims?.SingleOrDefault(x => x.Type == "emails")?.Value ?? string.Empty,
-                new List<Guid>()
-            );
+            if (pageNumber != null && pageNumber > 0)
+            {
+                return (int)pageNumber;
+            }
+            return DEFAULT_PAGE_NUMBER;
         }
-        return null;
-    }
 
-    private int GetPageNumber()
-    {
-        if (int.TryParse(this.page, out var pageNumber))
-        {
-            return pageNumber;
-        }
-        return 1;
     }
-
 }

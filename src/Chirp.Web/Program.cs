@@ -1,10 +1,7 @@
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Chirp.Core;
-using Microsoft.AspNetCore.Authentication;
+
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.EntityFrameworkCore;
 using Chirp.Infrastructure;
 using Chirp.Infrastructure.Services;
 using Chirp.Core.Services;
@@ -23,7 +20,7 @@ namespace Chirp.Web
             {
                 builder.Logging.AddConsole();
             }
-            
+
             using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
                 .SetMinimumLevel(LogLevel.Trace)
                 .AddConsole());
@@ -51,7 +48,7 @@ namespace Chirp.Web
             // Configure razorpages
             builder.Services.AddRazorPages(options =>
             {
-                if(builder.Environment.IsDevelopment())
+                if (builder.Environment.IsDevelopment())
                 {
                     options.Conventions.AllowAnonymousToPage("/SignIn");
                 }

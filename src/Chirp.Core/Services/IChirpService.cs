@@ -2,19 +2,18 @@ namespace Chirp.Core.Services
 {
         public interface IChirpService
         {
-                public Task<AuthorDTO> GetAuthor(Guid authorId);
+                Task<AuthorDTO?> GetAuthor(Guid authorId);
 
-                public Task<AuthorDTO?> GetAuthor(string authorEmail);
+                Task<AuthorDTO?> GetAuthor(AuthenticatedAuthorDTO authenticatedAuthorDto);
 
-                public Task CreateCheep(AuthorDTO authorDto, string text);
+                Task<IEnumerable<CheepDTO>> GetAllCheeps(int page, int skipCount, int takeCount);
 
-                public Task<IEnumerable<CheepDTO>> GetAllCheeps(int page);
+                Task<IEnumerable<CheepDTO>> GetCheepsByAuthors(IEnumerable<Guid> authorIds, int page, int skipCount, int takeCount);
 
-                public Task<IEnumerable<CheepDTO>> GetCheepsByAuthor(Guid authorId, int page);
+                Task CreateCheep(AuthenticatedAuthorDTO authenticatedAuthorDto, string text);
 
-                public Task FollowAuthor(AuthorDTO authorDto, Guid authorToFollowId);
+                Task FollowAuthor(AuthenticatedAuthorDTO authenticatedAuthorDto, Guid authorToFollowId);
 
-                public Task UnfollowAuthor(AuthorDTO authorDto, Guid authorToFollowId);
-
+                Task UnfollowAuthor(AuthenticatedAuthorDTO authenticatedAuthorDto, Guid authorToUnfollowId);
         }
 }

@@ -6,12 +6,11 @@ namespace Chirp.Infrastructure
 
         Task<Author?> Get(Guid authorId);
 
-        Task<Author?> Get(string email);
+        Task<Author?> Get(string? name, string email);
 
-        Task<AuthorAuthorRelation> FollowAuthor(Author author, Author authorToFollow);
+        Task<AuthorAuthorRelation> FollowAuthor(Author author, Author authorToFollow, DateTime timestamp);
 
         Task UnfollowAuthor(Author author, Author authorToUnfollow);
 
-        //Task<IEnumerable<Author?>> GetFollowing(Author author);
     }
 }

@@ -1,165 +1,82 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Chirp.Core;
-using System.Security.Claims;
-using Chirp.Core.Services;
-using Microsoft.Identity.Client;
 using System.ComponentModel.DataAnnotations;
+using Chirp.Web.ViewModels;
 
 namespace Chirp.Web.Pages
 {
-
     public class PublicModel : PageModel
     {
+        private const int DEFAULT_PAGE_NUMBER = 1;
+
         #region Mapped Razor properties 
 
-        [FromQuery(Name = "page")]
-        public string? page { get; set; } = null!;
-
         [FromForm(Name = "cheepText")]
-        [Required(ErrorMessage = "Cheep text is required")]
+        [Required(ErrorMessage = "A cheep message is required")]
         [MaxLength(160)]
         public string CheepText { get; set; } = string.Empty;
 
+        public int PageNumber { get; set; }
+
         #endregion
 
-        private readonly IChirpService chirpService;
+        private readonly IHelperService chirpHelperService;
 
-        public IEnumerable<CheepDTO> Cheeps { get; set; } = null!;
+        public CheepListViewModel CheepsListViewModel { get; private set; }
 
-        public CheepsPageModel cheepsModel { get; set; }
-
-        public PublicModel(IChirpService chirpService)
+        public PublicModel(IHelperService chirpHelperService)
         {
-            this.chirpService = chirpService;
+            this.chirpHelperService = chirpHelperService
+                ?? throw new ArgumentNullException(nameof(chirpHelperService));
+
+            this.CheepsListViewModel = new CheepListViewModel();
         }
 
-
-        public async Task<ActionResult> OnGet()
+        public async Task<ActionResult> OnGet([FromQuery(Name = "page")] int? pageNumber)
         {
-            this.Cheeps = await this.chirpService.GetAllCheeps(this.GetPageNumber());
-
-            this.cheepsModel = new CheepsPageModel();
-            this.cheepsModel.cheeps = this.Cheeps;
-
-            var authorDto = this.GetAuthenticatedAuthor();
-            if (authorDto == null)
-            {
-                this.cheepsModel.authorsFollowedByAuthenticatedUser = new List<Guid>();
-            }
-            else
-            {
-                var authenticatedUser = await chirpService.GetAuthor(authorDto.Email);
-                if (authenticatedUser == null)
-                {
-                    this.cheepsModel.authorsFollowedByAuthenticatedUser = new List<Guid>();
-                }
-                else
-                {
-                    this.cheepsModel.authorsFollowedByAuthenticatedUser = authenticatedUser.followingIds;
-                }
-            }
-
-
+            this.CheepsListViewModel = await this.chirpHelperService.GetAllCheepsViewModel(this.GetPageNumber(pageNumber));
 
             return Page();
         }
 
-        public async Task<ActionResult> OnPost()
+        public async Task<ActionResult> OnPostShare(int pageNumber)
         {
-            var authorDto = this.GetAuthenticatedAuthor();
-            if (authorDto == null)
-            {
-                return Unauthorized();
-            }
-
             if (!ModelState.IsValid)
             {
-                this.Cheeps = await this.chirpService.GetAllCheeps(this.GetPageNumber());
+                this.CheepsListViewModel = await this.chirpHelperService.GetAllCheepsViewModel(this.GetPageNumber(pageNumber));
+
                 return Page();
             }
 
-            await this.chirpService.CreateCheep(authorDto, this.CheepText);
+            await this.chirpHelperService.CreateCheep(this.CheepText);
 
-            return RedirectToPage("/Public");
+            return RedirectToPage("Public");
         }
 
-        public async Task<ActionResult> OnPostFollow(Guid authorToFollowId)
+        public async Task<ActionResult> OnPostFollow(Guid authorToFollowId, int pageNumber)
         {
-            var authorDto = this.GetAuthenticatedAuthor();
-            if (authorDto == null)
+            await this.chirpHelperService.FollowAuthor(authorToFollowId);
+
+            return Redirect($"/?page={this.GetPageNumber(pageNumber)}");
+        }
+
+        public async Task<ActionResult> OnPostUnfollow(Guid authorToUnfollowId, int pageNumber)
+        {
+            await this.chirpHelperService.UnfollowAuthor(authorToUnfollowId);
+
+            return Redirect($"/?page={this.GetPageNumber(pageNumber)}");
+        }
+
+
+
+        private int GetPageNumber(int? pageNumber)
+        {
+            if (pageNumber != null && pageNumber > 0)
             {
-                return BadRequest();
+                return (int)pageNumber;
             }
-
-            await this.chirpService.FollowAuthor(authorDto, authorToFollowId);
-
-            return RedirectToPage("/Public");
+            return DEFAULT_PAGE_NUMBER;
         }
-
-        public async Task<ActionResult> OnPostUnfollow(Guid authorToUnfollowId)
-        {
-            var authorDto = this.GetAuthenticatedAuthor();
-            if (authorDto == null)
-            {
-                return BadRequest();
-            }
-
-            await this.chirpService.UnfollowAuthor(authorDto, authorToUnfollowId);
-
-            return RedirectToPage("/Public");
-        }
-
-        public bool ShouldShowValidation()
-        {
-            if (Request.Method.ToLower() == "post" && !ModelState.IsValid)
-            {
-                return true;
-            }
-            return false;
-        }
-
-
-        public bool IsUserAuthenticated()
-        {
-            return User.Identity?.IsAuthenticated == true;
-        }
-
-        #region Private methods
-
-        private AuthorDTO? GetAuthenticatedAuthor()
-        {
-
-            if (IsUserAuthenticated())
-            {
-                return new AuthorDTO(
-                    Guid.Empty,
-                    User.Identity?.Name ?? string.Empty,
-                    User.Claims?.SingleOrDefault(x => x.Type == "emails")?.Value ?? string.Empty,
-                    new List<Guid>()
-                );
-            }
-            return null;
-        }
-
-        private int GetPageNumber()
-        {
-            if (int.TryParse(this.page, out var pageNumber))
-            {
-                return pageNumber;
-            }
-            return 1;
-        }
-
-        #endregion
-
-    }
-
-    public class CheepsPageModel
-    {
-        public IEnumerable<Chirp.Core.CheepDTO> cheeps { get; set; }
-
-        public IEnumerable<Guid> authorsFollowedByAuthenticatedUser { get; set; }
 
     }
 }

@@ -6,6 +6,7 @@ using Chirp.Infrastructure;
 using Chirp.Infrastructure.Services;
 using Chirp.Core.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Chirp.Web.Filters;
 
 namespace Chirp.Web
 {
@@ -56,7 +57,10 @@ namespace Chirp.Web
                 options.Conventions.AllowAnonymousToPage("/UserTimeline");
 
             })
-            .AddMvcOptions(options => { })
+            .AddMvcOptions(options =>
+            {
+                options.Filters.Add<EnsureAuthorCreatedFilter>();
+            })
             .AddMicrosoftIdentityUI();
 
             // Add dbContext with options
@@ -75,7 +79,7 @@ namespace Chirp.Web
             builder.Services.AddTransient<ICheepRepository, CheepRepository>();
             builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
             builder.Services.AddTransient<IChirpService, ChirpService>();
-            builder.Services.AddTransient<IHelperService, HelperService>();
+            builder.Services.AddTransient<IPresentationService, PresentationService>();
 
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

@@ -18,52 +18,54 @@ namespace Chirp.Web.Pages
 
         #endregion
 
-        private readonly IHelperService helperService;
+        private readonly IPresentationService presentationService;
 
         public AuthorDTO? Author { get; private set; }
 
         public CheepListViewModel CheepsListViewModel { get; private set; }
 
 
-        public UserTimelineModel(IHelperService helperService)
+        public UserTimelineModel(IPresentationService presentationService)
         {
-            this.helperService = helperService
-                ?? throw new ArgumentNullException(nameof(helperService));
+            this.presentationService = presentationService
+                ?? throw new ArgumentNullException(nameof(presentationService));
 
             this.CheepsListViewModel = new CheepListViewModel();
         }
 
         public async Task<ActionResult> OnGet([FromQuery(Name = "page")] int? pageNumber)
         {
-            if (this.AuthorId == null && this.AuthorId == Guid.Empty)
-            {
-
-            }
-            this.Author = await this.helperService.GetAuthor(this.AuthorId);
+            this.Author = await this.presentationService.GetAuthor(this.AuthorId)
+                ?? throw new Exception("Get UserTimeline failed - Invalid authorId");
 
             var authorIds = new List<Guid> { this.AuthorId };
 
-            var authenticatedAuthor = await this.helperService.GetAuthor();
-            if (authenticatedAuthor?.Id == this.Author?.Id)
+            var authenticatedAuthor = this.presentationService.GetAuthenticatedAuthor();
+            if (authenticatedAuthor != null)
             {
-                authorIds.AddRange(this.Author.followingIds);
+
+                // For authenticated author also view cheeps from followed authors
+                if (authenticatedAuthor.Id == this.Author.Id)
+                {
+                    authorIds.AddRange(this.Author.followingIds);
+                }
             }
 
-            this.CheepsListViewModel = await this.helperService.GetCheepsByAuthorsViewModel(authorIds, this.GetPageNumber(pageNumber), $"/{this.AuthorId}");
+            this.CheepsListViewModel = await this.presentationService.GetCheepsByAuthorsViewModel(authorIds, this.GetPageNumber(pageNumber), $"/{this.AuthorId}");
 
             return Page();
         }
 
         public async Task<ActionResult> OnPostFollow(Guid authorToFollowId, int pageNumber)
         {
-            await this.helperService.FollowAuthor(authorToFollowId);
+            await this.presentationService.FollowAuthor(authorToFollowId);
 
             return Redirect($"/{this.AuthorId}?page={this.GetPageNumber(pageNumber)}");
         }
 
         public async Task<ActionResult> OnPostUnfollow(Guid authorToUnfollowId, int pageNumber)
         {
-            await this.helperService.UnfollowAuthor(authorToUnfollowId);
+            await this.presentationService.UnfollowAuthor(authorToUnfollowId);
 
             return Redirect($"/{this.AuthorId}?page={this.GetPageNumber(pageNumber)}");
         }

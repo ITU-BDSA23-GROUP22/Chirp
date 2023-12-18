@@ -11,26 +11,26 @@ namespace Chirp.Infrastructure
             dbContext = chirpDbContext ?? throw new ArgumentNullException(nameof(chirpDbContext));
         }
 
-        public async Task<Author> Create(string name, string email)
+        public async Task<Author> Create(Guid authorId, string name)
         {
+            if (authorId == Guid.Empty)
+            {
+                throw new ArgumentException(nameof(name));
+            }
             if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentException(nameof(name));
             }
-            if (string.IsNullOrEmpty(email))
-            {
-                throw new ArgumentException(nameof(email));
-            }
 
-            if (dbContext.Authors.Any(a => a.Email == email))
+            if (dbContext.Authors.Any(a => a.AuthorId == authorId))
             {
-                throw new Exception($"Failed to create author - an author with email [{email}] already exists");
+                throw new Exception($"Failed to create author - an author with authorId already exists");
             }
 
             var author = new Author
             {
+                AuthorId = authorId,
                 Name = name,
-                Email = email,
                 Cheeps = new List<Cheep>(),
                 Following = new List<AuthorAuthorRelation>()
             };
@@ -49,19 +49,6 @@ namespace Chirp.Infrastructure
             var author = await dbContext.Authors
                 .Include(x => x.Following)
                 .SingleOrDefaultAsync(b => b.AuthorId == authorId);
-
-            return author;
-        }
-
-        public async Task<Author?> Get(string? name, string email)
-        {
-            if (string.IsNullOrEmpty(email))
-            {
-                throw new ArgumentException(nameof(email));
-            }
-            var author = await dbContext.Authors
-                .Include(x => x.Following)
-                .SingleOrDefaultAsync(b => b.Email == email);
 
             return author;
         }

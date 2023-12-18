@@ -31,7 +31,6 @@ namespace Chirp.Web.ViewModels
                 var authorViewModel = new AuthorViewModel(
                      authorDto.Id,
                      authorDto.Name,
-                     authorDto.Email,
                      this.CanFollow(this.Author, authorDto.Id),
                      this.CanUnfollow(this.Author, authorDto.Id)
                      );

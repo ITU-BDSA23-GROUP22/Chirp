@@ -28,20 +28,12 @@ namespace Chirp.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("AuthorId");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
 
                     b.ToTable("Author", (string)null);
                 });

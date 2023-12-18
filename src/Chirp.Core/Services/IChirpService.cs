@@ -4,16 +4,16 @@ namespace Chirp.Core.Services
         {
                 Task<AuthorDTO?> GetAuthor(Guid authorId);
 
-                Task<AuthorDTO?> GetAuthor(AuthenticatedAuthorDTO authenticatedAuthorDto);
-
-                Task<IEnumerable<CheepDTO>> GetAllCheeps(int page, int skipCount, int takeCount);
+                Task<AuthorDTO> CreateAuthor(Guid authorId, string authorName);
 
                 Task<IEnumerable<CheepDTO>> GetCheepsByAuthors(IEnumerable<Guid> authorIds, int page, int skipCount, int takeCount);
 
-                Task CreateCheep(AuthenticatedAuthorDTO authenticatedAuthorDto, string text);
+                Task<IEnumerable<CheepDTO>> GetAllCheeps(int page, int skipCount, int takeCount);
 
-                Task FollowAuthor(AuthenticatedAuthorDTO authenticatedAuthorDto, Guid authorToFollowId);
+                Task CreateCheep(Guid authorId, string text);
 
-                Task UnfollowAuthor(AuthenticatedAuthorDTO authenticatedAuthorDto, Guid authorToUnfollowId);
+                Task FollowAuthor(Guid authorId, Guid authorToFollowId);
+
+                Task UnfollowAuthor(Guid authorId, Guid authorToUnfollowId);
         }
 }

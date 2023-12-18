@@ -3,12 +3,13 @@ using Chirp.Web.ViewModels;
 
 namespace Chirp.Web
 {
-    public interface IHelperService
+    public interface IPresentationService
     {
-        Task<Guid> GetAuthorId();
+        AuthorDTO? GetAuthenticatedAuthor();
 
-        Task<AuthorDTO?> GetAuthor();
-        Task<AuthorDTO?> GetAuthor(Guid authorId);
+        Task<AuthorDTO> GetAuthor(Guid authorId);
+
+        Task<AuthorDTO> GetOrCreateAuthor(Guid authorId, string authorName);
 
         Task<CheepListViewModel> GetAllCheepsViewModel(int pageNumber);
 
@@ -19,5 +20,8 @@ namespace Chirp.Web
         Task FollowAuthor(Guid authorToFollowId);
 
         Task UnfollowAuthor(Guid authorToFollowId);
+
+
+
     }
 }

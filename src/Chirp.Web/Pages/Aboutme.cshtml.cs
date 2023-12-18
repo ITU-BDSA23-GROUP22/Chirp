@@ -14,7 +14,7 @@ namespace Chirp.Pages
         {
             if (!User.Identity.IsAuthenticated) return Unauthorized();
 
-            Author = await chirpService.GetAuthor(User.Claims?.SingleOrDefault(x => x.Type == "emails")?.Value ?? string.Empty);
+            // Author = await chirpService.GetAuthor(User.Claims?.SingleOrDefault(x => x.Type == "emails")?.Value ?? string.Empty);
             return Page();
         }
 

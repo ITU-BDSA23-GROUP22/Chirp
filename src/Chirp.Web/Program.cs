@@ -85,6 +85,29 @@ namespace Chirp.Web
 
             var app = builder.Build();
 
+
+            var databaseProviderConfig = new DatabaseProviderConfig();
+            app.Configuration.GetSection(nameof(DatabaseProviderConfig)).Bind(databaseProviderConfig);
+
+            // For SqLite database provider, we ensure created and seeded database
+            if (databaseProviderConfig.DatabaseProviderType == DatabaseProviderType.SqLite)
+            {
+                using (var scope = app.Services.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetService<ChirpDBContext>()
+                        ?? throw new Exception("Faield to get service ChirpDBContext");
+
+
+                    // Ensure database created
+                    if (dbContext.Database.EnsureCreated())
+                    {
+                        // When database created, seed database with initial data
+                        DbInitializer.SeedDatabase(dbContext);
+                    }
+                }
+            }
+
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

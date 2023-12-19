@@ -1,3 +1,5 @@
+using Chirp.Web;
+
 namespace Chirp.Migrations
 {
     public class Program

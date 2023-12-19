@@ -36,5 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Chirp.Web\Chirp.web.csproj" />
+    <ProjectReference Include="..\Chirp.SharedUsings\Chirp.SharedUsings.csproj" />
   </ItemGroup>
 </Project>

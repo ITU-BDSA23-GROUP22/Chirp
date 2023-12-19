@@ -20,21 +20,21 @@ namespace Chirp.Web.Pages
 
         #endregion
 
-        private readonly IHelperService chirpHelperService;
+        private readonly IPresentationService presentationService;
 
         public CheepListViewModel CheepsListViewModel { get; private set; }
 
-        public PublicModel(IHelperService chirpHelperService)
+        public PublicModel(IPresentationService presentationService)
         {
-            this.chirpHelperService = chirpHelperService
-                ?? throw new ArgumentNullException(nameof(chirpHelperService));
+            this.presentationService = presentationService
+                ?? throw new ArgumentNullException(nameof(presentationService));
 
             this.CheepsListViewModel = new CheepListViewModel();
         }
 
         public async Task<ActionResult> OnGet([FromQuery(Name = "page")] int? pageNumber)
         {
-            this.CheepsListViewModel = await this.chirpHelperService.GetAllCheepsViewModel(this.GetPageNumber(pageNumber));
+            this.CheepsListViewModel = await this.presentationService.GetAllCheepsViewModel(this.GetPageNumber(pageNumber));
 
             return Page();
         }
@@ -43,26 +43,26 @@ namespace Chirp.Web.Pages
         {
             if (!ModelState.IsValid)
             {
-                this.CheepsListViewModel = await this.chirpHelperService.GetAllCheepsViewModel(this.GetPageNumber(pageNumber));
+                this.CheepsListViewModel = await this.presentationService.GetAllCheepsViewModel(this.GetPageNumber(pageNumber));
 
                 return Page();
             }
 
-            await this.chirpHelperService.CreateCheep(this.CheepText);
+            await this.presentationService.CreateCheep(this.CheepText);
 
             return RedirectToPage("Public");
         }
 
         public async Task<ActionResult> OnPostFollow(Guid authorToFollowId, int pageNumber)
         {
-            await this.chirpHelperService.FollowAuthor(authorToFollowId);
+            await this.presentationService.FollowAuthor(authorToFollowId);
 
             return Redirect($"/?page={this.GetPageNumber(pageNumber)}");
         }
 
         public async Task<ActionResult> OnPostUnfollow(Guid authorToUnfollowId, int pageNumber)
         {
-            await this.chirpHelperService.UnfollowAuthor(authorToUnfollowId);
+            await this.presentationService.UnfollowAuthor(authorToUnfollowId);
 
             return Redirect($"/?page={this.GetPageNumber(pageNumber)}");
         }

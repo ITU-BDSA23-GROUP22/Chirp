@@ -5,18 +5,18 @@ public static class DbInitializer
 {
     public static void SeedDatabase(ChirpDBContext chirpDBContext)
     {
-        var a1 = new Author() { Name = "Roger Histand", Email = "Roger+Histand@hotmail.com", Cheeps = new List<Cheep>() };
-        var a2 = new Author() { Name = "Luanna Muro", Email = "Luanna-Muro@ku.dk", Cheeps = new List<Cheep>() };
-        var a3 = new Author() { Name = "Wendell Ballan", Email = "Wendell-Ballan@gmail.com", Cheeps = new List<Cheep>() };
-        var a4 = new Author() { Name = "Nathan Sirmon", Email = "Nathan+Sirmon@dtu.dk", Cheeps = new List<Cheep>() };
-        var a5 = new Author() { Name = "Quintin Sitts", Email = "Quintin+Sitts@itu.dk", Cheeps = new List<Cheep>() };
-        var a6 = new Author() { Name = "Mellie Yost", Email = "Mellie+Yost@ku.dk", Cheeps = new List<Cheep>() };
-        var a7 = new Author() { Name = "Malcolm Janski", Email = "Malcolm-Janski@gmail.com", Cheeps = new List<Cheep>() };
-        var a8 = new Author() { Name = "Octavio Wagganer", Email = "Octavio.Wagganer@dtu.dk", Cheeps = new List<Cheep>() };
-        var a9 = new Author() { Name = "Johnnie Calixto", Email = "Johnnie+Calixto@itu.dk", Cheeps = new List<Cheep>() };
-        var a10 = new Author() { Name = "Jacqualine Gilcoine", Email = "Jacqualine.Gilcoine@gmail.com", Cheeps = new List<Cheep>() };
-        var a11 = new Author() { Name = "Helge", Email = "ropf@itu.dk", Cheeps = new List<Cheep>() };
-        var a12 = new Author() { Name = "Rasmus", Email = "rnie@itu.dk", Cheeps = new List<Cheep>() };
+        var a1 = new Author() { Name = "Roger Histand" };
+        var a2 = new Author() { Name = "Luanna Muro" };
+        var a3 = new Author() { Name = "Wendell Ballan" };
+        var a4 = new Author() { Name = "Nathan Sirmon" };
+        var a5 = new Author() { Name = "Quintin Sitts" };
+        var a6 = new Author() { Name = "Mellie Yost" };
+        var a7 = new Author() { Name = "Malcolm Janski" };
+        var a8 = new Author() { Name = "Octavio Wagganer" };
+        var a9 = new Author() { Name = "Johnnie Calixto" };
+        var a10 = new Author() { Name = "Jacqualine Gilcoine" };
+        var a11 = new Author() { Name = "Helge" };
+        var a12 = new Author() { Name = "Rasmus" };
 
         var authors = new List<Author>() { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12 };
         chirpDBContext.Authors.AddRange(authors);

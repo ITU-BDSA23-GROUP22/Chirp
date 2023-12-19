@@ -5,60 +5,71 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Chirp.Infrastructure;
 
-namespace Chirp.web.Pages
+namespace Chirp.Web.Pages
 {
     public class SignInModel : PageModel
     {
         #region Mapped Razor properties 
 
-        [FromForm(Name = "username")]
-        [Required(ErrorMessage = "username is required")]
+        [BindProperty]
         [MaxLength(160)]
-        public string UserName { get; set; } = string.Empty;
+        public string? AuthorName { get; set; }
 
-        [FromForm(Name = "useremail")]
-        [Required(ErrorMessage = "ueremail is required")]
-        [MaxLength(160)]
-        public string UserEmail { get; set; } = string.Empty;
+        [BindProperty]
+        public Guid ExistingAuthorId { get; set; }
 
         #endregion
 
         private readonly IWebHostEnvironment hostEnvironment;
+        private readonly ChirpDBContext dbContext;
 
-        public SignInModel(IWebHostEnvironment hostEnvironment)
+        public List<SelectListItem> Options { get; private set; }
+
+        public SignInModel(IWebHostEnvironment hostEnvironment, ChirpDBContext chirpDbContext)
         {
             this.hostEnvironment = hostEnvironment;
+            this.dbContext = chirpDbContext;
+            this.Options = new List<SelectListItem>();
         }
 
         public void OnGet()
         {
+            this.Options = this.dbContext.Authors.Select(x => new SelectListItem
+            {
+                Value = x.AuthorId.ToString(),
+                Text = x.Name
+            }).ToList();
         }
 
-        public async Task<ActionResult> OnPostSignIn()
+        public async Task<ActionResult> OnPostCreateSignIn()
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(this.AuthorName))
+            {
+                ModelState.AddModelError("AuthorName", "Author name is required");
+            }
+
+            if (this.AuthorName == null || !ModelState.IsValid)
             {
                 return Page();
             }
 
+            // Create new local development SignIn
+
+            await SignInWith(Guid.NewGuid(), this.AuthorName);
+
+            return RedirectToPage("/public");
+        }
+
+        public async Task<ActionResult> OnPostSignIn()
+        {
             // Local development SignIn
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, UserName),
-                new Claim("emails", UserEmail),
-            };
+            var author = this.dbContext.Authors.Single(x => x.AuthorId == this.ExistingAuthorId);
 
-            var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            var authProperties = new AuthenticationProperties { IsPersistent = false, };
-
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
+            await SignInWith(author.AuthorId, author.Name);
 
             return RedirectToPage("/public");
         }
@@ -81,6 +92,25 @@ namespace Chirp.web.Pages
             {
                 context.Result = NotFound();
             }
+        }
+
+        private async Task SignInWith(Guid userId, string userName)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                new Claim(ClaimTypes.Name, userName),
+            };
+
+            var claimsIdentity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new AuthenticationProperties { IsPersistent = false, };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
         }
     }
 }

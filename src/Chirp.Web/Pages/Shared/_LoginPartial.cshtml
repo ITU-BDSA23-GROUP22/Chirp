@@ -1,26 +1,29 @@
 @using System.Security.Principal
 @inject IWebHostEnvironment hostEnvironment
-@inject Chirp.Web.IHelperService helperService
-
+@{
+    var authorUser = User as Chirp.Web.AuthorUser;
+}
 <div>
 
-    @if (User.Identity?.IsAuthenticated == true)
+    @if (authorUser != null)
     {
         <div>
-            <a href="/@await helperService.GetAuthorId()">my timeline</a>
+            <a href="/@authorUser.AuthorId">my timeline</a>
             <span>|</span>
             <a href="/">public timeline </a>
+            <span>|</span>
+            <a href="/aboutme">about me </a>
             <span>|</span>
             @if (hostEnvironment.IsDevelopment())
             {
                 @* link to local development signout *@
-                <a class="nav-link text-dark" asp-page="signin" asp-page-handler="signout">Logout [@(User.Identity.Name)]</a>
+                <a class="nav-link text-dark" asp-page="signin" asp-page-handler="signout">Logout [@(authorUser.AuthorName)]</a>
             }
             else
             {
                 @* link to azure signout *@
                 <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout
-                    [@(User.Identity.Name)]</a>
+                    [@(authorUser.AuthorName)]</a>
             }
             <span>|</span>
             <a href="/Profile"> Profile </a>

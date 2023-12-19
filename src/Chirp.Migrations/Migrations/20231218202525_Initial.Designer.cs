@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chirp.Migrations.Migrations
 {
     [DbContext(typeof(ChirpDBContext))]
-    [Migration("20231207123839_Initial")]
+    [Migration("20231218202525_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -31,20 +31,12 @@ namespace Chirp.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("AuthorId");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
 
                     b.ToTable("Author", (string)null);
                 });

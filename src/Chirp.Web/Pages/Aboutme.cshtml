@@ -1,0 +1,18 @@
+﻿@page "/AboutMe"
+@model Chirp.Pages.AboutMeModel
+@{
+    ViewData["Title"] = "Chirp!";
+    Layout = "Shared/_Layout";
+}
+
+<div>
+    <h2>Your information stored in our system</h2>
+
+    <ul>
+        <li><b>Name: </b></li>
+        <p>@Model.Author.Name</p>
+
+        <li><b>Email: </b></li>
+
+    </ul>
+</div>

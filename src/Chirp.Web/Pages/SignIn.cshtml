@@ -1,5 +1,5 @@
 ﻿@page "/signin"
-@model Chirp.web.Pages.SignInModel
+@model Chirp.Web.Pages.SignInModel
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
@@ -8,24 +8,19 @@
     <h2> SignIn </h2>
 
     <div class="cheepbox">
-        <h3>SignIn</h3>
-        <form method="post">
+        <h3>Sign in with new Author</h3>
+        <form method="post" name="form1">
             @Html.AntiForgeryToken()
 
             <div class="form-group">
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.UserName)
-                    @Html.EditorFor(model => model.UserName)
+                <div class="form-group" style="padding-top:10px;">
+                    <label asp-for="AuthorName">Name</label>
+                    @Html.EditorFor(model => model.AuthorName)
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.UserEmail)
-                    @Html.EditorFor(model => model.UserEmail)
-                </div>
-
-                <div class="form-group">
-                    <input type="submit" value="Login" asp-page-handler="signin">
+                <div class="form-group" style="padding-top: 10px; padding-bottom: 10px;">
+                    <input type="submit" value="Create" asp-page-handler="createsignin">
                 </div>
 
                 <div class="form-group">
@@ -44,5 +39,24 @@
         </form>
     </div>
 
-</div>
+    <div class="cheepbox">
+        <h3>SignIn with existing Author</h3>
+        <form method="post" name="form2">
+            @Html.AntiForgeryToken()
 
+            <div class="form-group">
+
+                <div class="form-group" style="padding-top:10px;">
+                    <label asp-for="ExistingAuthorId">Name</label>
+                    <select asp-for="ExistingAuthorId" asp-items="Model.Options" style="width:400px;"></select>
+                </div>
+
+                <div class="form-group" style="padding-top:10px;padding-bottom:10px;">
+                    <input type="submit" value="SignIn" asp-page-handler="signin">
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</div>

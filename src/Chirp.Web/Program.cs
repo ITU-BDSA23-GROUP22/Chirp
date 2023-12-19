@@ -97,16 +97,24 @@ namespace Chirp.Web
                     var dbContext = scope.ServiceProvider.GetService<ChirpDBContext>()
                         ?? throw new Exception("Faield to get service ChirpDBContext");
 
+                    // DELETE database on startup - CAREFUL
+                    if (databaseProviderConfig.RecreateDatabaseOnStartup)
+                    {
+                        dbContext.Database.EnsureDeleted();
+                    }
 
                     // Ensure database created
                     if (dbContext.Database.EnsureCreated())
                     {
-                        // When database created, seed database with initial data
-                        DbInitializer.SeedDatabase(dbContext);
+
+                        if (databaseProviderConfig.SeedDatabase)
+                        {
+                            // When database created, seed database with initial data
+                            DbInitializer.SeedDatabase(dbContext);
+                        }
                     }
                 }
             }
-
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

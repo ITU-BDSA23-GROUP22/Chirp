@@ -22,16 +22,12 @@ namespace Chirp.Web.Pages
 
         public CheepListViewModel CheepsListViewModel { get; private set; }
 
-        public CheepShareViewModel CheepShareViewModel { get; private set; }
-
-
         public UserTimelineModel(IPresentationService presentationService)
         {
             this.presentationService = presentationService
                 ?? throw new ArgumentNullException(nameof(presentationService));
 
             this.CheepsListViewModel = new CheepListViewModel();
-            this.CheepShareViewModel = new CheepShareViewModel();
         }
 
         public async Task<ActionResult> OnGet([FromQuery(Name = "page")] int? pageNumber)
@@ -59,14 +55,14 @@ namespace Chirp.Web.Pages
             return Page();
         }
 
-        public async Task<ActionResult> OnPostShare(string cheepText)
+        public async Task<ActionResult> OnPostShare(CheepShareViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return await OnGet(null);
             }
 
-            await this.presentationService.CreateCheep(cheepText);
+            await this.presentationService.CreateCheep(model.CheepText);
 
             return Redirect($"/{this.AuthorId}?page=1");
         }

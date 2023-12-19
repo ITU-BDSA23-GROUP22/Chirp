@@ -10,7 +10,7 @@
 
     @if (Model.AllowCheepShare)
     {
-        @await Html.PartialAsync("_CheepSharePartial", Model.CheepShareViewModel)
+        @await Html.PartialAsync("_CheepSharePartial")
     }
 
     @await Html.PartialAsync("_CheepListPartial", Model.CheepsListViewModel)

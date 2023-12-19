@@ -1,13 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Chirp.Web.ViewModels
 {
     public class CheepShareViewModel
     {
-        public string? CheepText { get; set; }
-
-        public CheepShareViewModel()
-        { }
+        [Required(ErrorMessage = "Cheeptext requried")]
+        [MaxLength(160, ErrorMessage = "Cheep is too long, max 160 characters")]
+        public string CheepText { get; set; } = string.Empty;
     }
 }

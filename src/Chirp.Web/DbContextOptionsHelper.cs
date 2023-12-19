@@ -17,8 +17,6 @@ namespace Chirp.Web
 
                 logger.LogDebug($"Connecition string = {connectionString}");
 
-                //.UseSqlServer(connection, x => x.MigrationsAssembly(this.GetType().Assembly.GetName().Name)).Options,
-
                 if (migrationAssemblyName != string.Empty)
                 {
                     options.UseSqlite(connectionString, x => x.MigrationsAssembly(migrationAssemblyName));

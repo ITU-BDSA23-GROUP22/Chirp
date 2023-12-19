@@ -1,23 +1,28 @@
 using System.Net;
 using System.Net.Http.Headers;
-using Chirp.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Xunit;
+using Microsoft.Extensions.Logging;
 using Moq;
+using Xunit;
+using Xunit.Abstractions;
 using Chirp.Core;
+using Chirp.Core.Services;
+using Chirp.SharedUsings;
 
-namespace Chirp.Web.Test.Pages
+namespace Chirp.Web.Pages
 {
     public class PublicUnitTests
     {
         private readonly HttpClient httpClient;
         private readonly Mock<IChirpService> chirpServiceMock;
 
-        public PublicUnitTests()
+        public PublicUnitTests(ITestOutputHelper output)
         {
+            var outputLoggerFactory = new OutputLoggerFactory(output);
+
             this.chirpServiceMock = new Mock<IChirpService>();
 
             var factory = new WebApplicationFactory<Chirp.Web.Program>()
@@ -25,6 +30,11 @@ namespace Chirp.Web.Test.Pages
                 {
                     builder.ConfigureServices(services =>
                     {
+                        // override logging to redirect logs to xunit output log
+                        services.RemoveAll<ILoggerFactory>();
+                        services.AddSingleton<ILoggerFactory>(x => outputLoggerFactory);
+
+                        // Override authentication scheme
                         services.AddAuthentication(TestAuthenticationHandler.AuthenticationScheme)
                             .AddScheme<TestAuthenticationHandlerOptions, TestAuthenticationHandler>(TestAuthenticationHandler.AuthenticationScheme, options => { });
 

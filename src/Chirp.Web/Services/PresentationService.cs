@@ -68,6 +68,11 @@ namespace Chirp.Web
 
         public async Task<CheepListViewModel> GetCheepsByAuthorsViewModel(IEnumerable<Guid> authorIds, int pageNumber, string pageUrl)
         {
+            if (pageNumber < 1)
+            {
+                throw new ArgumentException(nameof(pageNumber));
+            }
+
             var authenticatedAuthorDto = this.GetAuthenticatedAuthor();
 
             var cheepDtos = await this.chirpService.GetCheepsByAuthors(authorIds, pageNumber, MAX_CHEEPS_PER_PAGE * (pageNumber - 1), MAX_CHEEPS_PER_PAGE + 1);

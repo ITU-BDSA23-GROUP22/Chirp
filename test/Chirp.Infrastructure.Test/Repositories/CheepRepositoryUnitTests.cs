@@ -25,15 +25,15 @@ namespace Chirp.Infrastructure.test.Repositories
             this.dbContext = chirpDbContext;
         }
 
-        [Fact(Skip = "Skal refaktoriseres")]
+        [Fact]
         public async Task Create_With_Existing_Author_And_Text_Timestamp_Should_Create_And_Return_Cheep()
         {
             // Arrange
-            var name = "John Doe";
-            var email = "john.doe@example.com";
+            var authorId = Guid.NewGuid();
+            var auhtorName = "John Doe";
 
             var authorRepository = new AuthorRepository(this.chirpDbContext);
-            var author = await authorRepository.Create(name, email);
+            var author = await authorRepository.Create(authorId, auhtorName);
 
             var cheepText = "hello hello";
             var cheepTimeStamp = DateTime.Now;
@@ -48,8 +48,7 @@ namespace Chirp.Infrastructure.test.Repositories
             Assert.NotNull(cheep);
             Assert.Single(chirpDbContext.Authors);
             Assert.Single(chirpDbContext.Authors.
-                Where(x => x.Name == name &&
-                x.Email == email &&
+                Where(x => x.Name == auhtorName &&
                 x.AuthorId == author.AuthorId));
 
             Assert.Single(chirpDbContext.Cheeps);
@@ -60,15 +59,15 @@ namespace Chirp.Infrastructure.test.Repositories
 
         }
 
-        [Fact(Skip = "Skal refaktoriseres")]
-        public async Task TestCheep()
+        [Fact]
+        public async Task GetAll_With_Page_1_Should_Get_Cheeps_For_Page()
         {
             // Arrange
-            var name = "John Doe";
-            var email = "john.doe@example.com";
+            var authorId = Guid.NewGuid();
+            var authorName = "John Doe";
 
             var authorRepository = new AuthorRepository(this.chirpDbContext);
-            var author = await authorRepository.Create(name, email);
+            var author = await authorRepository.Create(authorId, authorName);
 
             var cheepText = "hello hello";
             var cheepTimeStamp = DateTime.Now;
@@ -79,65 +78,77 @@ namespace Chirp.Infrastructure.test.Repositories
             await dbContext.SaveChanges();
 
             // Act
-            //var cheeps = await cheepRepository.GetAll(1);
+            var cheeps = await cheepRepository.GetAll(1, 0, 10);
 
 
             // Aassert
-            //Assert.Equal(author.AuthorId, cheeps.First().Author.AuthorId);
-            //var test = cheeps.ToArray();
+            Assert.Single(cheeps);
+            Assert.Equal(author.AuthorId, cheeps.First().Author.AuthorId);
+            Assert.Equal(cheepText, cheeps.First().Text);
 
-        }
-
-
-
-
-        /*
-        [Fact]
-        public void TestCheepsByAuthor()
-        {
-            CheepRepository repo = new CheepRepository();
-
-            string name = "John Doe";
-            string email = "john.doe@example.com";
-            repo.AddAuthor(name, email);
-            AuthorDTO author = repo.GetAuthor(name);
-            repo.WriteCheep("hello hello", DateTime.Now, author);
-            Assert.Single(repo.GetCheepsByAuthor(author));
         }
 
         [Fact]
-        public void TestGetAllCheeps()
+        public async Task GetByAuthors_With_Authors_Should_Return_Cheeps_From_Author()
         {
-            CheepRepository repo = new CheepRepository();
+            // Arrange
+            var authorId = Guid.NewGuid();
+            var authorName = "John Doe";
 
-            string name = "John Doe";
-            string email = "john.doe@example.com";
-            repo.AddAuthor(name, email);
-            AuthorDTO author = repo.GetAuthor(name);
-            for (int i = 0; i < 32; i++)
-            {
-                repo.WriteCheep("Test cheep " + i, DateTime.Now, author);
-            }
+            var authorRepository = new AuthorRepository(this.chirpDbContext);
+            var author = await authorRepository.Create(authorId, authorName);
 
-            int index = 0;
-            foreach (CheepDTO loopCheep in repo.GetAllCheeps(0))
-            {
-                Assert.Equals(loopCheep.message, "Test cheep " + index);
-                index++;
-            }
-            Assert.Single(repo.GetCheepsByAuthor(author));
+            var cheepText = "hello hello";
+            var cheepTimeStamp = DateTime.Now;
+
+            var cheepRepository = new CheepRepository(this.chirpDbContext);
+
+            var cheep = await cheepRepository.Create(author, cheepText, cheepTimeStamp);
+            await dbContext.SaveChanges();
+
+            // Act
+            var cheeps = await cheepRepository.GetByAuthors(new Guid[] { authorId }, 1, 0, 10);
+
+
+            // Aassert
+            Assert.Single(cheeps);
+            Assert.Equal(author.AuthorId, cheeps.First().Author.AuthorId);
+            Assert.Equal(cheepText, cheeps.First().Text);
         }
 
-        public void TestCheepById()
+        [Fact]
+        public async Task GetByAuthors_With_Authors_Should_Not_Return_Cheeps_From_Other_Authors()
         {
+            // Arrange
+            var authorId1 = Guid.NewGuid();
+            var authorName1 = "John Doe";
 
+            var authorId2 = Guid.NewGuid();
+            var authorName2 = "John Doe";
+
+            var authorRepository = new AuthorRepository(this.chirpDbContext);
+            var author1 = await authorRepository.Create(authorId1, authorName1);
+            var author2 = await authorRepository.Create(authorId2, authorName2);
+
+            var cheepText1 = "hello hello";
+            var cheepText2 = "bye bye";
+            var cheepTimeStamp = DateTime.Now;
+
+            var cheepRepository = new CheepRepository(this.chirpDbContext);
+
+            var cheep1 = await cheepRepository.Create(author1, cheepText1, cheepTimeStamp);
+            var cheep2 = await cheepRepository.Create(author2, cheepText2, cheepTimeStamp);
+            await dbContext.SaveChanges();
+
+            // Act
+            var cheeps = await cheepRepository.GetByAuthors(new Guid[] { authorId1 }, 1, 0, 10);
+
+
+            // Aassert
+            Assert.Single(cheeps);
+            Assert.Equal(author1.AuthorId, cheeps.First().Author.AuthorId);
+            Assert.Equal(cheepText1, cheeps.First().Text);
+            Assert.Empty(cheeps.Where(x => x.AuthorId != authorId1));
         }
-
-        public void TestAuthorById()
-        {
-
-        }
-        */
-
     }
 }

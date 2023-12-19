@@ -40,11 +40,15 @@ namespace Chirp.Web.Test.Pages
                     });
                 });
 
-            this.httpClient = factory.CreateClient();
+            this.httpClient = factory.CreateClient(
+                new WebApplicationFactoryClientOptions
+                {
+                    AllowAutoRedirect = true
+                });
             this.httpClient.BaseAddress = new Uri("https://localhost/");
         }
 
-        [Fact(Skip = "Skal refaktoriseres")]
+        [Fact]
         public async Task OnGet_With_No_Parameters_Should_Return_StatusCode_OK()
         {
             // Arrange
@@ -56,13 +60,13 @@ namespace Chirp.Web.Test.Pages
             Assert.Equal(HttpStatusCode.OK, actual.StatusCode);
         }
 
-        [Fact(Skip = "Skal refaktoriseres")]
+        [Fact]
         public async Task OnPost_With_AuthentictedUser_And_CheepText_Should_CreateCheep_And_Return_StatusCode_OK()
         {
             // Arrange
+            var authorId = Guid.NewGuid();
             var authorName = "Mr.Author";
-            var authorEmail = "Mr.Author@Email";
-            SetAuthenticatedUser(authorName, authorEmail);
+            SetAuthenticatedUser(authorId, authorName);
 
             var cheepText = "Hello";
             var form = new Dictionary<string, string>()
@@ -70,21 +74,24 @@ namespace Chirp.Web.Test.Pages
                 ["cheepText"] = cheepText,
             };
 
+            this.chirpServiceMock.Setup(x => x.GetAuthor(authorId)
+                ).Returns(
+                    Task.FromResult(
+                        (AuthorDTO?)new AuthorDTO(authorId, authorName, Enumerable.Empty<Guid>()
+                        )));
+
+
             // Act
             using var content = new FormUrlEncodedContent(form);
-            var actual = await this.httpClient.PostAsync("/", content);
+            var actual = await this.httpClient.PostAsync("/?handler=share", content);
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, actual.StatusCode);
 
-            //this.chirpServiceMock.Verify(x => x.CreateCheep(
-            //    It.Is<AuthorDTO>(x =>
-            //        x != null && 
-            //        x.Name == authorName &&
-            //        x.Email == authorEmail
-            //        ),
-            //    cheepText
-            //    ), Times.Once);
+            this.chirpServiceMock.Verify(x => x.CreateCheep(
+                authorId,
+                cheepText
+                ), Times.Once);
         }
 
         [Fact]
@@ -99,7 +106,7 @@ namespace Chirp.Web.Test.Pages
 
             // Act
             using var content = new FormUrlEncodedContent(form);
-            var actual = await this.httpClient.PostAsync("/", content);
+            var actual = await this.httpClient.PostAsync("/handler=share", content);
 
             // Assert
             Assert.Equal(HttpStatusCode.Unauthorized, actual.StatusCode);
@@ -107,11 +114,11 @@ namespace Chirp.Web.Test.Pages
 
         #region Private helpers
 
-        private void SetAuthenticatedUser(string userName, string userEmail)
+        private void SetAuthenticatedUser(Guid userId, string userName)
         {
             this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(TestAuthenticationHandler.AuthenticationScheme);
+            this.httpClient.DefaultRequestHeaders.Add(TestAuthenticationHandler.UserId, userId.ToString());
             this.httpClient.DefaultRequestHeaders.Add(TestAuthenticationHandler.UserName, userName);
-            this.httpClient.DefaultRequestHeaders.Add(TestAuthenticationHandler.UserEmail, userEmail);
         }
 
         #endregion

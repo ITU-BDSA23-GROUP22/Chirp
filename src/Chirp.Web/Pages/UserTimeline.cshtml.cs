@@ -10,19 +10,19 @@ namespace Chirp.Web.Pages
     {
         private const int DEFAULT_PAGE_NUMBER = 1;
 
-        #region Mapped Razor properties 
-
         [BindProperty(SupportsGet = true, Name = "author")]
         [Required()]
         public Guid AuthorId { get; set; }
 
-        #endregion
-
         private readonly IPresentationService presentationService;
+
+        public bool AllowCheepShare { get; private set; }
 
         public AuthorDTO? Author { get; private set; }
 
         public CheepListViewModel CheepsListViewModel { get; private set; }
+
+        public CheepShareViewModel CheepShareViewModel { get; private set; }
 
 
         public UserTimelineModel(IPresentationService presentationService)
@@ -31,6 +31,7 @@ namespace Chirp.Web.Pages
                 ?? throw new ArgumentNullException(nameof(presentationService));
 
             this.CheepsListViewModel = new CheepListViewModel();
+            this.CheepShareViewModel = new CheepShareViewModel();
         }
 
         public async Task<ActionResult> OnGet([FromQuery(Name = "page")] int? pageNumber)
@@ -43,6 +44,8 @@ namespace Chirp.Web.Pages
             var authenticatedAuthor = this.presentationService.GetAuthenticatedAuthor();
             if (authenticatedAuthor != null)
             {
+                // Allow authenticated author on my-timeline
+                this.AllowCheepShare = true;
 
                 // For authenticated author also view cheeps from followed authors
                 if (authenticatedAuthor.Id == this.Author.Id)
@@ -54,6 +57,18 @@ namespace Chirp.Web.Pages
             this.CheepsListViewModel = await this.presentationService.GetCheepsByAuthorsViewModel(authorIds, this.GetPageNumber(pageNumber), $"/{this.AuthorId}");
 
             return Page();
+        }
+
+        public async Task<ActionResult> OnPostShare(string cheepText)
+        {
+            if (!ModelState.IsValid)
+            {
+                return await OnGet(null);
+            }
+
+            await this.presentationService.CreateCheep(cheepText);
+
+            return Redirect($"/{this.AuthorId}?page=1");
         }
 
         public async Task<ActionResult> OnPostFollow(Guid authorToFollowId, int pageNumber)

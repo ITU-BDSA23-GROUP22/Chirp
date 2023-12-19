@@ -8,35 +8,11 @@
 <div>
     <h2> Public Timeline </h2>
 
-    @if (User.Identity?.IsAuthenticated == true)
+    @if (Model.AllowCheepShare)
     {
-        <div class="cheepbox">
-            <h3>What's on your mind, friend?</h3>
-             <form method="post">
-                @Html.AntiForgeryToken()
-
-                <input asp-for="@Model.PageNumber" name="pageNumber" type="hidden" />
-
-                <div class="form-group" style="display:flex;">
-
-                    @Html.EditorFor(model => model.CheepText)
-
-                    <input type="submit" value="Share" asp-page-handler="share">
-                </div>
-
-                @if (Request.Method.ToLower() == "post")
-                {
-                    <div class="form-group">
-
-                        @Html.ValidationSummary()
-
-                    </div>
-                }
-
-            </form>
-        </div>
+        @await Html.PartialAsync("_CheepSharePartial", Model.CheepShareViewModel)
     }
 
+    @await Html.PartialAsync("_CheepListPartial", Model.CheepsListViewModel)
 
-    @Html.DisplayFor(model => model.CheepsListViewModel, "CheepsTemplate")
 </div>

@@ -8,5 +8,11 @@
 <div>
     <h2> @Model.Author?.Name's Timeline </h2>
 
-    @Html.DisplayFor(model => model.CheepsListViewModel, "CheepsTemplate")
+    @if (Model.AllowCheepShare)
+    {
+        @await Html.PartialAsync("_CheepSharePartial", Model.CheepShareViewModel)
+    }
+
+    @await Html.PartialAsync("_CheepListPartial", Model.CheepsListViewModel)
+
 </div>

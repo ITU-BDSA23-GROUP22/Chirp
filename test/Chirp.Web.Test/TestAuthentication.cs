@@ -14,8 +14,8 @@ namespace Chirp.Web.Test
 
     public class TestAuthenticationHandler : AuthenticationHandler<TestAuthenticationHandlerOptions>
     {
+        public const string UserId = "UserId";
         public const string UserName = "UserName";
-        public const string UserEmail = "UserEmail";
 
         public const string AuthenticationScheme = "Test";
 
@@ -30,15 +30,16 @@ namespace Chirp.Web.Test
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
 
+            var hasUserId = Context.Request.Headers.TryGetValue(TestAuthenticationHandler.UserId, out var userId);
             var hasUserName = Context.Request.Headers.TryGetValue(TestAuthenticationHandler.UserName, out var userName);
-            var hasUserEmail = Context.Request.Headers.TryGetValue(TestAuthenticationHandler.UserEmail, out var userEmail);
 
-            if (hasUserName && hasUserEmail)
+
+            if (hasUserId && hasUserName)
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, userName[0]),
-                    new Claim("emails", userEmail[0]),
+                    new Claim(ClaimTypes.Name, userName[0] ?? throw new Exception($"Failed to get username")),
+                    new Claim(ClaimTypes.NameIdentifier, userId[0] ?? throw new Exception($"Failed to get userid")),
                 };
 
                 var identity = new ClaimsIdentity(claims, AuthenticationScheme);

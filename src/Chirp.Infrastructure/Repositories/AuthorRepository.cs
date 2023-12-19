@@ -24,7 +24,7 @@ namespace Chirp.Infrastructure
 
             if (dbContext.Authors.Any(a => a.AuthorId == authorId))
             {
-                throw new Exception($"Failed to create author - an author with authorId already exists");
+                throw new Exception("Failed to create author - an author with authorId already exists");
             }
 
             var author = new Author

@@ -26,9 +26,13 @@
 
   <ItemGroup>
     <None Remove="Pages\" />
+    <None Remove="Services\" />
+    <None Remove="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
+    <Folder Include="Services\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Chirp.Web\Chirp.web.csproj" />

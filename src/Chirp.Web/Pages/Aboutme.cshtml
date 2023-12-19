@@ -1,8 +1,9 @@
 ﻿@page "/AboutMe"
-@model Chirp.Pages.AboutMeModel
+@model Chirp.Web.Pages.AboutMeModel
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
+    var authorUser = User as Chirp.Web.AuthorUser;
 }
 
 <div>
@@ -10,9 +11,11 @@
 
     <ul>
         <li><b>Name: </b></li>
-        <p>@Model.Author.Name</p>
+        <p>@authorUser.AuthorName</p>
+        
 
-        <li><b>Email: </b></li>
-
+        <form method="post" asp-page-handler="forgetme">
+            <button type="submit" style="background: red" name=@authorUser.AuthorId>Forget me</button>
+        </form>
     </ul>
 </div>

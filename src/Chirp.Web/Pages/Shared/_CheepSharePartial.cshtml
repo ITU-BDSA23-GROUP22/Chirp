@@ -1,0 +1,20 @@
+<div class="cheepbox">
+    <h3>What's on your mind, friend?</h3>
+    <form method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group" style="display:flex;">
+
+            <input type="text" name="cheepText" />
+
+            <input type="submit" value="Share" asp-page-handler="share">
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.ValidationSummary()
+
+        </div>
+    </form>
+</div>

@@ -56,6 +56,13 @@ namespace Chirp.Web
 
             var cheepDtos = await this.chirpService.GetAllCheeps(pageNumber, MAX_CHEEPS_PER_PAGE * (pageNumber - 1), MAX_CHEEPS_PER_PAGE + 1);
 
+            //IF REQUESTED PAGE HAS NO CHEEPS AND IS NOT FIRST PAGE, DEFAULT TO PAGE 1
+            if (!cheepDtos.Any() && pageNumber > 1)
+            {
+                pageNumber = 1;
+                cheepDtos = await this.chirpService.GetAllCheeps(pageNumber, MAX_CHEEPS_PER_PAGE * (pageNumber - 1), MAX_CHEEPS_PER_PAGE + 1);
+            }
+
             return new CheepListViewModel(authorDto, cheepDtos, pageNumber, MAX_CHEEPS_PER_PAGE, "/");
         }
 
@@ -64,6 +71,13 @@ namespace Chirp.Web
             var authenticatedAuthorDto = this.GetAuthenticatedAuthor();
 
             var cheepDtos = await this.chirpService.GetCheepsByAuthors(authorIds, pageNumber, MAX_CHEEPS_PER_PAGE * (pageNumber - 1), MAX_CHEEPS_PER_PAGE + 1);
+
+            //IF REQUESTED PAGE HAS NO CHEEPS AND IS NOT FIRST PAGE, DEFAULT TO PAGE 1
+            if (!cheepDtos.Any() && pageNumber > 1)
+            {
+                pageNumber = 1;
+                cheepDtos = await this.chirpService.GetCheepsByAuthors(authorIds, pageNumber, MAX_CHEEPS_PER_PAGE * (pageNumber - 1), MAX_CHEEPS_PER_PAGE + 1);
+            }
 
             return new CheepListViewModel(authenticatedAuthorDto, cheepDtos, pageNumber, MAX_CHEEPS_PER_PAGE, pageUrl);
         }

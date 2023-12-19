@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
 using Chirp.Web.ViewModels;
 
 namespace Chirp.Web.Pages
@@ -9,18 +8,9 @@ namespace Chirp.Web.Pages
     {
         private const int DEFAULT_PAGE_NUMBER = 1;
 
-        #region Mapped Razor properties 
-
-        [FromForm(Name = "cheepText")]
-        [Required(ErrorMessage = "A cheep message is required")]
-        [MaxLength(160)]
-        public string CheepText { get; set; } = string.Empty;
-
-        public int PageNumber { get; set; }
-
-        #endregion
-
         private readonly IPresentationService presentationService;
+
+        public bool AllowCheepShare { get; private set; }
 
         public CheepListViewModel CheepsListViewModel { get; private set; }
 
@@ -34,23 +24,23 @@ namespace Chirp.Web.Pages
 
         public async Task<ActionResult> OnGet([FromQuery(Name = "page")] int? pageNumber)
         {
+            this.AllowCheepShare = this.presentationService.GetAuthenticatedAuthor() != null;
+
             this.CheepsListViewModel = await this.presentationService.GetAllCheepsViewModel(this.GetPageNumber(pageNumber));
 
             return Page();
         }
 
-        public async Task<ActionResult> OnPostShare(int pageNumber)
+        public async Task<ActionResult> OnPostShare(CheepShareViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                this.CheepsListViewModel = await this.presentationService.GetAllCheepsViewModel(this.GetPageNumber(pageNumber));
-
-                return Page();
+                return await OnGet(null);
             }
 
-            await this.presentationService.CreateCheep(this.CheepText);
+            await this.presentationService.CreateCheep(model.CheepText);
 
-            return RedirectToPage("Public");
+            return Redirect($"/?page=1");
         }
 
         public async Task<ActionResult> OnPostFollow(Guid authorToFollowId, int pageNumber)

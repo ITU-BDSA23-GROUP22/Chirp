@@ -4,7 +4,7 @@ using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Chirp.Infrastructure;
 using Chirp.Infrastructure.Services;
-using Chirp.Core.Services;
+sing Chirp.Core.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Chirp.Web

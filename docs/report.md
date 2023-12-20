@@ -28,7 +28,7 @@ WHY WE CHANGED BACK TO SQLITE WRITE HERE
 
 INSERt DIAGRAM AND SMALL NOTE
 
-<img src="Diagrams/DeployedArchitecture.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
+<img src="Diagrams/DeployedArchithecture.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
 =======
 **Azure web services**
@@ -55,7 +55,7 @@ INSERT DIAGRAM AND SMALL NOTE
 ## Build, test, release, and deployment
 INSERT DIAGRAM AND SMALL NOTE
 
-<img src="Diagrams/BuldTestReleaseDeploy.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
+<img src="Diagrams/BuildTestReleaseDeploy.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
 ## Team work
 The communication channel for the team has primarily been Message with the occasional Discord calls if we weren't able to meet up but thought a meeting was preferred over chatting on Messenger

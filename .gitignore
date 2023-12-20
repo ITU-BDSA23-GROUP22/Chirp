@@ -466,6 +466,9 @@ ehthumbs_vista.db
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
+# Unignore bin directory in test/Chirp.Web.Test
+!test/Chirp.Web.Test/bin/
+
 # Windows Installer files
 *.cab
 *.msi

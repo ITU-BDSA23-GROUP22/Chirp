@@ -482,6 +482,3 @@ $RECYCLE.BIN/
 *.db
 *.db-shm
 *.db-wal
-
-# Unignore bin directory in test/Chirp.Web.Test
-!test/Chirp.Web.Test/bin/

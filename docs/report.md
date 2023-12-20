@@ -23,6 +23,8 @@ numbersections: true
 
 <img src="Diagrams/SmallArchitecture.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
+Rasmus skriver
+
 
 
 ## Architecture of deployed application

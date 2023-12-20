@@ -18,28 +18,39 @@ Here comes a description of our domain model.
 ![Illustration of the _Chirp!_ data model as UML class diagram.](docs/images/domain_model.png)
 
 ## Architecture — In the small
+<INSERT DIAGRAM AND SMALL NOTE>
 
 ## Architecture of deployed application
+WHY WE CHANGED BACK TO SQLITE WRITE HERE
+
+<INSER DIAGRAM AND SMALL NOTE>
 
 ## User activities
+<INSERT DIAGRAM AND SMALL NOTE>
+
 
 ## Sequence of functionality/calls trough _Chirp!_
+<INSERT DIAGRAM AND SMALL NOTE>
 
 # Process
 
 ## Build, test, release, and deployment
+<INSERT DIAGRAM AND SMALL NOTE>
 
 ## Team work
 The communication channel for the team has primarily been Message with the occasional Discord calls if we weren't able to meet up but thought a meeting was preferred over chatting on Messenger
 
 Very early on in the projects lifespan we agreed to meet at least one time a week on Tuesdays to talk and work on the project. This gave us the ability to talk about whatever we had on our minds, get more comfortable with each other and distribute responsibilities for the assignments at hand.
 ## How to make _Chirp!_ work locally
+TEXT TO EXPLAIN HOW AND WHY
 
 ## How to run test suite locally
+TEXT TO EXPLAIN HOW AND WHY
 
 # Ethics
 
 ## License
+WHICH LICENSE WE CHOSE
 
 ## LLMs, ChatGPT, CoPilot, and others
 Throughout the project LLM usage has been kept to a minimum, only used to ask quick questions about syntax for either C# code og advice for how to set up 3rd party tools such as Azure and Docker.

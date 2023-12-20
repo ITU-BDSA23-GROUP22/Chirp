@@ -41,7 +41,7 @@ namespace Chirp.Infrastructure.test.Services
             var chirpService = new ChirpService(cheepRepositoryMock.Object, authorRepositoryMock.Object, dbContextMock.Object);
 
             // Act
-            var authorDto = await chirpService.GetAuthor(authorId);
+            var authorDto = await chirpService.GetAuthor(authorId)
 
             // Assert
             Assert.NotNull(authorDto);
@@ -147,7 +147,7 @@ namespace Chirp.Infrastructure.test.Services
             var author = new Author
             {
                 AuthorId = Guid.NewGuid(),
-                Name = "name",              
+                Name = "name",
                 Cheeps = Enumerable.Empty<Cheep>(),
                 Following = Enumerable.Empty<AuthorAuthorRelation>()
             };
@@ -340,7 +340,7 @@ namespace Chirp.Infrastructure.test.Services
                    .AsEnumerable()));
 
             var chirpService = new ChirpService(cheepRepositoryMock.Object, authorRepositoryMock.Object, dbContextMock.Object);
-            
+
 
             // Act
             var actual = await chirpService.SearchAuthors(searchText, pageNumber, 0, authorsPerPage);
@@ -350,7 +350,7 @@ namespace Chirp.Infrastructure.test.Services
             Assert.Single(actual.Where(authorDto =>
                 authorDto.Id == author1.AuthorId &&
                 authorDto.Name == author1.Name &&
-                authorDto.followingIds.Any(x => x == author2.AuthorId)));      
+                authorDto.followingIds.Any(x => x == author2.AuthorId)));
         }
     }
 }

@@ -304,7 +304,7 @@ public class End2EndTestUser
         var doesClassExistAfterFollow = await page.QuerySelectorAsync(".cheeps");
 
         //Check if cheeps exists on private timeline after following a user
-        Assert.True(doesClassExistAfterFollow != null)
+        Assert.True(doesClassExistAfterFollow != null);
 
         var cheepString = "";
         var formSelectorAfterFollow = await page.QuerySelectorAsync(".cheeps > form");

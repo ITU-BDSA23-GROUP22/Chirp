@@ -49,7 +49,7 @@ namespace Chirp.Web.Pages
 
             await chirpService.AnonymizeAuthor(presentationService.GetAuthenticatedAuthor().Id);
 
-            return RedirectToPage("/signin");
+            return RedirectToPage("/Public");
         }
 
         /// <summary>

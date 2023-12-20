@@ -17,16 +17,12 @@ public class End2EndTestUser
     private async Task PageLogin(IPage page)
     {
         await page.GotoAsync("https://github.com/login");
-        await page.WaitForTimeoutAsync(8000);
         await page.GetByLabel("Username or email address").FillAsync("Myfakegithubaccount");
         await page.GetByLabel("Password").FillAsync("Myfakegithubpassword");
         await page.GetByRole(AriaRole.Button, new() { Name = "Sign in", Exact = true }).ClickAsync();
-        await page.WaitForTimeoutAsync(8000);
         await page.GotoAsync("https://bdsagroup22chirprazor.azurewebsites.net");
-        await page.WaitForTimeoutAsync(8000);
         await page.WaitForSelectorAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
         await page.ClickAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
-        await page.WaitForTimeoutAsync(8000);
         await page.WaitForSelectorAsync("#GitHubExchange");
         await page.ClickAsync("#GitHubExchange");
         //Page would not update fast enough and program grapped the wrong URL. Had to implement a sleep
@@ -39,6 +35,17 @@ public class End2EndTestUser
         bool startsWithPrefix = page.Url.StartsWith("https://bdsagroup22chirprazor", StringComparison.OrdinalIgnoreCase);
         if (!startsWithPrefix)
         {
+            bool startsWithPrefixGithub = page.Url.StartsWith("https://github.com/login?", StringComparison.OrdinalIgnoreCase);
+            if (startsWithPrefixGithub)
+            {
+                await page.GotoAsync("https://github.com/login");
+                await page.GetByLabel("Username or email address").FillAsync("Myfakegithubaccount");
+                await page.GetByLabel("Password").FillAsync("Myfakegithubpassword");
+                await page.GetByRole(AriaRole.Button, new() { Name = "Sign in", Exact = true }).ClickAsync();
+                await page.WaitForURLAsync("https://bdsagroup22chirprazor.azurewebsites.net/");
+
+            }
+            else
 
             {
                 output.WriteLine(page.Url);

@@ -16,10 +16,6 @@ public class End2EndTestUser
 
     private async Task PageLogin(IPage page)
     {
-        await page.GotoAsync("https://github.com/login");
-        await page.GetByLabel("Username or email address").FillAsync("Myfakegithubaccount");
-        await page.GetByLabel("Password").FillAsync("Myfakegithubpassword");
-        await page.GetByRole(AriaRole.Button, new() { Name = "Sign in", Exact = true }).ClickAsync();
         await page.GotoAsync("https://bdsagroup22chirprazor.azurewebsites.net");
         await page.WaitForSelectorAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
         await page.ClickAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");

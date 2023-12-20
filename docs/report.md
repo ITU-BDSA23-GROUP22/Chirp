@@ -97,6 +97,7 @@ If the developer wants to change the configuration, the configuration in appsett
 
 ## How to run test suite locally
 TEXT TO EXPLAIN HOW AND WHY
+
 The following steps are to run the various test suites.  
 Open Terminal  
 ```cd test/Chirp.Web.Test``` or ```cd test/Chirp.Infrastructure.Test```  

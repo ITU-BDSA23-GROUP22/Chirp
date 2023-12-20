@@ -56,6 +56,11 @@ namespace Chirp.Web.Test.Pages
             // Arrange
             var authorId = Guid.NewGuid();
             var authorName = "Mr.Author";
+            this.chirpServiceMock.Setup(x => x.GetAuthor(authorId)
+                ).Returns(
+                    Task.FromResult(
+                        (AuthorDTO?)new AuthorDTO(authorId, authorName, Enumerable.Empty<Guid>()
+                        )));
             SetAuthenticatedUser(authorId, authorName);
 
             // Act

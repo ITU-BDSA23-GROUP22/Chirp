@@ -42,6 +42,9 @@ public class End2EndTestUser
                 await page.WaitForSelectorAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
                 await page.ClickAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
                 output.WriteLine(page.Url);
+                await page.WaitForSelectorAsync("a:has-text('public timeline ')");
+                await page.ClickAsync("a:has-text('public timeline ')");
+                output.WriteLine(page.Url);
             }
             else
             {

@@ -17,18 +17,20 @@ public class End2EndTestUser
     private async Task PageLogin(IPage page)
     {
         await page.GotoAsync("https://github.com/login");
+        await page.WaitForTimeoutAsync(8000);
         await page.GetByLabel("Username or email address").FillAsync("Myfakegithubaccount");
         await page.GetByLabel("Password").FillAsync("Myfakegithubpassword");
         await page.GetByRole(AriaRole.Button, new() { Name = "Sign in", Exact = true }).ClickAsync();
+        await page.WaitForTimeoutAsync(8000);
         await page.GotoAsync("https://bdsagroup22chirprazor.azurewebsites.net");
+        await page.WaitForTimeoutAsync(8000);
         await page.WaitForSelectorAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
         await page.ClickAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
-
+        await page.WaitForTimeoutAsync(8000);
         await page.WaitForSelectorAsync("#GitHubExchange");
-
         await page.ClickAsync("#GitHubExchange");
         //Page would not update fast enough and program grapped the wrong URL. Had to implement a sleep
-        Thread.Sleep(8000);
+        await page.WaitForTimeoutAsync(8000);
         await page.ScreenshotAsync(new()
         {
             Path = "../../../ScreenshotLogin.png",
@@ -37,24 +39,13 @@ public class End2EndTestUser
         bool startsWithPrefix = page.Url.StartsWith("https://bdsagroup22chirprazor", StringComparison.OrdinalIgnoreCase);
         if (!startsWithPrefix)
         {
-            bool startsWithPrefixGithub = page.Url.StartsWith("https://github.com/login?", StringComparison.OrdinalIgnoreCase);
-            if (startsWithPrefixGithub)
-            {
-                await page.GotoAsync("https://github.com/login");
-                await page.GetByLabel("Username or email address").FillAsync("Myfakegithubaccount");
-                await page.GetByLabel("Password").FillAsync("Myfakegithubpassword");
-                await page.GetByRole(AriaRole.Button, new() { Name = "Sign in", Exact = true }).ClickAsync();
-                Thread.Sleep(8000);
 
-            }
-            else
             {
                 output.WriteLine(page.Url);
-                var htmlContent = await page.ContentAsync();
-                output.WriteLine(htmlContent);
+                //var htmlContent = await page.ContentAsync();
+                //output.WriteLine(htmlContent);
                 await page.WaitForSelectorAsync(".btn.btn-primary.width-full.ws-normal");
                 await page.ClickAsync(".btn.btn-primary.width-full.ws-normal");
-                Thread.Sleep(8000);
             }
         }
     }
@@ -267,7 +258,6 @@ public class End2EndTestUser
         var context = await browser.NewContextAsync();
         var page = await context.NewPageAsync();
         await PageLogin(page);
-        output.WriteLine(page.Url);
         await page.WaitForSelectorAsync("a:has-text('my timeline')");
         await page.ClickAsync("a:has-text('my timeline')");
 

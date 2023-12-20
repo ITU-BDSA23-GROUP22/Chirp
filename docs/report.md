@@ -24,6 +24,8 @@ Here comes a description of our domain model.
 ## Architecture of deployed application
 WHY WE CHANGED BACK TO SQLITE WRITE HERE
 
+The deployed application supports using both SQLite and Azure SQL database(application in local/development environment also supports SQL Server using Docker), based on the configurations in appsettings.< Development | Production >.json. In the deployed application, the appsettings configuration for SQLite is chosen in the final deployed application, due to insufficient student credits, at the end of the project.
+
 <INSER DIAGRAM AND SMALL NOTE>
 
 ## User activities

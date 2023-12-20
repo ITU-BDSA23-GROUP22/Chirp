@@ -55,6 +55,7 @@ namespace Chirp.Web
                 }
                 options.Conventions.AllowAnonymousToPage("/Public");
                 options.Conventions.AllowAnonymousToPage("/UserTimeline");
+                options.Conventions.AllowAnonymousToPage("/Authors");
 
             })
             .AddMvcOptions(options =>
@@ -92,21 +93,32 @@ namespace Chirp.Web
             // For SqLite database provider, we ensure created and seeded database
             if (databaseProviderConfig.DatabaseProviderType == DatabaseProviderType.SqLite)
             {
-                using (var scope = app.Services.CreateScope())
+                if (databaseProviderConfig.EnsureCreatedDatabaseOnStartup)
                 {
-                    var dbContext = scope.ServiceProvider.GetService<ChirpDBContext>()
-                        ?? throw new Exception("Faield to get service ChirpDBContext");
-
-
-                    // Ensure database created
-                    if (dbContext.Database.EnsureCreated())
+                    using (var scope = app.Services.CreateScope())
                     {
-                        // When database created, seed database with initial data
-                        DbInitializer.SeedDatabase(dbContext);
-                    }
+                        var dbContext = scope.ServiceProvider.GetService<ChirpDBContext>()
+                            ?? throw new Exception("Faield to get service ChirpDBContext");
+
+                        // DELETE database on startup - CAREFUL
+                        if (databaseProviderConfig.EnsureDeletedDatabaseOnStartup)
+                        {
+                            dbContext.Database.EnsureDeleted();
+                        }
+
+                        // Ensure database created
+                        if (dbContext.Database.EnsureCreated())
+                        {
+
+                            if (databaseProviderConfig.SeedDatabase)
+                            {
+                                // When database created, seed database with initial data
+                                DbInitializer.SeedDatabase(dbContext);
+                            }
+                        }
+                    }                    
                 }
             }
-
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

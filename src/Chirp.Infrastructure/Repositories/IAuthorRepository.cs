@@ -12,5 +12,6 @@ namespace Chirp.Infrastructure
 
         Task DeleteAuthor(Author author);
 
+        Task<IEnumerable<Author>> SearchAuthor(string? searchText, int page, int skipCount, int takeCount);
     }
 }

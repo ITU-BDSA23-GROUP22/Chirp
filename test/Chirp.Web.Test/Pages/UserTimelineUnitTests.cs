@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace Chirp.Web.Test.Pages
+namespace Chirp.Web.Pages
 {
     public class UserTimelineUnitTests
     {

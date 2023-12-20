@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <PlaywrightPlatform>all</PlaywrightPlatform>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -11,11 +12,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.40.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Selenium.WebDriver" Version="3.13.0" />
     <PackageReference Include="coverlet.collector" Version="3.2.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -36,5 +39,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Chirp.Web\Chirp.web.csproj" />
+    <ProjectReference Include="..\Chirp.SharedUsings\Chirp.SharedUsings.csproj" />
   </ItemGroup>
 </Project>

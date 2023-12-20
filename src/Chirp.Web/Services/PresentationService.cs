@@ -9,6 +9,7 @@ namespace Chirp.Web
     public class PresentationService : IPresentationService
     {
         public const int MAX_CHEEPS_PER_PAGE = 5;
+        public const int MAX_AUTHORS_PER_PAGE = 5;
 
         private readonly IChirpService chirpService;
         private readonly IHttpContextAccessor httpContextAccessor;
@@ -131,6 +132,28 @@ namespace Chirp.Web
 
             return author;
         }
+
+        public async Task<AuthorListViewModel> GetAuthorListViewModel(string? searchText, int pageNumber)
+        {
+            if (pageNumber < 1)
+            {
+                throw new ArgumentException(nameof(pageNumber));
+            }
+
+            var authorDto = this.GetAuthenticatedAuthor();
+
+            var authorDtos = await this.chirpService.SearchAuthors(searchText, pageNumber, MAX_AUTHORS_PER_PAGE * (pageNumber - 1), MAX_AUTHORS_PER_PAGE + 1);
+
+            //IF REQUESTED PAGE HAS NO CHEEPS AND IS NOT FIRST PAGE, DEFAULT TO PAGE 1
+            if (!authorDtos.Any() && pageNumber > 1)
+            {
+                pageNumber = 1;
+                authorDtos = await this.chirpService.SearchAuthors(searchText, pageNumber, MAX_AUTHORS_PER_PAGE * (pageNumber - 1), MAX_AUTHORS_PER_PAGE + 1);
+            }
+
+            return new AuthorListViewModel(authorDto, authorDtos, pageNumber, MAX_AUTHORS_PER_PAGE, "/Authors", searchText);
+        }
+
 
     }
 }

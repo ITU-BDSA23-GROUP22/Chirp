@@ -31,7 +31,7 @@ public class End2EndTestUser
         Thread.Sleep(8000);
         await page.ScreenshotAsync(new()
         {
-            Path = "ScreenshotLogin.png",
+            Path = "../../../ScreenshotLogin.png",
             FullPage = true,
         });
         bool startsWithPrefix = page.Url.StartsWith("https://bdsagroup22chirprazor", StringComparison.OrdinalIgnoreCase);

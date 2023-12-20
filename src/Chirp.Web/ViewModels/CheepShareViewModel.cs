@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Chirp.Web.ViewModels
 {
+    /// <summary>
+    ///     Provides CheepShareViewModel for sharing a Cheep.
+    /// </summary>
     public class CheepShareViewModel
     {
         [Required(ErrorMessage = "Cheeptext requried")]

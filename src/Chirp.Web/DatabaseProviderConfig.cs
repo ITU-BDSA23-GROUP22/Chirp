@@ -3,18 +3,31 @@ namespace Chirp.Web
 {
 	public enum DatabaseProviderType
 	{
-		SqLite, SqlServer
+		// Specifies use of SqLite database provider
+		SqLite,
+
+		// Specifies use of SqlServer database provider
+		SqlServer
 	}
 
+	/// <summary>
+	///		Provides appsettings configuration for database provider selection 
+	/// </summary>
 	public class DatabaseProviderConfig
 	{
+		/// <summary>
+		///		Specifies database provider selection
+		/// </summary>
 		public DatabaseProviderType DatabaseProviderType { get; set; }
 
 		/// <summary>
-		/// 	If true, the database is dropped before updating and seeding.
+		/// 	If true, the database is dropped before updating and seeding
 		/// </summary>
 		public bool EnsureDeletedDatabaseOnStartup { get; set; }
 
+		/// <summary>
+		///		If true, the database is seeded upon creation
+		/// </summary>
 		public bool SeedDatabase { get; set; }
 
 		public bool EnsureCreatedDatabaseOnStartup { get; set; }

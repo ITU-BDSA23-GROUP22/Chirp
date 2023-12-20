@@ -1,7 +1,12 @@
+// ReferenceLink:
+//  https://learn.microsoft.com/en-us/ef/core/
+//  https://learn.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.Infrastructure
 {
+    /// <inheritdoc/>
     public class CheepRepository : ICheepRepository
     {
         private readonly ChirpDBContext dbContext;
@@ -11,6 +16,7 @@ namespace Chirp.Infrastructure
             dbContext = chirpDbContext ?? throw new ArgumentNullException(nameof(chirpDbContext));
         }
 
+        /// <inheritdoc/>
         public async Task<Cheep> Create(Author author, string text, DateTime timestamp)
         {
             if (author == null)
@@ -29,6 +35,7 @@ namespace Chirp.Infrastructure
             return cheep;
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<Cheep>> GetAll(int page, int skipCount, int takeCount)
         {
             if (skipCount < 0)
@@ -49,6 +56,7 @@ namespace Chirp.Infrastructure
             return cheeps;
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<Cheep>> GetByAuthors(IEnumerable<Guid> authorIds, int page, int skipCount, int takeCount)
         {
             if (skipCount < 0)
@@ -80,7 +88,9 @@ namespace Chirp.Infrastructure
             return cheeps;
         }
 
-        public async Task AnonymizeCheeps(Author author) {
+        /// <inheritdoc/>
+        public async Task AnonymizeCheeps(Author author)
+        {
             var cheeps = await dbContext.Cheeps
                 .Include(x => x.Author)
                 .Where(a => a.Author == author)
@@ -88,7 +98,8 @@ namespace Chirp.Infrastructure
 
             Author anonymizedAuthor = new Author { Name = "" };
 
-            foreach(Cheep loopCheep in cheeps) {
+            foreach(Cheep loopCheep in cheeps)
+            {
                 loopCheep.Author = anonymizedAuthor;
             }
         }

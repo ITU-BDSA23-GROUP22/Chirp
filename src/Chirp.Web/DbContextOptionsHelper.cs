@@ -2,6 +2,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.Web
 {
+    /// <summary>
+    ///     Provides central configuring of selected database provider.
+    ///     Is used in both Chirp.Web.Program startup and Chirp.Migrations.
+    /// </summary>
     public static class DbContextOptionsHelper
     {
         public static void Configure(DbContextOptionsBuilder options, IConfiguration configuration, ILogger logger, string migrationAssemblyName = "")

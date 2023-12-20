@@ -1,3 +1,6 @@
+// ReferenceLink:
+//  https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-7.0
+//  https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-7.0
 
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
@@ -60,6 +63,7 @@ namespace Chirp.Web
             })
             .AddMvcOptions(options =>
             {
+                // Registers authentication filter to ensure authenticated Author is created in the database
                 options.Filters.Add<EnsureAuthorCreatedFilter>();
             })
             .AddMicrosoftIdentityUI();
@@ -86,7 +90,8 @@ namespace Chirp.Web
 
             var app = builder.Build();
 
-
+            // Determine whether to delete/create/seed database.
+            // This is specifically useful in Azure environment when using SqLite database provider.
             var databaseProviderConfig = new DatabaseProviderConfig();
             app.Configuration.GetSection(nameof(DatabaseProviderConfig)).Bind(databaseProviderConfig);
 
@@ -128,7 +133,6 @@ namespace Chirp.Web
                 app.UseHsts();
             }
 
-            // app.UseHsts();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

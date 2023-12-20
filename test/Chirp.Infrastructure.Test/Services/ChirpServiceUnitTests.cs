@@ -1,3 +1,8 @@
+// ReferenceLink:
+//  https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
+//  https://softchris.github.io/pages/dotnet-moq.html#introduction
+
+
 using Xunit;
 using Moq;
 using Chirp.Infrastructure.Services;

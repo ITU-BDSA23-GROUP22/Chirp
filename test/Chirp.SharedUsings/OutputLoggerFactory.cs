@@ -1,4 +1,8 @@
-﻿using Xunit.Abstractions;
+﻿// ReferenceLink:
+//  https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.ilogger?view=dotnet-plat-ext-7.0
+//  https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.iloggerfactory?view=dotnet-plat-ext-7.0
+
+using Xunit.Abstractions;
 using Microsoft.Extensions.Logging;
 
 namespace Chirp.SharedUsings

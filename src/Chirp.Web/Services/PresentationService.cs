@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 
 namespace Chirp.Web
 {
+    /// <inheritdoc/>
     public class PresentationService : IPresentationService
     {
         public const int MAX_CHEEPS_PER_PAGE = 5;
@@ -26,6 +27,7 @@ namespace Chirp.Web
             this.user = this.httpContextAccessor.HttpContext?.User;
         }
 
+        /// <inheritdoc/>
         public AuthorDTO? GetAuthenticatedAuthor()
         {
             var user = this.httpContextAccessor.HttpContext?.User;
@@ -46,6 +48,7 @@ namespace Chirp.Web
                 );
         }
 
+        /// <inheritdoc/>
         public async Task<CheepListViewModel> GetAllCheepsViewModel(int pageNumber)
         {
             if (pageNumber < 1)
@@ -67,6 +70,7 @@ namespace Chirp.Web
             return new CheepListViewModel(authorDto, cheepDtos, pageNumber, MAX_CHEEPS_PER_PAGE, "/");
         }
 
+        /// <inheritdoc/>
         public async Task<CheepListViewModel> GetCheepsByAuthorsViewModel(IEnumerable<Guid> authorIds, int pageNumber, string pageUrl)
         {
             if (pageNumber < 1)
@@ -88,6 +92,7 @@ namespace Chirp.Web
             return new CheepListViewModel(authenticatedAuthorDto, cheepDtos, pageNumber, MAX_CHEEPS_PER_PAGE, pageUrl);
         }
 
+        /// <inheritdoc/>
         public async Task CreateCheep(string cheepText)
         {
             var authenticatedAuthorDto = this.GetAuthenticatedAuthor()
@@ -96,6 +101,7 @@ namespace Chirp.Web
             await this.chirpService.CreateCheep(authenticatedAuthorDto.Id, cheepText);
         }
 
+        /// <inheritdoc/>
         public async Task FollowAuthor(Guid authorToFollowId)
         {
             var authenticatedAuthorDto = this.GetAuthenticatedAuthor()
@@ -104,6 +110,7 @@ namespace Chirp.Web
             await this.chirpService.FollowAuthor(authenticatedAuthorDto.Id, authorToFollowId);
         }
 
+        /// <inheritdoc/>
         public async Task UnfollowAuthor(Guid authorToFollowId)
         {
             var authenticatedAuthorDto = this.GetAuthenticatedAuthor()
@@ -112,6 +119,7 @@ namespace Chirp.Web
             await this.chirpService.UnfollowAuthor(authenticatedAuthorDto.Id, authorToFollowId);
         }
 
+        /// <inheritdoc/>
         public async Task<AuthorDTO> GetAuthor(Guid authorId)
         {
             var author = await this.chirpService.GetAuthor(authorId)
@@ -120,6 +128,7 @@ namespace Chirp.Web
             return author;
         }
 
+        /// <inheritdoc/>
         public async Task<AuthorDTO> GetOrCreateAuthor(Guid authorId, string authorName)
         {
             var author = await this.chirpService.GetAuthor(authorId);

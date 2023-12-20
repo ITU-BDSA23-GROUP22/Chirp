@@ -10,6 +10,9 @@ using Chirp.Infrastructure;
 
 namespace Chirp.Web.Pages
 {
+    /// <summary>
+    ///     Provides simple authentication for local development support
+    /// </summary>
     public class SignInModel : PageModel
     {
         #region Mapped Razor properties 
@@ -35,6 +38,9 @@ namespace Chirp.Web.Pages
             this.Options = new List<SelectListItem>();
         }
 
+        /// <summary>
+        ///     Handles Get request for SignIn page
+        /// </summary>
         public void OnGet()
         {
             this.Options = this.dbContext.Authors.Select(x => new SelectListItem
@@ -44,6 +50,10 @@ namespace Chirp.Web.Pages
             }).ToList();
         }
 
+        /// <summary>
+        ///     Handles Post request for SignIn with new Author (NewId, Name)
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> OnPostCreateSignIn()
         {
             if (string.IsNullOrWhiteSpace(this.AuthorName))
@@ -63,6 +73,10 @@ namespace Chirp.Web.Pages
             return RedirectToPage("/public");
         }
 
+        /// <summary>
+        ///     Handles Post request for SignIn with existing Author
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> OnPostSignIn()
         {
             // Local development SignIn
@@ -74,6 +88,10 @@ namespace Chirp.Web.Pages
             return RedirectToPage("/public");
         }
 
+        /// <summary>
+        ///     Handles Get request for SignOut of authenticated Author
+        /// </summary>
+        /// <returns></returns>
         public async Task<ActionResult> OnGetSignOut()
         {
             // Local development SignOut
@@ -84,10 +102,12 @@ namespace Chirp.Web.Pages
             return RedirectToPage("/public");
         }
 
+        /// <summary>
+        ///     Ensure that this page ONLY responds in Local Development     
+        /// </summary>
+        /// <param name="context"></param>
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
-        {
-            // Ensure that this page ONLY responds in Local Development
-
+        { 
             if (!hostEnvironment.IsDevelopment())
             {
                 context.Result = NotFound();

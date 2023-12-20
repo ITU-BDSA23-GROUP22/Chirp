@@ -1,3 +1,7 @@
+// ReferenceLink:
+//  https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1?view=aspnetcore-7.0
+//  https://learn.microsoft.com/en-us/aspnet/core/security/authentication/?view=aspnetcore-7.0
+
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;

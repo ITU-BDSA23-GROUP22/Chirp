@@ -2,6 +2,9 @@ using Chirp.Infrastructure;
 
 namespace Chirp.Web
 {
+    /// <summary>
+    ///     Provides database with initial data 
+    /// </summary>
     public static class DbInitializer
     {
         public static void SeedDatabase(ChirpDBContext chirpDBContext)

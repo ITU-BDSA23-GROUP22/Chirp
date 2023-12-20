@@ -22,6 +22,11 @@ namespace Chirp.Web.Pages
             this.CheepsListViewModel = new CheepListViewModel();
         }
 
+        /// <summary>
+        ///     Handles Get request for Cheep list for anonymous and authenticated users 
+        /// </summary>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
         public async Task<ActionResult> OnGet([FromQuery(Name = "page")] int? pageNumber)
         {
             this.AllowCheepShare = this.presentationService.GetAuthenticatedAuthor() != null;
@@ -31,6 +36,11 @@ namespace Chirp.Web.Pages
             return Page();
         }
 
+        /// <summary>
+        ///     Handles Post request for Share Cheep for authenticated users
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<ActionResult> OnPostShare(CheepShareViewModel model)
         {
             if (!ModelState.IsValid)
@@ -43,6 +53,12 @@ namespace Chirp.Web.Pages
             return Redirect($"/?page=1");
         }
 
+        /// <summary>
+        ///     Handles Post request for Follow Author for authenticated users
+        /// </summary>
+        /// <param name="authorToFollowId"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
         public async Task<ActionResult> OnPostFollow(Guid authorToFollowId, int pageNumber)
         {
             await this.presentationService.FollowAuthor(authorToFollowId);
@@ -50,6 +66,12 @@ namespace Chirp.Web.Pages
             return Redirect($"/?page={this.GetPageNumber(pageNumber)}");
         }
 
+        /// <summary>
+        ///     Handles Post request for Unfollow Author for authenticated users
+        /// </summary>
+        /// <param name="authorToUnfollowId"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
         public async Task<ActionResult> OnPostUnfollow(Guid authorToUnfollowId, int pageNumber)
         {
             await this.presentationService.UnfollowAuthor(authorToUnfollowId);

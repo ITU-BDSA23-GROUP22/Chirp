@@ -1,7 +1,12 @@
+// ReferenceLink:
+//  https://learn.microsoft.com/en-us/ef/core/
+//  https://learn.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.Infrastructure
 {
+    /// <inheritdoc/>
     public class AuthorRepository : IAuthorRepository
     {
         private readonly ChirpDBContext dbContext;
@@ -11,6 +16,7 @@ namespace Chirp.Infrastructure
             dbContext = chirpDbContext ?? throw new ArgumentNullException(nameof(chirpDbContext));
         }
 
+        /// <inheritdoc/>
         public async Task<Author> Create(Guid authorId, string name)
         {
             if (authorId == Guid.Empty)
@@ -40,6 +46,7 @@ namespace Chirp.Infrastructure
             return author;
         }
 
+        /// <inheritdoc/>
         public async Task<Author?> Get(Guid authorId)
         {
             if (authorId == Guid.Empty)
@@ -53,6 +60,7 @@ namespace Chirp.Infrastructure
             return author;
         }
 
+        /// <inheritdoc/>
         public async Task<AuthorAuthorRelation> FollowAuthor(Author author, Author authorToFollow, DateTime timeStamp)
         {
             if (author == null)
@@ -89,6 +97,7 @@ namespace Chirp.Infrastructure
             return authorAuthorRelation;
         }
 
+        /// <inheritdoc/>
         public async Task UnfollowAuthor(Author author, Author authorToUnFollow)
         {
             if (author == null)
@@ -123,7 +132,7 @@ namespace Chirp.Infrastructure
             dbContext.AuthorAuthorRelations.Remove(authorAuthorRelation);
         }
 
-
+        /// <inheritdoc/>
         public async Task DeleteAuthor(Author author) 
         {
             var followers = await dbContext.AuthorAuthorRelations
@@ -135,6 +144,7 @@ namespace Chirp.Infrastructure
             dbContext.Remove(author);
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<Author>> SearchAuthor(string? searchText, int page, int skipCount, int takeCount)
         {
 

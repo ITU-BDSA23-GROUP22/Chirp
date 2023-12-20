@@ -1,3 +1,10 @@
+// ReferenceLink:
+//  https://learn.microsoft.com/en-us/ef/core/testing/testing-without-the-database
+//  https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
+//  https://softchris.github.io/pages/dotnet-moq.html#introduction
+//  https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-7.0
+//  https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1?view=aspnetcore-7.0
+
 using System.Net;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;

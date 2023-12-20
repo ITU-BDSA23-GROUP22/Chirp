@@ -1,3 +1,8 @@
+// ReferenceLink:
+//  https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-7.0
+//  https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
+//  https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-7.0
+
 using System.Diagnostics;
 using System.Security.Permissions;
 using Chirp.Core;

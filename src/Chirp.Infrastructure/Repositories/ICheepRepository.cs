@@ -39,6 +39,12 @@
         /// <exception cref="Exception"></exception>
         Task<IEnumerable<Cheep>> GetByAuthors(IEnumerable<Guid> authors, int page, int skipCount, int takeCount);
 
+        /// <summary>
+        ///     Updates and anonymizes Linked Author  to Cheeps from specified Author
+        /// </summary>
+        /// <param name="author"></param>
+        /// <returns></returns>
+        Task AnonymizeCheeps(Author author);
 
     }
 }

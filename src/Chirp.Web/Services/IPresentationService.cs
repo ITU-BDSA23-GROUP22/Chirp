@@ -62,10 +62,18 @@ namespace Chirp.Web
         Task FollowAuthor(Guid authorToFollowId);
 
         /// <summary>
-        ///     Unfollows specified Author for authenticated author form ChirpService
+        ///     Unfollows specified Author for authenticated author from ChirpService
         /// </summary>
         /// <param name="authorToFollowId"></param>
         /// <returns></returns>
         Task UnfollowAuthor(Guid authorToFollowId);
+
+        /// <summary>
+        ///     Gets AuthorListViewModel for list of cheeps, based on specified search text from ChirpService
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        Task<AuthorListViewModel> GetAuthorListViewModel(string? searchText, int pageNumber);
     }
 }

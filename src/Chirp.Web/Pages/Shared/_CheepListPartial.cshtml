@@ -10,17 +10,23 @@
             {
             <li>
                 <p>
-                    <strong>
-                        <a href="/@cheep.Author.Id">@cheep.Author.Name</a>
-                    </strong>
+                    @if(@cheep.Author.Name == "") {
+                        <strong>
+                            [Deleted user]
+                        </strong>
+                    } else {
+                        <strong>
+                            <a href="/@cheep.Author.Id">@cheep.Author.Name</a>
+                        </strong>
 
-                    @if (cheep.Author.CanFollow)
-                    {
-                        <input class="btn" type="submit" asp-page-handler="follow" asp-route-authorToFollowId="@cheep.Author.Id" value="Follow" />
-                    }                       
-                    @if (cheep.Author.CanUnfollow)
-                    {
-                        <input class="btn" type="submit" asp-page-handler="unfollow" asp-route-authorToUnfollowId="@cheep.Author.Id" value="Unfollow" />
+                        @if (cheep.Author.CanFollow)
+                        {
+                            <input class="btn" type="submit" asp-page-handler="follow" asp-route-authorToFollowId="@cheep.Author.Id" value="Follow" />
+                        }                       
+                        @if (cheep.Author.CanUnfollow)
+                        {
+                            <input class="btn" type="submit" asp-page-handler="unfollow" asp-route-authorToUnfollowId="@cheep.Author.Id" value="Unfollow" />
+                        }
                     }
 
                     @cheep.Message

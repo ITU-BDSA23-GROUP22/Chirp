@@ -23,7 +23,7 @@ namespace Chirp.Web.Pages
         }
 
         /// <summary>
-        ///     Handle Get request for Cheep list for anonymous and authenticated users 
+        ///     Handles Get request for Cheep list for anonymous and authenticated users 
         /// </summary>
         /// <param name="pageNumber"></param>
         /// <returns></returns>

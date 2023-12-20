@@ -152,7 +152,7 @@ namespace Chirp.Infrastructure.test.Services
             var author = new Author
             {
                 AuthorId = Guid.NewGuid(),
-                Name = "name",              
+                Name = "name",
                 Cheeps = Enumerable.Empty<Cheep>(),
                 Following = Enumerable.Empty<AuthorAuthorRelation>()
             };
@@ -305,6 +305,57 @@ namespace Chirp.Infrastructure.test.Services
 
             // Act + Assert
             var exception = Assert.ThrowsAsync<Exception>(async () => await chirpService.GetCheepsByAuthors(new Guid[] { author.AuthorId }, pageNumber, 0, cheepsPerPage));
+        }
+
+        [Fact]
+        public async Task SearchAuthors_With_SearchText_Should_Return_AuthorDto_Enumeration()
+        {
+            // Arrange
+            var pageNumber = 1;
+            var authorsPerPage = 10;
+
+            var timeStamp = DateTime.Now;
+
+            var author1 = new Author
+            {
+                AuthorId = Guid.NewGuid(),
+                Name = "name1",
+            };
+            var author2 = new Author
+            {
+                AuthorId = Guid.NewGuid(),
+                Name = "name2",
+            };
+
+            author1.Following = new List<AuthorAuthorRelation>{
+                new AuthorAuthorRelation
+                {
+                    Author = author1,
+                    AuthorId = author1.AuthorId,
+                    AuthorToFollow = author2,
+                    AuthorToFollowId = author2.AuthorId,
+                    TimeStamp = timeStamp
+                }
+            };
+
+            var searchText = "";
+            this.authorRepositoryMock.Setup(x => x.SearchAuthor(searchText, pageNumber, 0, authorsPerPage))
+               .Returns(
+               Task.FromResult(new[] { author1 }
+                   .AsEnumerable()));
+
+            var chirpService = new ChirpService(cheepRepositoryMock.Object, authorRepositoryMock.Object, dbContextMock.Object);
+
+
+            // Act
+            var actual = await chirpService.SearchAuthors(searchText, pageNumber, 0, authorsPerPage);
+
+            // Arrange
+            Assert.Single(actual);
+            Assert.Single(actual.Where(authorDto =>
+                authorDto.Id == author1.AuthorId &&
+                authorDto.Name == author1.Name &&
+                authorDto.followingIds.Any(x => x == author2.AuthorId)));
         }
     }
 }

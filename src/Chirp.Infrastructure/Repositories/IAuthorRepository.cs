@@ -44,5 +44,21 @@ namespace Chirp.Infrastructure
         /// <exception cref="Exception"></exception>
         Task UnfollowAuthor(Author author, Author authorToUnfollow);
 
+        /// <summary>
+        ///     Deletes specified Author from database
+        /// </summary>
+        /// <param name="author"></param>
+        /// <returns></returns>
+        Task DeleteAuthor(Author author);
+
+        /// <summary>
+        ///     Fetches Authors based on specified search text and page
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <param name="page"></param>
+        /// <param name="skipCount"></param>
+        /// <param name="takeCount"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Author>> SearchAuthor(string? searchText, int page, int skipCount, int takeCount);
     }
 }

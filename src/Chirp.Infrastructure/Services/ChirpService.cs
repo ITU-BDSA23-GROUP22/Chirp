@@ -131,6 +131,25 @@ namespace Chirp.Infrastructure.Services
             await dbContext.SaveChanges();
         }
 
+
+        public async Task AnonymizeAuthor(Guid authorId) 
+        {
+            var author = await this.authorRepository.Get(authorId)
+                ?? throw new Exception($"Failed to AnonymizeAuthor - Author not found");
+
+                await this.cheepRepository.AnonymizeCheeps(author);
+                await this.authorRepository.DeleteAuthor(author);
+
+                await dbContext.SaveChanges();
+        }
+        
+        public async Task<IEnumerable<AuthorDTO>> SearchAuthors(string? searchText, int page, int skipCount, int takeCount)
+        {
+            var authors = await this.authorRepository.SearchAuthor(searchText, page, skipCount, takeCount);
+
+            return authors.Select(x => MapAuthorToDto(x));
+        }
+
         private CheepDTO MapCheepToDto(Cheep cheep, AuthorDTO authorDto)
         {
             return MapCheepToDto(cheep, new[] { authorDto });

@@ -62,6 +62,7 @@ namespace Chirp.Core.Services
         /// <exception cref="Exception"></exception>
         Task FollowAuthor(Guid authorId, Guid authorToFollowId);
 
+
         /// <summary>
         ///     Removes a Follow Relation between two specified Authors in AuthorRepository
         /// </summary>
@@ -70,5 +71,22 @@ namespace Chirp.Core.Services
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         Task UnfollowAuthor(Guid authorId, Guid authorToUnfollowId);
+
+        /// <summary>
+        ///     Anonymizes specified Author and removes any Follower Relation with the specified Author from AuthorRepository
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <returns></returns>
+        Task AnonymizeAuthor(Guid authorId);
+
+        /// <summary>
+        ///     Gets a list of AuthorDTOs based on specified search text and page from AuhtorRepository
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <param name="page"></param>
+        /// <param name="skipCount"></param>
+        /// <param name="takeCount"></param>
+        /// <returns></returns>
+        Task<IEnumerable<AuthorDTO>> SearchAuthors(string? searchText, int page, int skipCount, int takeCount);
     }
 }

@@ -30,7 +30,7 @@ namespace Chirp.Infrastructure
 
             if (dbContext.Authors.Any(a => a.AuthorId == authorId))
             {
-                throw new Exception("Failed to create author - an author with authorId already exists");
+                throw new Exception($"Failed to create author - an author with authorId already exists");
             }
 
             var author = new Author
@@ -130,6 +130,49 @@ namespace Chirp.Infrastructure
             }
 
             dbContext.AuthorAuthorRelations.Remove(authorAuthorRelation);
+        }
+
+        /// <inheritdoc/>
+        public async Task DeleteAuthor(Author author) 
+        {
+            var followers = await dbContext.AuthorAuthorRelations
+                .Where(x => x.AuthorId == author.AuthorId || x.AuthorToFollowId == author.AuthorId)
+                .ToListAsync();           
+
+            dbContext.AuthorAuthorRelations.RemoveRange(followers);
+            
+            dbContext.Remove(author);
+        }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<Author>> SearchAuthor(string? searchText, int page, int skipCount, int takeCount)
+        {
+
+            if (skipCount < 0)
+            {
+                throw new ArgumentException(nameof(skipCount));
+            }
+            if (takeCount < 1)
+            {
+                throw new ArgumentException(nameof(takeCount));
+            }
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                return await dbContext.Authors
+                .OrderByDescending(x => x.Name)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
+            }
+
+            var lowerCaseText = searchText.ToLower();
+
+            return await dbContext.Authors
+                .Where(x => x.Name.ToLower().Contains(lowerCaseText) || lowerCaseText.Contains(x.Name.ToLower()))
+                .OrderByDescending(x => x.Name)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
         }
     }
 }

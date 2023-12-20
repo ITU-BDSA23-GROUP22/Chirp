@@ -7,6 +7,7 @@ using Moq;
 using Microsoft.AspNetCore.Http;
 using Chirp.Core;
 using Chirp.Core.Services;
+using Chirp.Infrastructure.Services;
 
 namespace Chirp.Web.Services
 {
@@ -335,6 +336,53 @@ namespace Chirp.Web.Services
 
             // Assert
             Assert.Null(author);
+        }
+
+        [Fact]
+        public async Task GetAuthorListViewModel_With_Invalid_PageNumber_Should_Throw()
+        {
+            // Arrange
+            var searchText = "";
+            var pageNumber = -1;
+
+            var presentationService = new PresentationService(httpContextAccessorMock.Object, chirpServiceMock.Object);
+
+            // Act + Assert
+            var exception = await Assert.ThrowsAsync<ArgumentException>(async () => await presentationService.GetAuthorListViewModel(searchText, pageNumber));
+        }
+
+        [Fact]
+        public async Task GetAuthorListViewModel_With_SearchText_Should_Return_AuthorListViewModel()
+        {
+            // Arrange
+            var searchText = "";
+            var pageNumber = 1;
+            var pageUrl = "/Authors";
+
+            var authorId = Guid.NewGuid();
+            var authorName = "Name";
+
+            var authorDtos = new[]
+                {
+                    new AuthorDTO (authorId, authorName, Enumerable.Empty<Guid>())
+                }.AsEnumerable();
+
+
+            var presentationService = new PresentationService(httpContextAccessorMock.Object, chirpServiceMock.Object);
+            this.chirpServiceMock.Setup(x => x.SearchAuthors(
+                    searchText, pageNumber, PresentationService.MAX_AUTHORS_PER_PAGE * (pageNumber - 1), PresentationService.MAX_AUTHORS_PER_PAGE + 1
+                ))
+                .Returns(Task.FromResult(authorDtos));
+
+            // Act
+            var results = await presentationService.GetAuthorListViewModel(searchText, pageNumber);
+
+            // Assert
+            Assert.NotNull(results);
+            Assert.Equal(pageUrl, results.PageUrl);
+            Assert.Equal(pageNumber, results.PageNumber);
+            Assert.Equal(authorDtos.Count(), results.Authors.Count());
+
         }
 
         private void SetAuthenticatedUser(Guid authorId, string authorName)

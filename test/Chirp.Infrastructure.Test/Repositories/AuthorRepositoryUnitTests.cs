@@ -133,5 +133,61 @@ namespace Chirp.Infrastructure.test.Repositories
             var author = chirpDbContext.Authors.Single(x => x.AuthorId == author1.AuthorId);
             Assert.Empty(author.Following);
         }
+
+        [Fact]
+        public async Task SearchAuthor_With_Empty_SearchText_Should_Return_All_Authors()
+        {
+            // Arrange
+            var author1Id = Guid.NewGuid();
+            var author1Name = "author1";
+            var author2Id = Guid.NewGuid();
+            var author2Name = "author2";
+
+            var authorRepository = new AuthorRepository(this.chirpDbContext);
+
+            var author1 = await authorRepository.Create(author1Id, author1Name);
+            var author2 = await authorRepository.Create(author2Id, author2Name);
+           
+            await this.dbContext.SaveChanges();
+            var searchText = "";
+
+            // Act
+            var authors = await authorRepository.SearchAuthor(searchText, 1, 0, 10);
+
+            // Assert
+            Assert.Equal(2, authors.Count());
+            Assert.Single(authors.Where(x => x.AuthorId == author1Id && x.Name == author1Name));
+            Assert.Single(authors.Where(x => x.AuthorId == author2Id && x.Name == author2Name));
+        }
+
+        [Fact]
+        public async Task SearchAuthor_With_SearchText_Should_Return_Matched_Authors()
+        {
+            // Arrange
+            var author1Id = Guid.NewGuid();
+            var author1Name = "anpart";
+            var author2Id = Guid.NewGuid();
+            var author2Name = "Art";
+            var author3Id = Guid.NewGuid();
+            var author3Name = "Art House";
+
+            var authorRepository = new AuthorRepository(this.chirpDbContext);
+
+            var author1 = await authorRepository.Create(author1Id, author1Name);
+            var author2 = await authorRepository.Create(author2Id, author2Name);
+            var author3 = await authorRepository.Create(author3Id, author3Name);
+
+            await this.dbContext.SaveChanges();
+            var searchText = "Part";
+
+            // Act
+            var authors = await authorRepository.SearchAuthor(searchText, 1, 0, 10);
+
+            // Assert
+            Assert.Equal(2, authors.Count());
+            Assert.Single(authors.Where(x => x.AuthorId == author1Id && x.Name == author1Name));
+            Assert.Single(authors.Where(x => x.AuthorId == author2Id && x.Name == author2Name));
+        }
+
     }
 }

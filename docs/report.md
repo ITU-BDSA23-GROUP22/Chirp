@@ -18,7 +18,7 @@ Here comes a description of our domain model.
 
 ![Illustration of the _Chirp!_ data model as UML class diagram.](docs/images/domain_model.png)
 
-<img src="images/DomainModel.drawio" alt="UML Diagram of the domain model" style="height:250px;"/>
+<img src="Diagrams/DomainModel.drawio.svg" alt="UML Diagram of the domain model" style="height:250px;"/>
 
 ## Architecture — In the small
 INSERT DIAGRAM AND SMALL NOTE

@@ -16,21 +16,19 @@ numbersections: true
 
 Here comes a description of our domain model.
 
-![Illustration of the _Chirp!_ data model as UML class diagram.](docs/images/domain_model.png)
-
-<img src="Diagrams/DomainModel.drawio.svg" alt="UML Diagram of the domain model" style="height:250px;"/>
+<img src="Diagrams/DomainModel.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
 ## Architecture — In the small
 INSERT DIAGRAM AND SMALL NOTE
 
-<img src="Diagrams/SmallArchitecture.drawio.svg" alt="UML Diagram of the domain model" style="height:250px;"/>
+<img src="Diagrams/SmallArchitecture.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
 ## Architecture of deployed application
 WHY WE CHANGED BACK TO SQLITE WRITE HERE
 
 INSERt DIAGRAM AND SMALL NOTE
 
-<img src="Diagrams/DeployedArchitecture.drawio.svg" alt="UML Diagram of the domain model" style="height:250px;"/>
+<img src="Diagrams/DeployedArchitecture.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
 =======
 **Azure web services**
@@ -45,19 +43,19 @@ INSER DIAGRAM AND SMALL NOTE
 ## User activities
 INSERT DIAGRAM AND SMALL NOTE
 
-<img src="Diagrams/UserJourney.drawio.svg" alt="UML Diagram of the domain model" style="height:250px;"/>
+<img src="Diagrams/UserJourney.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
 ## Sequence of functionality/calls trough _Chirp!_
 INSERT DIAGRAM AND SMALL NOTE
 
-<img src="Diagrams/SequenceOfFunctionality.drawio.svg" alt="UML Diagram of the domain model" style="height:250px;"/>
+<img src="Diagrams/SequenceOfFunctionality.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
 # Process
 
 ## Build, test, release, and deployment
 INSERT DIAGRAM AND SMALL NOTE
 
-<img src="Diagrams/BuldTestReleaseDeploy.drawio.svg" alt="UML Diagram of the domain model" style="height:250px;"/>
+<img src="Diagrams/BuldTestReleaseDeploy.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
 ## Team work
 The communication channel for the team has primarily been Message with the occasional Discord calls if we weren't able to meet up but thought a meeting was preferred over chatting on Messenger

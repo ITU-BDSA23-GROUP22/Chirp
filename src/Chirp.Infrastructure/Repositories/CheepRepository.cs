@@ -86,8 +86,10 @@ namespace Chirp.Infrastructure
                 .Where(a => a.Author == author)
                 .ToListAsync();
 
+            Author anonymizedAuthor = new Author { Name = "[Deleted user]" };
+
             foreach(Cheep loopCheep in cheeps) {
-                loopCheep.Author = new Author { Name = "[Deleted user]" };
+                loopCheep.Author = anonymizedAuthor;
             }
         }
     }

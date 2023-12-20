@@ -16,6 +16,6 @@ namespace Chirp.Core.Services
 
                 Task UnfollowAuthor(Guid authorId, Guid authorToUnfollowId);
 
-                Task DeleteAuthor(Guid authorId);
+                Task AnonymizeAuthor(Guid authorId);
         }
 }

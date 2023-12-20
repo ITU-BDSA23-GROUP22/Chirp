@@ -34,7 +34,7 @@ namespace Chirp.Web.Pages
         public IActionResult OnPostForgetMe()
         {
             HttpContext.SignOutAsync();
-            chirpService.DeleteAuthor(presentationService.GetAuthenticatedAuthor().Id);
+            chirpService.AnonymizeAuthor(presentationService.GetAuthenticatedAuthor().Id);
 
             return RedirectToPage("/signin");
         }

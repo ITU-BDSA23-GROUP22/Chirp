@@ -124,6 +124,11 @@ namespace Chirp.Infrastructure
         }
 
         public async Task DeleteAuthor(Author author) {
+            var followers = await dbContext.AuthorAuthorRelations
+                .Where(x => x.AuthorId == author.AuthorId || x.AuthorToFollowId == author.AuthorId)
+                .ToListAsync();           
+
+            dbContext.AuthorAuthorRelations.RemoveRange(followers);
             dbContext.Remove(author);
         }
     }

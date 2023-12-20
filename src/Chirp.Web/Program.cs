@@ -55,6 +55,7 @@ namespace Chirp.Web
                 }
                 options.Conventions.AllowAnonymousToPage("/Public");
                 options.Conventions.AllowAnonymousToPage("/UserTimeline");
+                options.Conventions.AllowAnonymousToPage("/Authors");
 
             })
             .AddMvcOptions(options =>

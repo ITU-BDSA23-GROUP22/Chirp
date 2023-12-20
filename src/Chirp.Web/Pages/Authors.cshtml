@@ -1,0 +1,9 @@
+﻿@page "/Authors"
+@model Chirp.web.Pages.AuthorsModel
+@{
+    ViewData["Title"] = "Chirp!";
+    Layout = "Shared/_Layout";
+}
+
+@await Html.PartialAsync("_AuthorListPartial", Model.AuthorListViewModel)
+

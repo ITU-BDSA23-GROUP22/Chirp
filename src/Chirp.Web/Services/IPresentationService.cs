@@ -21,6 +21,7 @@ namespace Chirp.Web
 
         Task UnfollowAuthor(Guid authorToFollowId);
 
+        Task<AuthorListViewModel> GetAuthorListViewModel(string? searchText, int pageNumber);
 
 
     }

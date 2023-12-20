@@ -86,10 +86,10 @@ When an issue is created a ticket is generated and put into the "New" section of
 ## How to make _Chirp!_ work locally
 TEXT TO EXPLAIN HOW AND WHY
 
-In As Chirp! both supports using SQLite and SQL server on Docker, in the code it is defaulted to connect to the SQL server docker container. The following steps are to run the default configurations.
-Open Terminal__
-```Docker run```__
-```cd src/Chirp.Web```__
+In As Chirp! both supports using SQLite and SQL server on Docker, in the code it is defaulted to connect to the SQL server docker container. The following steps are to run the default configurations.  
+Open Terminal  
+```Docker run```  
+```cd src/Chirp.Web```  
 ```dotnet run```
 
 If the developer wants to change the configuration, the configuration in appsettings…
@@ -97,9 +97,9 @@ If the developer wants to change the configuration, the configuration in appsett
 
 ## How to run test suite locally
 TEXT TO EXPLAIN HOW AND WHY
-The following steps are to run the various test suites.__
-Open Terminal__
-```cd test/Chirp.Web.Test``` or ```cd test/Chirp.Infrastructure.Test```__
+The following steps are to run the various test suites.  
+Open Terminal  
+```cd test/Chirp.Web.Test``` or ```cd test/Chirp.Infrastructure.Test```  
 ```dotnet test```
 
 # Ethics

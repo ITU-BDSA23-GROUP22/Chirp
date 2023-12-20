@@ -38,6 +38,8 @@ public class End2EndTestUser
         if (!startsWithPrefix)
         {
             output.WriteLine(page.Url);
+            var htmlContent = await page.ContentAsync();
+            output.WriteLine(htmlContent);
             await page.WaitForSelectorAsync(".btn.btn-primary.width-full.ws-normal");
             await page.ClickAsync(".btn.btn-primary.width-full.ws-normal");
         }

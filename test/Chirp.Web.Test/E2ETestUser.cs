@@ -21,6 +21,7 @@ public class End2EndTestUser
         await page.ClickAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
         await page.WaitForSelectorAsync("#GitHubExchange");
         await page.ClickAsync("#GitHubExchange");
+
         //Page would not update fast enough and program grapped the wrong URL. Had to implement a sleep
         await page.WaitForTimeoutAsync(8000);
         await page.ScreenshotAsync(new()
@@ -37,16 +38,11 @@ public class End2EndTestUser
                 await page.GetByLabel("Username or email address").FillAsync("Myfakegithubaccount");
                 await page.GetByLabel("Password").FillAsync("Myfakegithubpassword");
                 await page.GetByRole(AriaRole.Button, new() { Name = "Sign in", Exact = true }).ClickAsync();
-                await page.WaitForTimeoutAsync(8000);
-                await page.GotoAsync("https://bdsagroup22chirprazor.azurewebsites.net");
-
+                await page.WaitForNavigationAsync();
             }
             else
-
             {
                 output.WriteLine(page.Url);
-                //var htmlContent = await page.ContentAsync();
-                //output.WriteLine(htmlContent);
                 await page.WaitForSelectorAsync(".btn.btn-primary.width-full.ws-normal");
                 await page.ClickAsync(".btn.btn-primary.width-full.ws-normal");
             }
@@ -62,6 +58,7 @@ public class End2EndTestUser
     {
         using var playwright = await Playwright.CreateAsync();
         await using var browser = await playwright.Chromium.LaunchAsync();
+
         var context = await browser.NewContextAsync();
         var page = await context.NewPageAsync();
 
@@ -72,6 +69,8 @@ public class End2EndTestUser
         if (h2 != null)
         {
             var h2Content = await h2.InnerTextAsync();
+
+            //Check if we are indeed on the public timeline and not logged in
             Assert.Equal("Public Timeline", h2Content);
         }
         else
@@ -109,6 +108,8 @@ public class End2EndTestUser
             foreach (var link in navigationButtons)
             {
                 var linkName = await link.InnerTextAsync();
+
+                //Check if navigation bar is what is expected when not logged in
                 Assert.Equal(correctButtons[buttonLoopCounter], linkName);
                 buttonLoopCounter++;
             }
@@ -176,6 +177,7 @@ public class End2EndTestUser
         }
         for (int i = 0; i < cheepsPage1.Count; i++)
         {
+            //Check if pages or not equal and that pagination indeed works
             Assert.NotEqual(cheepsPage1[i], cheepsPage2[i]);
         }
         await browser.CloseAsync();
@@ -236,7 +238,6 @@ public class End2EndTestUser
         var page = await context.NewPageAsync();
 
         await PageLogin(page);
-        output.WriteLine(page.Url);
         await page.WaitForSelectorAsync(".navigation");
 
 
@@ -246,6 +247,8 @@ public class End2EndTestUser
         foreach (var link in elementsWithHref)
         {
             var linkName = await link.InnerTextAsync();
+
+            //Check if navigation bar is indeed what is expected when logged in
             Assert.Equal(correctButtons[buttonLoopCounter], linkName);
             buttonLoopCounter++;
         }
@@ -327,6 +330,5 @@ public class End2EndTestUser
         //Check if private timeline contains no cheeps after unfollow
         Assert.True(doesClassExistAfterUnfollow == null);
         await browser.CloseAsync();
-
     }
 }

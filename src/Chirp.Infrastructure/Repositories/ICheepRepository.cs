@@ -6,7 +6,8 @@
         Task<IEnumerable<Cheep>> GetAll(int page, int skipCount, int takeCount);
 
         Task<IEnumerable<Cheep>> GetByAuthors(IEnumerable<Guid> authors, int page, int skipCount, int takeCount);
-
+        
+        Task AnonymizeCheeps(Author author);
 
     }
 }

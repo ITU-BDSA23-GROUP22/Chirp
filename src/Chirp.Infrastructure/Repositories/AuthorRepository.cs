@@ -24,7 +24,7 @@ namespace Chirp.Infrastructure
 
             if (dbContext.Authors.Any(a => a.AuthorId == authorId))
             {
-                throw new Exception("Failed to create author - an author with authorId already exists");
+                throw new Exception($"Failed to create author - an author with authorId already exists");
             }
 
             var author = new Author
@@ -121,6 +121,18 @@ namespace Chirp.Infrastructure
             }
 
             dbContext.AuthorAuthorRelations.Remove(authorAuthorRelation);
+        }
+
+
+        public async Task DeleteAuthor(Author author) 
+        {
+            var followers = await dbContext.AuthorAuthorRelations
+                .Where(x => x.AuthorId == author.AuthorId || x.AuthorToFollowId == author.AuthorId)
+                .ToListAsync();           
+
+            dbContext.AuthorAuthorRelations.RemoveRange(followers);
+            
+            dbContext.Remove(author);
         }
 
         public async Task<IEnumerable<Author>> SearchAuthor(string? searchText, int page, int skipCount, int takeCount)

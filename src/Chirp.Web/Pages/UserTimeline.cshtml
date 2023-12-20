@@ -6,13 +6,17 @@
 }
 
 <div>
-    <h2> @Model.Author?.Name's Timeline </h2>
+    @if(Model.Author.Name.Equals("[Deleted user]")) {
+        <em>This user has been deleted.</em>
+    } else {
+        <h2> @Model.Author?.Name's Timeline </h2>
 
-    @if (Model.AllowCheepShare)
-    {
-        @await Html.PartialAsync("_CheepSharePartial")
+        @if (Model.AllowCheepShare)
+        {
+            @await Html.PartialAsync("_CheepSharePartial")
+        }
+
+        @await Html.PartialAsync("_CheepListPartial", Model.CheepsListViewModel)
     }
-
-    @await Html.PartialAsync("_CheepListPartial", Model.CheepsListViewModel)
 
 </div>

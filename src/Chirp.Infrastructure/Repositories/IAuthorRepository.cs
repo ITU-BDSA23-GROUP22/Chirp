@@ -10,7 +10,8 @@ namespace Chirp.Infrastructure
 
         Task UnfollowAuthor(Author author, Author authorToUnfollow);
 
-        Task<IEnumerable<Author>> SearchAuthor(string? searchText, int page, int skipCount, int takeCount);
+        Task DeleteAuthor(Author author);
 
+        Task<IEnumerable<Author>> SearchAuthor(string? searchText, int page, int skipCount, int takeCount);
     }
 }

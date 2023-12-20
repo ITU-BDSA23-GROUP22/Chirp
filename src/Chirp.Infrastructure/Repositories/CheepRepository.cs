@@ -79,5 +79,18 @@ namespace Chirp.Infrastructure
 
             return cheeps;
         }
+
+        public async Task AnonymizeCheeps(Author author) {
+            var cheeps = await dbContext.Cheeps
+                .Include(x => x.Author)
+                .Where(a => a.Author == author)
+                .ToListAsync();
+
+            Author anonymizedAuthor = new Author { Name = "" };
+
+            foreach(Cheep loopCheep in cheeps) {
+                loopCheep.Author = anonymizedAuthor;
+            }
+        }
     }
 }

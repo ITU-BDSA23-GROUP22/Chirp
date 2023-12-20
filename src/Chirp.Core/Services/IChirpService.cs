@@ -16,6 +16,8 @@ namespace Chirp.Core.Services
 
                 Task UnfollowAuthor(Guid authorId, Guid authorToUnfollowId);
 
+                Task AnonymizeAuthor(Guid authorId);
+
                 Task<IEnumerable<AuthorDTO>> SearchAuthors(string? searchText, int page, int skipCount, int takeCount);
         }
 }

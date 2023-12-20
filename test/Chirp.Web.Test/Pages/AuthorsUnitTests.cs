@@ -11,11 +11,13 @@ using Xunit.Abstractions;
 using Chirp.Core;
 using Chirp.Core.Services;
 using Chirp.SharedUsings;
+using Microsoft.Extensions.Configuration;
 
 namespace Chirp.Web.Pages
 {
-    public class AuthorsUnitTests
+    public class AuthorsUnitTests : IDisposable
     {
+        private readonly WebApplicationFactory<Chirp.Web.Program> factory;
         private readonly HttpClient httpClient;
         private readonly Mock<IChirpService> chirpServiceMock;
 
@@ -25,7 +27,7 @@ namespace Chirp.Web.Pages
 
             this.chirpServiceMock = new Mock<IChirpService>();
 
-            var factory = new WebApplicationFactory<Chirp.Web.Program>()
+            this.factory = new WebApplicationFactory<Chirp.Web.Program>()
                 .WithWebHostBuilder(builder =>
                 {
                     builder.ConfigureServices(services =>
@@ -48,6 +50,17 @@ namespace Chirp.Web.Pages
                         services.RemoveAll<IChirpService>();
                         services.AddTransient<IChirpService>(x => this.chirpServiceMock.Object);
                     });
+
+                    builder.ConfigureAppConfiguration((context, configurations) =>
+                    {
+                        // Override appSettings configuration for DatabaseProviderConfig
+                        var overrideConfigs = new Dictionary<string,string?>
+                        {
+                            { $"{nameof(DatabaseProviderConfig)}:{nameof(DatabaseProviderConfig.EnsureCreatedDatabaseOnStartup)}" , "false" }
+                        };
+
+                        configurations.AddInMemoryCollection(overrideConfigs);
+                    });
                 });
 
             this.httpClient = factory.CreateClient(
@@ -56,6 +69,18 @@ namespace Chirp.Web.Pages
                     AllowAutoRedirect = true
                 });
             this.httpClient.BaseAddress = new Uri("https://localhost/");
+        }
+
+        public void Dispose()
+        {
+            if (this.httpClient != null)
+            {
+                this.httpClient.Dispose();
+            }
+            if (this.factory != null)
+            {
+                this.factory.Dispose();
+            }
         }
 
         [Fact]

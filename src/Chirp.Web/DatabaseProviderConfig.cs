@@ -13,9 +13,12 @@ namespace Chirp.Web
 		/// <summary>
 		/// 	If true, the database is dropped before updating and seeding.
 		/// </summary>
-		public bool RecreateDatabaseOnStartup { get; set; }
+		public bool EnsureDeletedDatabaseOnStartup { get; set; }
 
 		public bool SeedDatabase { get; set; }
-	}
+
+		public bool EnsureCreatedDatabaseOnStartup { get; set; }
+
+    }
 }
 

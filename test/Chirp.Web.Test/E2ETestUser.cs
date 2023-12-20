@@ -38,7 +38,6 @@ public class End2EndTestUser
             bool startsWithPrefixGithub = page.Url.StartsWith("https://github.com/login?", StringComparison.OrdinalIgnoreCase);
             if (startsWithPrefixGithub)
             {
-                await page.GotoAsync("https://github.com/login");
                 await page.GetByLabel("Username or email address").FillAsync("Myfakegithubaccount");
                 await page.GetByLabel("Password").FillAsync("Myfakegithubpassword");
                 await page.GetByRole(AriaRole.Button, new() { Name = "Sign in", Exact = true }).ClickAsync();

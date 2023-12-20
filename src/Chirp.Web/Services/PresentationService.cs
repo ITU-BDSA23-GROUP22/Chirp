@@ -142,6 +142,7 @@ namespace Chirp.Web
             return author;
         }
 
+        /// <inheritdoc/>
         public async Task<AuthorListViewModel> GetAuthorListViewModel(string? searchText, int pageNumber)
         {
             if (pageNumber < 1)
@@ -163,6 +164,13 @@ namespace Chirp.Web
             return new AuthorListViewModel(authorDto, authorDtos, pageNumber, MAX_AUTHORS_PER_PAGE, "/Authors", searchText);
         }
 
+        /// <inheritdoc/>
+        public async Task<IEnumerable<AuthorDTO>> GetFollowingAuthors(Guid authorId)
+        {
+            var author = await chirpService.GetAuthor(authorId)
+                ?? throw new Exception("GetFollowingAuthors - Author not found");
 
+            return await this.chirpService.GetAuthors(author.followingIds);
+        }
     }
 }

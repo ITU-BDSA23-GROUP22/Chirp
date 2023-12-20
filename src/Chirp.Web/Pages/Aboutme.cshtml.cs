@@ -9,13 +9,13 @@ namespace Chirp.Web.Pages
 {
     public class AboutMeModel : PageModel
     {
+        public const int MAX_DOWNLOAD_CHEEPS = 1000;
+
         private readonly IChirpService chirpService;
 
         private readonly IPresentationService presentationService;
 
-        public AuthorDTO? Author { get; set; } = null;
-
-        public IEnumerable<CheepDTO> Cheeps { get; set; } = null!;
+        public IEnumerable<AuthorDTO> Authors { get; set; } = null!;
 
         public AboutMeModel(IChirpService chirpService, IPresentationService presentationService)
         {
@@ -31,12 +31,18 @@ namespace Chirp.Web.Pages
         /// <returns></returns>
         public async Task<ActionResult> OnGet()
         {
-            if (!User.Identity.IsAuthenticated)
+            var authenticatedUser = presentationService.GetAuthenticatedAuthor();
+
+            if (authenticatedUser == null)
             {
                 return Unauthorized();
             }
 
+            this.Authors = await presentationService.GetFollowingAuthors(authenticatedUser.Id);
+
+
             return Page();
+            
         }
 
         /// <summary>
@@ -58,22 +64,37 @@ namespace Chirp.Web.Pages
         /// <returns></returns>
         public async Task<ActionResult> OnPostDownloadMyInfo()
         {
-            AuthorDTO author = presentationService.GetAuthenticatedAuthor();
+
+            var authenticatedUser = presentationService.GetAuthenticatedAuthor();
+
+            if (authenticatedUser == null)
+            {
+                return Unauthorized();
+            }
 
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("Name:");
-            sb.AppendLine(author.Name);
+            sb.AppendLine(authenticatedUser.Name);
             sb.AppendLine();
             sb.AppendLine("Followed users:");
 
-            foreach(Guid followedUser in author.followingIds)
+            var authors = await presentationService.GetFollowingAuthors(authenticatedUser.Id);
+
+            foreach(var followedAuthor in authors)
             {
-                sb.AppendLine(followedUser.ToString());
+                sb.AppendLine($"{followedAuthor.Name}");
             }
 
             sb.AppendLine();
             sb.AppendLine("Cheeps:");
+
+            var cheeps = await chirpService.GetCheepsByAuthors(new[] { authenticatedUser.Id }, 1, 0, MAX_DOWNLOAD_CHEEPS);
+
+            foreach (var cheep in cheeps)
+            {
+                sb.AppendLine($"'{cheep.Message}' at {cheep.Timestamp}");
+            }
 
             Response.Headers["Content-Disposition"] = "attachment;filename=information.txt";
 

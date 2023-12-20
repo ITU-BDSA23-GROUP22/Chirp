@@ -131,7 +131,7 @@ namespace Chirp.Infrastructure.Services
             await dbContext.SaveChanges();
         }
 
-
+        /// <inheritdoc/>
         public async Task AnonymizeAuthor(Guid authorId) 
         {
             var author = await this.authorRepository.Get(authorId)
@@ -142,10 +142,19 @@ namespace Chirp.Infrastructure.Services
 
                 await dbContext.SaveChanges();
         }
-        
+
+        /// <inheritdoc/>
         public async Task<IEnumerable<AuthorDTO>> SearchAuthors(string? searchText, int page, int skipCount, int takeCount)
         {
             var authors = await this.authorRepository.SearchAuthor(searchText, page, skipCount, takeCount);
+
+            return authors.Select(x => MapAuthorToDto(x));
+        }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<AuthorDTO>> GetAuthors(IEnumerable<Guid> authorIds)
+        {
+            var authors = await this.authorRepository.GetAuthors(authorIds);
 
             return authors.Select(x => MapAuthorToDto(x));
         }

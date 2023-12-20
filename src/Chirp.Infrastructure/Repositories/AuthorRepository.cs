@@ -174,5 +174,14 @@ namespace Chirp.Infrastructure
                 .Take(takeCount)
                 .ToListAsync();
         }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<Author>> GetAuthors(IEnumerable<Guid> authors)
+        {
+            return await dbContext.Authors
+                .Where(x => authors.Contains(x.AuthorId))
+                .OrderByDescending(x => x.Name)
+                .ToListAsync();
+        }
     }
 }

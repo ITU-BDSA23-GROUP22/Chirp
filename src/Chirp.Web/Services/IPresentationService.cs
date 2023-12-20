@@ -75,5 +75,12 @@ namespace Chirp.Web
         /// <param name="pageNumber"></param>
         /// <returns></returns>
         Task<AuthorListViewModel> GetAuthorListViewModel(string? searchText, int pageNumber);
+
+        /// <summary>
+        ///     Gets specified Author's following Authors
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <returns></returns>
+        Task<IEnumerable<AuthorDTO>> GetFollowingAuthors(Guid authorId);
     }
 }

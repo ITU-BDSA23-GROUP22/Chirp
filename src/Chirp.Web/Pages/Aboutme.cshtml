@@ -13,9 +13,9 @@
         <strong>Name: </strong> @authorUser.AuthorName
         <br>
         <strong>IDs of followed users: </strong>
-        @foreach (var followedAuthor in authorUser.FollowedAuthorIds)
+        @foreach (var followedAuthor in Model.Authors)
         {
-            <li><a href="/@followedAuthor">@followedAuthor</a></li>
+            <li><a href="/@followedAuthor.Id">@followedAuthor.Name</a></li>
         }
     </ul>
         

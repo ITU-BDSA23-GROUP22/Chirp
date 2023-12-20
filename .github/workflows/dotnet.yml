@@ -14,7 +14,7 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore ./src/Chirp.Web/Chirp.web.csproj
       - name: Install Playwright
-        run: pws test/Chirp.Web.Test/bin/Debug/netX/playwright.ps1 install
+        run: pwsh test/Chirp.Web.Test/bin/Debug/netX/playwright.ps1 install
       - name: Build
         run: dotnet build --no-restore ./src/Chirp.Web/Chirp.web.csproj
       - name: Test Chirp.Infrastructure

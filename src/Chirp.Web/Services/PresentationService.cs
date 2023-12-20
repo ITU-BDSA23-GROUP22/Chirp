@@ -1,14 +1,17 @@
 using System.Security.Claims;
+using System.Text;
 using Chirp.Core;
 using Chirp.Core.Services;
 using Chirp.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.Web
 {
     /// <inheritdoc/>
     public class PresentationService : IPresentationService
     {
+        public const int MAX_DOWNLOAD_CHEEPS = 1000;
         public const int MAX_CHEEPS_PER_PAGE = 5;
         public const int MAX_AUTHORS_PER_PAGE = 5;
 
@@ -171,6 +174,44 @@ namespace Chirp.Web
                 ?? throw new Exception("GetFollowingAuthors - Author not found");
 
             return await this.chirpService.GetAuthors(author.followingIds);
+        }
+
+        /// <inheritdoc/>
+        public async Task AnonymizeAuthor(Guid authorId)
+        {
+            await this.chirpService.AnonymizeAuthor(authorId);
+        }
+
+        /// <inheritdoc/>
+        public async Task<string> GetCheepsAndFollowerDownloadForAuthor(Guid authorId)
+        {
+            var author = await this.chirpService.GetAuthor(authorId);
+
+            var sb = new StringBuilder();
+
+            sb.AppendLine("Name:");
+            sb.AppendLine(author.Name);
+            sb.AppendLine();
+            sb.AppendLine("Followed users:");
+
+            var authors = await chirpService.GetAuthors(author.followingIds);
+
+            foreach (var followedAuthor in authors)
+            {
+                sb.AppendLine($"{followedAuthor.Name}");
+            }
+
+            sb.AppendLine();
+            sb.AppendLine("Cheeps:");
+
+            var cheeps = await chirpService.GetCheepsByAuthors(new[] { author.Id }, 1, 0, MAX_DOWNLOAD_CHEEPS);
+
+            foreach (var cheep in cheeps)
+            {
+                sb.AppendLine($"'{cheep.Message}' at {cheep.Timestamp}");
+            }
+
+            return sb.ToString();
         }
     }
 }

@@ -12,6 +12,7 @@ numbersections: true
 # Design and Architecture of _Chirp!_
 
 ## Domain model
+<INSERT DIAGRAM AND SMALL NOTE>
 
 Here comes a description of our domain model.
 

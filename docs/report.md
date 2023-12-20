@@ -16,33 +16,37 @@ numbersections: true
 
 Here comes a description of our domain model.
 
-![Illustration of the _Chirp!_ data model as UML class diagram.](docs/images/https://github.com/ITU-BDSA23-GROUP22/Chirp/blob/docs/docs/images/DomainModel.drawio)
+![Illustration of the _Chirp!_ data model as UML class diagram.](docs/images/domain_model.png)
 
 ## Architecture — In the small
-<INSERT DIAGRAM AND SMALL NOTE>
+INSERT DIAGRAM AND SMALL NOTE
 
 ## Architecture of deployed application
 WHY WE CHANGED BACK TO SQLITE WRITE HERE
 
+<<<<<<< HEAD
+INSER DIAGRAM AND SMALL NOTE
+=======
 **Azure web services**
-The Chirp! client is hosted on azure, under Azure Web Services, which is connected to the server via the connection string in appsettings. 
+The Chirp! client is hosted on azure, under Azure Web Services, which is connected to the server via the connection string in appsettings.
 
 **Database**
 The deployed application supports using both SQLite and Azure SQL database(application in local/development environment also supports SQL Server using Docker), based on the configurations in appsettings.< Development | Production >.json. In the deployed application, the appsettings configuration for SQLite is chosen in the final deployed application, due to insufficient student credits, at the end of the project.
 
-<INSER DIAGRAM AND SMALL NOTE>
+INSER DIAGRAM AND SMALL NOTE
+>>>>>>> aae9e2df911c43c1c2e3822310dff6b8ecf3cc37
 
 ## User activities
-<INSERT DIAGRAM AND SMALL NOTE>
+INSERT DIAGRAM AND SMALL NOTE
 
 
 ## Sequence of functionality/calls trough _Chirp!_
-<INSERT DIAGRAM AND SMALL NOTE>
+INSERT DIAGRAM AND SMALL NOTE
 
 # Process
 
 ## Build, test, release, and deployment
-<INSERT DIAGRAM AND SMALL NOTE>
+INSERT DIAGRAM AND SMALL NOTE
 
 ## Team work
 The communication channel for the team has primarily been Message with the occasional Discord calls if we weren't able to meet up but thought a meeting was preferred over chatting on Messenger

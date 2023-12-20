@@ -2,9 +2,10 @@
 title: _Chirp!_ Project Report
 subtitle: ITU BDSA 2023 Group 22
 authors:
-- "Helge Pfeiffer <ropf@itu.dk>"
-- "Rasmus Lystrøm <rnie@itu.dk>"
 - "Patrick Herlin Henriksen <pahe@itu.dk>"
+- "Emil Parkel <park@itu.dk>"
+- "Rasmus Emil Sylvest Hendil <rehe@itu.dk>"
+- "Marcus Kofoed Kirkegaard <mkki@itu.dk>"
 numbersections: true
 ---
 

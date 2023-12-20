@@ -175,13 +175,17 @@ namespace Chirp.Web.Tests.ViewModels
         public void Constructor_With_Authenticated_Author_Should_Return_ViewModel_With_Cheeps_()
         {
             // Arrange
-            var authenticatedAuthor = (AuthorDTO?)null;
             var pageNumber = 1;
             var cheepsPerPage = 10;
             var pageUrl = "url";
 
             var authorId = Guid.NewGuid();
             var authorName = "author";
+
+            var authenticatedAuthor = new AuthorDTO(
+                Guid.NewGuid(),
+                "authenticatedAuthor",
+                new Guid[] { authorId });
 
             var cheeps = new CheepDTO[]
             {

@@ -122,11 +122,12 @@ namespace Chirp.Infrastructure.Services
             await dbContext.SaveChanges();
         }
 
-        public async Task AnonymizeAuthor(Guid authorId) {
+        public async Task DeleteAuthor(Guid authorId) {
             var author = await this.authorRepository.Get(authorId)
                 ?? throw new Exception($"Failed to AnonymizeAuthor - Author not found");
 
-                await this.authorRepository.AnonymizeAuthor(author);
+                await this.cheepRepository.AnonymizeCheeps(author);
+                await this.authorRepository.DeleteAuthor(author);
 
                 await dbContext.SaveChanges();
         }

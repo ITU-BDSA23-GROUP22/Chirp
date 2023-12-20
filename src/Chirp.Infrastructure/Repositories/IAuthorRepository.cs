@@ -10,7 +10,7 @@ namespace Chirp.Infrastructure
 
         Task UnfollowAuthor(Author author, Author authorToUnfollow);
 
-        Task AnonymizeAuthor(Author author);
+        Task DeleteAuthor(Author author);
 
     }
 }

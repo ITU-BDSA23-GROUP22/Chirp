@@ -10,12 +10,23 @@
     <h2>Your information stored in our system</h2>
 
     <ul>
-        <li><b>Name: </b></li>
-        <p>@authorUser.AuthorName</p>
+        <strong>Name: </strong> @authorUser.AuthorName
+        <br>
+        <strong>IDs of followed users: </strong>
+        @foreach (var followedAuthor in authorUser.FollowedAuthorIds)
+        {
+            <li><a href="/@followedAuthor">@followedAuthor</a></li>
+        }
+    </ul>
         
 
+    <h2>Danger zone</h2>
+    <ul>
+        <form method="post" asp-page-handler="downloadmyinfo">
+            <button type="submit" style="background: gold">Download my information</button>
+        </form>
         <form method="post" asp-page-handler="forgetme">
-            <button type="submit" style="background: red" name=@authorUser.AuthorId>Forget me</button>
+            <button type="submit" style="background: red">Delete my account</button>
         </form>
     </ul>
 </div>

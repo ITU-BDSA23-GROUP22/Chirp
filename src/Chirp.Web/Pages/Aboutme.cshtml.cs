@@ -4,6 +4,7 @@ using Chirp.Core;
 using Chirp.Core.Services;
 using System.ComponentModel.DataAnnotations;
 using Chirp.Web.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Chirp.Web.Pages
 {
@@ -31,10 +32,20 @@ namespace Chirp.Web.Pages
 
         public IActionResult OnPostForgetMe()
         {
-            Console.WriteLine(presentationService.GetAuthenticatedAuthor());
-            chirpService.AnonymizeAuthor(presentationService.GetAuthenticatedAuthor().Id);
+            HttpContext.SignOutAsync();
+            chirpService.DeleteAuthor(presentationService.GetAuthenticatedAuthor().Id);
 
-            return Page();
+            return RedirectToPage("/signin");
+        }
+
+        public IActionResult OnPostDownloadMyInfo()
+        {
+            Response.Headers["Content-Disposition"] = $"attachment; filename=information.txt";
+            Response.Headers["Content-Type"] = "text/plain";
+
+            Response.WriteAsync(presentationService.GetAuthenticatedAuthor().Name).Wait();
+
+            return new ContentResult();
         }
     }
 }

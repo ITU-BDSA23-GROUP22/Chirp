@@ -123,8 +123,8 @@ namespace Chirp.Infrastructure
             dbContext.AuthorAuthorRelations.Remove(authorAuthorRelation);
         }
 
-        public async Task AnonymizeAuthor(Author author) {
-            author.Name = "[Deleted user]";
+        public async Task DeleteAuthor(Author author) {
+            dbContext.Remove(author);
         }
     }
 }

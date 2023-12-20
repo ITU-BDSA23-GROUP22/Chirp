@@ -15,13 +15,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace Chirp.Web.Pages
 {
-    public class PublicUnitTests : IDisposable
+    public class AuthorsUnitTests : IDisposable
     {
         private readonly WebApplicationFactory<Chirp.Web.Program> factory;
         private readonly HttpClient httpClient;
         private readonly Mock<IChirpService> chirpServiceMock;
 
-        public PublicUnitTests(ITestOutputHelper output)
+        public AuthorsUnitTests(ITestOutputHelper output)
         {
             var outputLoggerFactory = new OutputLoggerFactory(output);
 
@@ -54,14 +54,13 @@ namespace Chirp.Web.Pages
                     builder.ConfigureAppConfiguration((context, configurations) =>
                     {
                         // Override appSettings configuration for DatabaseProviderConfig
-                        var overrideConfigs = new Dictionary<string, string?>
+                        var overrideConfigs = new Dictionary<string,string?>
                         {
                             { $"{nameof(DatabaseProviderConfig)}:{nameof(DatabaseProviderConfig.EnsureCreatedDatabaseOnStartup)}" , "false" }
                         };
 
                         configurations.AddInMemoryCollection(overrideConfigs);
                     });
-
                 });
 
             this.httpClient = factory.CreateClient(
@@ -90,24 +89,24 @@ namespace Chirp.Web.Pages
             // Arrange
 
             // Act
-            var actual = await this.httpClient.GetAsync("/");
+            var actual = await this.httpClient.GetAsync("/Authors");
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, actual.StatusCode);
         }
 
         [Fact]
-        public async Task OnPost_With_AuthentictedUser_And_CheepText_Should_CreateCheep_And_Return_StatusCode_OK()
+        public async Task OnPost_With_AuthentictedUser_And_SearchText_Should_Return_StatusCode_OK()
         {
             // Arrange
             var authorId = Guid.NewGuid();
             var authorName = "Mr.Author";
             SetAuthenticatedUser(authorId, authorName);
 
-            var cheepText = "Hello";
+            var searchText = "Author";
             var form = new Dictionary<string, string>()
             {
-                ["cheepText"] = cheepText,
+                ["searchText"] = searchText,
             };
 
             this.chirpServiceMock.Setup(x => x.GetAuthor(authorId)
@@ -116,39 +115,16 @@ namespace Chirp.Web.Pages
                         (AuthorDTO?)new AuthorDTO(authorId, authorName, Enumerable.Empty<Guid>()
                         )));
 
-
             // Act
             using var content = new FormUrlEncodedContent(form);
-            var actual = await this.httpClient.PostAsync("/?handler=share", content);
+            var actual = await this.httpClient.PostAsync("/Authors?handler=search", content);
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, actual.StatusCode);
 
-            this.chirpServiceMock.Verify(x => x.CreateCheep(
-                authorId,
-                cheepText
-                ), Times.Once);
+            this.chirpServiceMock.Verify(x => x.SearchAuthors(
+                searchText, 1, 0, PresentationService.MAX_AUTHORS_PER_PAGE + 1), Times.Once);
         }
-
-        [Fact]
-        public async Task OnPost_With_NoneAuthenticted_And_CheepText_Should_Return_StatusCode_BadRequest()
-        {
-            // Arrange
-            var cheepText = "Hello";
-            var form = new Dictionary<string, string>()
-            {
-                ["cheepText"] = cheepText,
-            };
-
-            // Act
-            using var content = new FormUrlEncodedContent(form);
-            var actual = await this.httpClient.PostAsync("/handler=share", content);
-
-            // Assert
-            Assert.Equal(HttpStatusCode.Unauthorized, actual.StatusCode);
-        }
-
-        #region Private helpers
 
         private void SetAuthenticatedUser(Guid userId, string userName)
         {
@@ -156,7 +132,5 @@ namespace Chirp.Web.Pages
             this.httpClient.DefaultRequestHeaders.Add(TestAuthenticationHandler.UserId, userId.ToString());
             this.httpClient.DefaultRequestHeaders.Add(TestAuthenticationHandler.UserName, userName);
         }
-
-        #endregion
     }
 }

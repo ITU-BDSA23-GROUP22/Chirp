@@ -2,10 +2,12 @@
 using System.Net.Http.Headers;
 using Chirp.Infrastructure;
 using Chirp.SharedUsings;
+using Chirp.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -65,6 +67,18 @@ namespace Chirp.IntegrationTests
                             .UseSqlite(connection)
                         );
                     });
+
+                    builder.ConfigureAppConfiguration((context, configurations) =>
+                    {
+                        // Override appSettings configuration for DatabaseProviderConfig
+                        var overrideConfigs = new Dictionary<string, string?>
+                        {
+                            { $"{nameof(DatabaseProviderConfig)}:{nameof(DatabaseProviderConfig.EnsureCreatedDatabaseOnStartup)}" , "false" }
+                        };
+
+                        configurations.AddInMemoryCollection(overrideConfigs);
+                    });
+
                 });
 
             this.httpClient = factory.CreateClient(
@@ -73,6 +87,15 @@ namespace Chirp.IntegrationTests
                     AllowAutoRedirect = true
                 });
             this.httpClient.BaseAddress = new Uri("https://localhost/");
+        }
+
+        [Fact]
+        public void Ensure_Empty_Database()
+        {
+            // Assert
+            Assert.Empty(this.dbContext.Authors);
+            Assert.Empty(this.dbContext.AuthorAuthorRelations);
+            Assert.Empty(this.dbContext.Cheeps);
         }
 
         [Fact]

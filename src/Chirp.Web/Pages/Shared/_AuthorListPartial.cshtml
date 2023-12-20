@@ -1,0 +1,65 @@
+﻿@model Chirp.Web.ViewModels.AuthorListViewModel
+
+<div class="cheepbox">
+    <h3>Search for author</h3>
+    <form method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group" style="display:flex;">
+
+            <input type="text" value="@Model.SearchText" name="searchText" />
+
+            <input type="submit" value="Search" asp-page-handler="search">
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.ValidationSummary()
+
+        </div>
+    </form>
+</div>
+
+@if (Model != null && Model.Authors.Any())
+{
+    <ul id="messagelist" class="cheeps">
+        <form method="post" action="">
+            <input asp-for="@Model.PageNumber" name="pageNumber" type="hidden" />
+
+            <input asp-for="@Model.SearchText" name="searchText" type="hidden" />
+
+            @foreach (var author in Model.Authors)
+            {
+<li>
+                <p>
+                    <strong>
+                        <a href="/@author.Id">@author.Name</a>
+                    </strong>
+
+                    @if (author.CanFollow)
+                    {
+                        <input class="btn" type="submit" asp-page-handler="follow" asp-route-authorToFollowId="@author.Id" value="Follow" />
+                    }                       
+                    @if (author.CanUnfollow)
+                    {
+                        <input class="btn" type="submit" asp-page-handler="unfollow" asp-route-authorToUnfollowId="@author.Id" value="Unfollow" />
+                    }
+                </p>
+            </li>
+            }
+        </form>
+    </ul>
+    @if(Model.NavigateToPreviousPageUrl != string.Empty)
+    {
+        <a href="@Model.NavigateToPreviousPageUrl">Previous Page</a>
+    }
+    @if(Model.NavigateToNextPageUrl != string.Empty)
+    {
+        <a href="@Model.NavigateToNextPageUrl">Next Page</a>
+    }
+}
+else
+{
+    <em>No authors match your search</em>
+}

@@ -122,5 +122,35 @@ namespace Chirp.Infrastructure
 
             dbContext.AuthorAuthorRelations.Remove(authorAuthorRelation);
         }
+
+        public async Task<IEnumerable<Author>> SearchAuthor(string? searchText, int page, int skipCount, int takeCount)
+        {
+
+            if (skipCount < 0)
+            {
+                throw new ArgumentException(nameof(skipCount));
+            }
+            if (takeCount < 1)
+            {
+                throw new ArgumentException(nameof(takeCount));
+            }
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                return await dbContext.Authors
+                .OrderByDescending(x => x.Name)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
+            }
+
+            var lowerCaseText = searchText.ToLower();
+
+            return await dbContext.Authors
+                .Where(x => x.Name.ToLower().Contains(lowerCaseText) || lowerCaseText.Contains(x.Name.ToLower()))
+                .OrderByDescending(x => x.Name)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToListAsync();
+        }
     }
 }

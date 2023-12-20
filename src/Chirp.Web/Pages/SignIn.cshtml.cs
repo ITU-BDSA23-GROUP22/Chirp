@@ -43,7 +43,9 @@ namespace Chirp.Web.Pages
         /// </summary>
         public void OnGet()
         {
-            this.Options = this.dbContext.Authors.Select(x => new SelectListItem
+            this.Options = this.dbContext.Authors
+                .Where(x => x.Name != string.Empty)
+                .Select(x => new SelectListItem
             {
                 Value = x.AuthorId.ToString(),
                 Text = x.Name

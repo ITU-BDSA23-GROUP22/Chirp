@@ -88,5 +88,12 @@ namespace Chirp.Core.Services
         /// <param name="takeCount"></param>
         /// <returns></returns>
         Task<IEnumerable<AuthorDTO>> SearchAuthors(string? searchText, int page, int skipCount, int takeCount);
+
+        /// <summary>
+        ///     Gets specified Authors from AuthorsRepository
+        /// </summary>
+        /// <param name="authorIds"></param>
+        /// <returns></returns>
+        Task<IEnumerable<AuthorDTO>> GetAuthors(IEnumerable<Guid> authorIds);
     }
 }

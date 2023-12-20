@@ -60,5 +60,12 @@ namespace Chirp.Infrastructure
         /// <param name="takeCount"></param>
         /// <returns></returns>
         Task<IEnumerable<Author>> SearchAuthor(string? searchText, int page, int skipCount, int takeCount);
+
+        /// <summary>
+        ///     Fetches specified Authors
+        /// </summary>
+        /// <param name="authors"></param>
+        /// <returns></returns>
+        Task<IEnumerable<Author>> GetAuthors(IEnumerable<Guid> authors);
     }
 }

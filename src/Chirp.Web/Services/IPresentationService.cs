@@ -75,5 +75,26 @@ namespace Chirp.Web
         /// <param name="pageNumber"></param>
         /// <returns></returns>
         Task<AuthorListViewModel> GetAuthorListViewModel(string? searchText, int pageNumber);
+
+        /// <summary>
+        ///     Gets specified Author's following Authors
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <returns></returns>
+        Task<IEnumerable<AuthorDTO>> GetFollowingAuthors(Guid authorId);
+
+        /// <summary>
+        ///     Deletes specified Author and anonymizes Cheeps from Author from ChirpService 
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <returns></returns>
+        Task AnonymizeAuthor(Guid authorId);
+
+        /// <summary>
+        ///     Gets Cheeps and Followers for donwnload for specified Author from ChirpService
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <returns></returns>
+        Task<string> GetCheepsAndFollowerDownloadForAuthor(Guid authorId);
     }
 }

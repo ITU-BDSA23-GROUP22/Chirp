@@ -8,21 +8,15 @@ using System.Text;
 namespace Chirp.Web.Pages
 {
     public class AboutMeModel : PageModel
-    {
-        private readonly IChirpService chirpService;
-
+    { 
         private readonly IPresentationService presentationService;
 
-        public AuthorDTO? Author { get; set; } = null;
+        public IEnumerable<AuthorDTO> Authors { get; set; } = null!;
 
-        public IEnumerable<CheepDTO> Cheeps { get; set; } = null!;
-
-        public AboutMeModel(IChirpService chirpService, IPresentationService presentationService)
+        public AboutMeModel(IPresentationService presentationService)
         {
             this.presentationService = presentationService
                 ?? throw new ArgumentNullException(nameof(presentationService));
-
-            this.chirpService = chirpService;
         }
 
         /// <summary>
@@ -31,12 +25,18 @@ namespace Chirp.Web.Pages
         /// <returns></returns>
         public async Task<ActionResult> OnGet()
         {
-            if (!User.Identity.IsAuthenticated)
+            var authenticatedUser = presentationService.GetAuthenticatedAuthor();
+
+            if (authenticatedUser == null)
             {
                 return Unauthorized();
             }
 
+            this.Authors = await presentationService.GetFollowingAuthors(authenticatedUser.Id);
+
+
             return Page();
+            
         }
 
         /// <summary>
@@ -45,11 +45,18 @@ namespace Chirp.Web.Pages
         /// <returns></returns>
         public async Task<ActionResult> OnPostForgetMe()
         {
+            var authenticatedUser = presentationService.GetAuthenticatedAuthor();
+
+            if (authenticatedUser == null)
+            {
+                return Unauthorized();
+            }
+
             await HttpContext.SignOutAsync();
 
-            await chirpService.AnonymizeAuthor(presentationService.GetAuthenticatedAuthor().Id);
+            await presentationService.AnonymizeAuthor(authenticatedUser.Id);
 
-            return RedirectToPage("/signin");
+            return RedirectToPage("/Public");
         }
 
         /// <summary>
@@ -58,28 +65,21 @@ namespace Chirp.Web.Pages
         /// <returns></returns>
         public async Task<ActionResult> OnPostDownloadMyInfo()
         {
-            AuthorDTO author = presentationService.GetAuthenticatedAuthor();
 
-            StringBuilder sb = new StringBuilder();
+            var authenticatedUser = presentationService.GetAuthenticatedAuthor();
 
-            sb.AppendLine("Name:");
-            sb.AppendLine(author.Name);
-            sb.AppendLine();
-            sb.AppendLine("Followed users:");
-
-            foreach(Guid followedUser in author.followingIds)
+            if (authenticatedUser == null)
             {
-                sb.AppendLine(followedUser.ToString());
+                return Unauthorized();
             }
 
-            sb.AppendLine();
-            sb.AppendLine("Cheeps:");
+            var downloadInformation = await presentationService.GetCheepsAndFollowerDownloadForAuthor(authenticatedUser.Id);
 
             Response.Headers["Content-Disposition"] = "attachment;filename=information.txt";
 
             Response.ContentType = "text/plain";
 
-            await Response.Body.WriteAsync(Encoding.UTF8.GetBytes(sb.ToString()));
+            await Response.Body.WriteAsync(Encoding.UTF8.GetBytes(downloadInformation));
 
             return new EmptyResult();
         }

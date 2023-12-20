@@ -1,4 +1,10 @@
-// Inspiration: https://learn.microsoft.com/en-us/ef/core/cli/dbcontext-creation?tabs=dotnet-core-cli
+// ReferenceLink:
+//  https://learn.microsoft.com/en-us/ef/core/cli/dbcontext-creation?tabs=dotnet-core-cli
+//  https://learn.microsoft.com/en-us/ef/core/cli/dotnet
+//  https://learn.microsoft.com/en-us/ef/core/modeling/
+//  https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli
+//  https://learn.microsoft.com/en-us/ef/core/cli/dbcontext-creation?tabs=dotnet-core-cli
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +12,9 @@ using Chirp.Infrastructure;
 using Chirp.Web;
 using Microsoft.Extensions.Logging;
 
+/// <summary>
+///     Provides EF with the factory to create ChirpDBContext for EF command line tools 
+/// </summary>
 public class DbContextFactory : IDesignTimeDbContextFactory<ChirpDBContext>
 {
     public ChirpDBContext CreateDbContext(string[] args)

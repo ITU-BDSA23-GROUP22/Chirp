@@ -1,9 +1,15 @@
-// This class is based on the following link: https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-7.0
+// ReferenceLink:
+//  https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-7.0
+
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Chirp.Web.Filters
 {
+    /// <summary>
+    ///     Razor Authentication Filter to ensure that an authenticated user is always
+    ///     created as an author in the database    
+    /// </summary>
     public class EnsureAuthorCreatedFilter : IAsyncAuthorizationFilter
     {
         private readonly IPresentationService presentationService;

@@ -3,6 +3,8 @@ using Chirp.Core.Services;
 
 namespace Chirp.Infrastructure.Services
 {
+
+    /// <inheritdoc/>
     public class ChirpService : IChirpService
     {
         private readonly ICheepRepository cheepRepository;
@@ -16,6 +18,7 @@ namespace Chirp.Infrastructure.Services
             this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
+        /// <inheritdoc/>
         public async Task<AuthorDTO?> GetAuthor(Guid authorId)
         {
             var author = await this.authorRepository.Get(authorId);
@@ -28,6 +31,7 @@ namespace Chirp.Infrastructure.Services
             return this.MapAuthorToDto(author);
         }
 
+        /// <inheritdoc/>
         public async Task<AuthorDTO> CreateAuthor(Guid authorId, string authorName)
         {
             var author = await this.authorRepository.Get(authorId);
@@ -44,6 +48,7 @@ namespace Chirp.Infrastructure.Services
             return this.MapAuthorToDto(author);
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<CheepDTO>> GetAllCheeps(int page, int skipCount, int takeCount)
         {
             var cheeps = await this.cheepRepository.GetAll(page, skipCount, takeCount);
@@ -59,6 +64,7 @@ namespace Chirp.Infrastructure.Services
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<CheepDTO>> GetCheepsByAuthors(IEnumerable<Guid> authorIds, int page, int skipCount, int takeCount)
         {
             if (authorIds == null)
@@ -79,6 +85,7 @@ namespace Chirp.Infrastructure.Services
             return cheeps.Select(cheep => this.MapCheepToDto(cheep, authorDtos)).ToList();
         }
 
+        /// <inheritdoc/>
         public async Task CreateCheep(Guid authorId, string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -95,6 +102,7 @@ namespace Chirp.Infrastructure.Services
             await dbContext.SaveChanges();
         }
 
+        /// <inheritdoc/>
         public async Task FollowAuthor(Guid authorId, Guid authorToFollowId)
         {
             var author = await this.authorRepository.Get(authorId)
@@ -109,6 +117,7 @@ namespace Chirp.Infrastructure.Services
             await dbContext.SaveChanges();
         }
 
+        /// <inheritdoc/>
         public async Task UnfollowAuthor(Guid authorId, Guid authorToUnfollowId)
         {
             var author = await this.authorRepository.Get(authorId)

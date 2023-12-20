@@ -2,6 +2,10 @@ using Chirp.Core;
 
 namespace Chirp.Web.ViewModels
 {
+    /// <summary>
+    ///     Provides CheepListViewModel for markup code rendering list of cheeps.
+    ///     Also, defines pagination buttons (prev & next)
+    /// </summary>
     public class CheepListViewModel
     {
         public IEnumerable<CheepViewModel> Cheeps { get; }

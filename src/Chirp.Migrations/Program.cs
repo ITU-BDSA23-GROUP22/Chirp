@@ -2,6 +2,9 @@ using Chirp.Web;
 
 namespace Chirp.Migrations
 {
+    /// <summary>
+    ///     Provides functionality to Recreate and Seed database for development support
+    /// </summary>
     public class Program
     {
         static void Main(string[] args)

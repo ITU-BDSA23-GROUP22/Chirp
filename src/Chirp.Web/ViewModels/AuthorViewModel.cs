@@ -2,6 +2,10 @@ using Chirp.Core;
 
 namespace Chirp.Web.ViewModels
 {
+    /// <summary>
+    ///     Provides AuthorViewModel for markup code rendering an Author.
+    ///     Also, defines whether authenticated Author can use/see Follow- and Unfollow Buttons
+    /// </summary>
     public class AuthorViewModel
     {
         public Guid Id { get; }

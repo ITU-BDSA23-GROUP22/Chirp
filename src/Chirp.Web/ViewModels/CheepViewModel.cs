@@ -1,5 +1,8 @@
 namespace Chirp.Web.ViewModels
 {
+    /// <summary>
+    ///     Provides CheepViewModel for markup code rendering a Cheep
+    /// </summary>
     public class CheepViewModel
     {
         public Guid Id { get; }

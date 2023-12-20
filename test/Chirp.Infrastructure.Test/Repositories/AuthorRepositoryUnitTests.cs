@@ -1,3 +1,7 @@
+// ReferenceLink:
+//  https://learn.microsoft.com/en-us/ef/core/testing/testing-without-the-database
+//  https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
+
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Xunit;

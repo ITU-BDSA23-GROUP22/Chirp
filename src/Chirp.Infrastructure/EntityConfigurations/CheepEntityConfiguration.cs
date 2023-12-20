@@ -1,4 +1,6 @@
-// Inspiration: https://learn.microsoft.com/en-us/ef/core/modeling/
+// ReferenceLink:
+//  https://learn.microsoft.com/en-us/ef/core/modeling/
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

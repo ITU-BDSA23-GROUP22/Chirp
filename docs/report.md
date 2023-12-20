@@ -31,7 +31,7 @@ Here comes a description of our domain model.
 ## Team work
 The communication channel for the team has primarily been Message with the occasional Discord calls if we weren't able to meet up but thought a meeting was preferred over chatting on Messenger
 
-Very early on in the projects lifespan we agreed to meet at least one time a week on Tuesdays to talk and work on the project. 
+Very early on in the projects lifespan we agreed to meet at least one time a week on Tuesdays to talk and work on the project. This gave us the ability to talk about whatever we had on our minds, get more comfortable with each other and distribute responsibilities for the assignments at hand.
 ## How to make _Chirp!_ work locally
 
 ## How to run test suite locally

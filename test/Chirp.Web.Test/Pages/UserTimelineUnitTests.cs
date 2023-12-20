@@ -1,4 +1,13 @@
+using System.Net;
+using System.Net.Http.Headers;
+using Chirp.Core.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Xunit;
+using Moq;
+using Chirp.Core;
 
 namespace Chirp.Web.Test.Pages
 {
@@ -7,7 +16,7 @@ namespace Chirp.Web.Test.Pages
         private readonly HttpClient httpClient;
         private readonly Mock<IChirpService> chirpServiceMock;
 
-        public PublicUnitTests()
+        public UserTimelineUnitTests()
         {
             this.chirpServiceMock = new Mock<IChirpService>();
 

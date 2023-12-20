@@ -10,9 +10,9 @@
             {
             <li>
                 <p>
-                    @if(@cheep.Author.Name.Equals("[Deleted user]")) {
+                    @if(@cheep.Author.Name == "") {
                         <strong>
-                            @cheep.Author.Name
+                            [Deleted user]
                         </strong>
                     } else {
                         <strong>

@@ -14,6 +14,10 @@
             <span>|</span>
             <a href="/authors">Authors </a>
             <span>|</span>
+            <a href="/Profile"> Profile </a>
+            <span>|</span>
+            <a href="/AboutMe">About me</a>
+            <span>|</span>
             @if (hostEnvironment.IsDevelopment())
             {
                 @* link to local development signout *@
@@ -22,12 +26,11 @@
             else
             {
                 @* link to azure signout *@
-                <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout
-                    [@(authorUser.AuthorName)]</a>
+                <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">
+                    Logout
+                    [@(authorUser.AuthorName)]
+                </a>
             }
-            <span>|</span>
-            <a href="/Profile"> Profile </a>
-            <a href="">About me</a>
         </div>
     }
     else

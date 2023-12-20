@@ -41,6 +41,7 @@ public class End2EndTestUser
                 await page.GotoAsync("https://bdsagroup22chirprazor.azurewebsites.net");
                 await page.WaitForSelectorAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
                 await page.ClickAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
+                output.WriteLine(page.Url);
             }
             else
             {

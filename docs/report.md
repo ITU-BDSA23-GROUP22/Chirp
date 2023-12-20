@@ -23,7 +23,7 @@ numbersections: true
 
 <img src="Diagrams/SmallArchitecture.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
-> On the above diagram we display the onion-like architecture that is employed within the application. Classes located in any circle are dependant on the classes in the circles closer to the middle. The outer layers are closer to what the user interacts with while the inner circles are the core functionalities of Chirp.
+> On the above diagram we display the onion-like architecture that is employed within the application. Classes located in any circle are dependant on the classes in the circles closer to the middle. The outer layers are closer to what the user interacts with while the inner circles are the core functionalities of _Chirp!_.
 
 
 
@@ -44,13 +44,15 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 
 <img src="Diagrams/UserJourney.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
-> The above diagram shows a user journey scenario (a typical way to traverse the Chirp application). We show the options of pages and actions aswell as conditionals. 
+> The above diagram shows a user journey scenario (a typical way to traverse the _Chirp!_ application). We show the options of pages and actions aswell as conditionals. 
 
 
 
 ## Sequence of functionality/calls trough _Chirp!_
 
 <img src="Diagrams/SequenceOfFunctionality.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
+
+> The sequence of functionalit through _Chirp!_ . We have illustrated this with an unauthorized using the application to view the public timeline.
 
 
 

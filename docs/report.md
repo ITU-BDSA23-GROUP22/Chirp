@@ -44,6 +44,7 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 
 <img src="Diagrams/UserJourney.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
+> Rasmus
 
 
 

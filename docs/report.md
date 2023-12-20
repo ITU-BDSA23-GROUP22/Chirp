@@ -16,7 +16,7 @@ numbersections: true
 
 Here comes a description of our domain model.
 
-<img src="Diagrams/DomainModel.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
+<img src="Diagrams/DomainModel.drawio.svg" alt="UML Diagram of the domain model" backgroundcolor="white" style="height:500px;"/>
 
 ## Architecture — In the small
 INSERT DIAGRAM AND SMALL NOTE

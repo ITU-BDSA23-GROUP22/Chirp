@@ -23,11 +23,15 @@ Here comes a description of our domain model.
 ## Architecture — In the small
 INSERT DIAGRAM AND SMALL NOTE
 
+<img src="Diagrams/SmallArchitecture.drawio.svg" alt="UML Diagram of the domain model" style="height:250px;"/>
+
 ## Architecture of deployed application
 WHY WE CHANGED BACK TO SQLITE WRITE HERE
 
-<<<<<<< HEAD
-INSER DIAGRAM AND SMALL NOTE
+INSERt DIAGRAM AND SMALL NOTE
+
+<img src="Diagrams/DeployedArchitecture.drawio.svg" alt="UML Diagram of the domain model" style="height:250px;"/>
+
 =======
 **Azure web services**
 The Chirp! client is hosted on azure, under Azure Web Services, which is connected to the server via the connection string in appsettings.
@@ -41,14 +45,19 @@ INSER DIAGRAM AND SMALL NOTE
 ## User activities
 INSERT DIAGRAM AND SMALL NOTE
 
+<img src="Diagrams/UserJourney.drawio.svg" alt="UML Diagram of the domain model" style="height:250px;"/>
 
 ## Sequence of functionality/calls trough _Chirp!_
 INSERT DIAGRAM AND SMALL NOTE
+
+<img src="Diagrams/SequenceOfFunctionality.drawio.svg" alt="UML Diagram of the domain model" style="height:250px;"/>
 
 # Process
 
 ## Build, test, release, and deployment
 INSERT DIAGRAM AND SMALL NOTE
+
+<img src="Diagrams/BuldTestReleaseDeploy.drawio.svg" alt="UML Diagram of the domain model" style="height:250px;"/>
 
 ## Team work
 The communication channel for the team has primarily been Message with the occasional Discord calls if we weren't able to meet up but thought a meeting was preferred over chatting on Messenger

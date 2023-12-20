@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Security.Permissions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.Identity.Client;
 using Microsoft.Playwright;
 using Xunit;
@@ -11,6 +12,28 @@ namespace Chirp.Web.Test;
 public class End2EndTestUser
 {
     private readonly ITestOutputHelper output;
+
+    private async Task PageLogin(IPage page){
+        await page.GotoAsync("https://github.com/login");
+        await page.GetByLabel("Username or email address").FillAsync("Myfakegithubaccount");
+        await page.GetByLabel("Password").FillAsync("Myfakegithubpassword");
+        await page.GetByRole(AriaRole.Button, new() { Name = "Sign in", Exact = true }).ClickAsync();
+        await page.GotoAsync("https://bdsagroup22chirprazor.azurewebsites.net");
+            await page.WaitForSelectorAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
+            await page.ClickAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
+            
+            await page.WaitForSelectorAsync("#GitHubExchange");
+            
+            await page.ClickAsync("#GitHubExchange");
+            //Page would not update fast enough and program grapped the wrong URL. Had to implement a sleep
+            Thread.Sleep(8000);
+            bool startsWithPrefix = page.Url.StartsWith("https://bdsagroup22chirprazor", StringComparison.OrdinalIgnoreCase);
+           if (!startsWithPrefix){
+            var authorizeButton = await page.WaitForSelectorAsync("#js-oauth-authorize-btn");
+            await page.ClickAsync("#js-oauth-authorize-btn");
+            
+           }
+    }
     public End2EndTestUser(ITestOutputHelper output)
         {
             this.output = output;
@@ -145,5 +168,46 @@ public class End2EndTestUser
         }
         Assert.Equal(5,maxCheeps.Count);
         await browser.CloseAsync();
+        }
+
+
+
+
+        [Fact]
+        public async Task Open_Public_Timeline_Logged_In_Navigation_bar(){
+            List<string> correctButtons = new List<string> { 
+            "my timeline",
+            "public timeline ",
+            "about me ",
+            "Logout [Myfakegithubaccount]",
+            "Profile ",
+            "About me"
+        };
+            using var playwright = await Playwright.CreateAsync();
+            await using var browser = await playwright.Chromium.LaunchAsync();
+            var context = await browser.NewContextAsync();
+            var page = await context.NewPageAsync();
+            await PageLogin(page);
+            await page.ScreenshotAsync(new(){
+                Path = "Screenshots.png",
+                FullPage = true,
+            });
+            await page.WaitForSelectorAsync(".navigation");
+            
+
+        var thirdDivSelector = await page.QuerySelectorAsync(".navigation > div > div");
+        var elementsWithHref = await thirdDivSelector.QuerySelectorAllAsync("[href]");
+        int buttonLoopCounter = 0;
+        foreach (var link in elementsWithHref){
+            var linkName = await link.InnerTextAsync();
+            Assert.Equal(correctButtons[buttonLoopCounter],linkName);
+            buttonLoopCounter++;
+        }
+        
+        
+        await browser.CloseAsync();
+
+
+
         }
     }

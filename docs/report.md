@@ -56,6 +56,12 @@ INSERT DIAGRAM AND SMALL NOTE
 INSERT DIAGRAM AND SMALL NOTE
 
 <img src="Diagrams/BuildTestReleaseDeploy.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
+In order to automate the majority of the development process, the deployment and release workflows are automated using GitHub Actions Workflow. 
+
+The Release workflow first builds and tests the application, to minimise the risk of errors and bugs in the application to be released. If the build is succeeded and the tests are passed, the workflow will create a new release on github with a dependent, ready-to-run-application with the given semantic version tag “vx.x.x”. The release workflow is triggered by pushing a new tag to the main branch.
+
+The Deployment workflow also builds and tests the application as the first step. If the first step is succeeded, the workflow will ¿upload artifacts? which are then deployed to azure(tjek lige workflowet igennem).
+The deployment workflow is triggered on any push or merge to main, which means that.... <TBC>
 
 ## Team work
 The communication channel for the team has primarily been Message with the occasional Discord calls if we weren't able to meet up but thought a meeting was preferred over chatting on Messenger

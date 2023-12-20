@@ -44,6 +44,7 @@ public class End2EndTestUser
                 await page.GetByLabel("Username or email address").FillAsync("Myfakegithubaccount");
                 await page.GetByLabel("Password").FillAsync("Myfakegithubpassword");
                 await page.GetByRole(AriaRole.Button, new() { Name = "Sign in", Exact = true }).ClickAsync();
+                Thread.Sleep(8000);
 
             }
             else
@@ -53,6 +54,7 @@ public class End2EndTestUser
                 output.WriteLine(htmlContent);
                 await page.WaitForSelectorAsync(".btn.btn-primary.width-full.ws-normal");
                 await page.ClickAsync(".btn.btn-primary.width-full.ws-normal");
+                Thread.Sleep(8000);
             }
         }
     }
@@ -240,6 +242,7 @@ public class End2EndTestUser
         var page = await context.NewPageAsync();
 
         await PageLogin(page);
+        output.WriteLine(page.Url);
         await page.WaitForSelectorAsync(".navigation");
 
 
@@ -264,6 +267,7 @@ public class End2EndTestUser
         var context = await browser.NewContextAsync();
         var page = await context.NewPageAsync();
         await PageLogin(page);
+        output.WriteLine(page.Url);
         await page.WaitForSelectorAsync("a:has-text('my timeline')");
         await page.ClickAsync("a:has-text('my timeline')");
 
@@ -297,6 +301,7 @@ public class End2EndTestUser
                 output.WriteLine("Button was null");
             }
         }
+
         await page.WaitForSelectorAsync("a:has-text('my timeline')");
         await page.ClickAsync("a:has-text('my timeline')");
 

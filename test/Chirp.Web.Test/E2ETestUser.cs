@@ -45,6 +45,12 @@ public class End2EndTestUser
                 await page.WaitForSelectorAsync("a:has-text('public timeline ')");
                 await page.ClickAsync("a:has-text('public timeline ')");
                 output.WriteLine(page.Url);
+                await page.WaitForSelectorAsync("#GitHubExchange");
+                await page.ClickAsync("#GitHubExchange");
+
+                //Page would not update fast enough and program grapped the wrong URL. Had to implement a sleep
+                await page.WaitForTimeoutAsync(8000);
+                output.WriteLine(page.Url);
             }
             else
             {

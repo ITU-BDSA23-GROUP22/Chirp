@@ -17,6 +17,8 @@ numbersections: true
 
 <img src="Diagrams/DomainModel.drawio.svg" alt="UML Diagram of the domain model" backgroundcolor="white" style="height:700px;"/>
 
+> Illustration of the Domain model of _Chirp!_ application. Data Transfer Objects are used to minimize data transfer calls. IChirpService to handle data proccessing between DBContext and author / chirp types. IDBContext to handle Database control and querying. 
+
 
 
 ## Architecture — In the small

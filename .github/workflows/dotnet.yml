@@ -13,6 +13,8 @@ jobs:
           dotnet-version: 7.0.x
       - name: Restore dependencies
         run: dotnet restore ./src/Chirp.Web/Chirp.web.csproj
+      - name: Install Playwright
+        run: pwsh playwright.ps1 install chromium
       - name: Build
         run: dotnet build --no-restore ./src/Chirp.Web/Chirp.web.csproj
       - name: Test Chirp.Infrastructure

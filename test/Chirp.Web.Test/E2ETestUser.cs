@@ -37,8 +37,8 @@ public class End2EndTestUser
         bool startsWithPrefix = page.Url.StartsWith("https://bdsagroup22chirprazor", StringComparison.OrdinalIgnoreCase);
         if (!startsWithPrefix)
         {
-            var authorizeButton = await page.WaitForSelectorAsync("#js-oauth-authorize-btn");
-            await page.ClickAsync("#js-oauth-authorize-btn");
+            await page.WaitForSelectorAsync(".btn.btn-primary.width-full.ws-normal");
+            await page.ClickAsync(".btn.btn-primary.width-full.ws-normal");
 
         }
     }

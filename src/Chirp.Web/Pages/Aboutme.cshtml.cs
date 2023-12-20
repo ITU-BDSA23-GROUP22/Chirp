@@ -5,6 +5,7 @@ using Chirp.Core.Services;
 using System.ComponentModel.DataAnnotations;
 using Chirp.Web.ViewModels;
 using Microsoft.AspNetCore.Authentication;
+using System.Text;
 
 namespace Chirp.Web.Pages
 {
@@ -40,12 +41,25 @@ namespace Chirp.Web.Pages
 
         public IActionResult OnPostDownloadMyInfo()
         {
-            Response.Headers["Content-Disposition"] = $"attachment; filename=information.txt";
-            Response.Headers["Content-Type"] = "text/plain";
+            AuthorDTO author = presentationService.GetAuthenticatedAuthor();
 
-            Response.WriteAsync(presentationService.GetAuthenticatedAuthor().Name).Wait();
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Name:");
+            sb.AppendLine(author.Name);
+            sb.AppendLine();
+            sb.AppendLine("Followed users:");
+            foreach(Guid followedUser in author.followingIds)
+            {
+                sb.AppendLine(followedUser.ToString());
+            }
+            sb.AppendLine();
+            sb.AppendLine("Cheeps:");
+            Response.Headers["Content-Disposition"] = "attachment;filename=information.txt";
+            Response.ContentType = "text/plain";
 
-            return new ContentResult();
+            Response.Body.WriteAsync(Encoding.UTF8.GetBytes(sb.ToString()));
+
+            return new EmptyResult();
         }
     }
 }

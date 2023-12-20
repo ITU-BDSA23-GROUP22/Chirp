@@ -38,7 +38,9 @@ public class End2EndTestUser
                 await page.GetByLabel("Username or email address").FillAsync("Myfakegithubaccount");
                 await page.GetByLabel("Password").FillAsync("Myfakegithubpassword");
                 await page.GetByRole(AriaRole.Button, new() { Name = "Sign in", Exact = true }).ClickAsync();
-                await page.WaitForNavigationAsync();
+                await page.GotoAsync("https://bdsagroup22chirprazor.azurewebsites.net");
+                await page.WaitForSelectorAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
+                await page.ClickAsync(".nav-link.text-dark[href*='MicrosoftIdentity/Account/SignIn']");
             }
             else
             {

@@ -211,6 +211,7 @@ public class End2EndTestUser
     [Fact]
     public async Task Open_Public_Timeline_Logged_In_Navigation_bar()
     {
+
         List<string> correctButtons = new List<string> {
             "my timeline",
             "public timeline ",
@@ -223,6 +224,7 @@ public class End2EndTestUser
         await using var browser = await playwright.Chromium.LaunchAsync();
         var context = await browser.NewContextAsync();
         var page = await context.NewPageAsync();
+
         await PageLogin(page);
         await page.WaitForSelectorAsync(".navigation");
 
@@ -236,6 +238,8 @@ public class End2EndTestUser
             Assert.Equal(correctButtons[buttonLoopCounter], linkName);
             buttonLoopCounter++;
         }
+
+
         await browser.CloseAsync();
     }
     [Fact]

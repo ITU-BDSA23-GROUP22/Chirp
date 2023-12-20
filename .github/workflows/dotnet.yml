@@ -13,10 +13,8 @@ jobs:
           dotnet-version: 7.0.x
       - name: Restore dependencies
         run: dotnet restore ./src/Chirp.Web/Chirp.web.csproj
-      - name: Install Playwright dependencies
-        run: npm install
-      - name: Install Playwright
-        run: npx playwright install
+      - name: Install playwright
+        run: npx playwright install 
       - name: Build
         run: dotnet build --no-restore ./src/Chirp.Web/Chirp.web.csproj
       - name: Test Chirp.Infrastructure

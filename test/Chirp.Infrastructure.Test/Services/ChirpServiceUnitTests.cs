@@ -41,7 +41,7 @@ namespace Chirp.Infrastructure.test.Services
             var chirpService = new ChirpService(cheepRepositoryMock.Object, authorRepositoryMock.Object, dbContextMock.Object);
 
             // Act
-            var authorDto = await chirpService.GetAuthor(authorId)
+            var authorDto = await chirpService.GetAuthor(authorId);
 
             // Assert
             Assert.NotNull(authorDto);

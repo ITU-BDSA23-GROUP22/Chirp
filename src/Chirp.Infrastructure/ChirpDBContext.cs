@@ -22,7 +22,7 @@ namespace Chirp.Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Apply all EntityConfigurations defined in current assembly..
-            builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+            builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly)
         }
     }
 }

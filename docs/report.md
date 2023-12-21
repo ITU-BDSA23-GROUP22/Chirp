@@ -18,7 +18,7 @@ numbersections: true
 <!--<img src=Diagrams/DomainModel.drawio.png alt="UML Diagram of the domain model" backgroundcolor="white" style="height:700px;"/> -->
 
 
-> Illustration of the Domain model of _Chirp!_ application. Data Transfer Objects are used to minimize data transfer calls. IChirpService handles data proccessing between DBContext and author / cheep repositories and entities, request from layers above. IDBContext is used to handle Database control and querying. 
+> Illustration of the Domain model of _Chirp!_ application. Data Transfer Objects are used to minimize data transfer calls. IChirpService handles data processing between DBContext and author / cheep repositories and entities, request from layers above. IDBContext is used to handle Database control and querying. 
 
 
 
@@ -38,7 +38,7 @@ numbersections: true
 
 **Configuration**
 
-Chirp! is configurable for target environments developement and production through dedicated appsettings.<Development | Production>.json.
+Chirp! is configurable for target environments development and production through dedicated appsettings.<Development | Production>.json.
 
 **Azure web services**  
 
@@ -57,7 +57,7 @@ However, Chirp! is fully capable to run on SqlServer without any alterations oth
 ![User journey](Diagrams/UserJourney.drawio.png "UML Diagram of the user journey")
 <!-- <img src="Diagrams/UserJourney.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 
-> The above diagram shows a user journey scenario (a typical way to traverse the _Chirp!_ application). We show the options of pages and actions aswell as conditionals. 
+> The above diagram shows a user journey scenario (a typical way to traverse the _Chirp!_ application). We show the options of pages and actions as well as conditionals. 
 
 
 
@@ -207,7 +207,7 @@ _Chirp!_ covers several test strategies - unit tests, integration tests and End2
 We have chosen to make use of the MIT license for th _Chirp!_ application. This is done as we appreciate our work being available to others. If anyone would want to continue working on the project or make use of specific parts we would encourage this. Besides this, we appreciate that the MIT license is meant to be as easy to understand as possible, so usage of MIT licensed software is as approachable as possible. With these ideals, one could argue that we should choose a FOSS License to ensure that work based on ours will also be open source, but we feel that this would overcomplicate the matter. Seen in a broader perspective this application is rather small in scale and with our resources being allocated to studies it is unrealistic that we would enforce a FOSS license.
 
 ## LLMs, ChatGPT, CoPilot, and others
-Throughout the project LLM usage has been kept to a minimum, only used to ask quick questions about syntax for either C# code og advice for how to set up 3rd party tools such as Azure and Docker.
+Throughout the project LLM usage has been kept to a minimum, only used to ask quick questions about syntax for either C# code or advice for how to set up 3rd party tools such as Azure and Docker.
 
 Towards the end, however, when finishing the test suite, a lot of different libraries were used and ChatGPT was a great help to understand the basics and provide tips for how to fetch certain necessary components using different methods for separate elements. Here, the use of ChatGPT was used in a way to gain quick and easy access to information, instead of having to learn whole libraries one could ask for very specific guidance. Using the tool this way greatly sped up the deployment of tests as the responses were clear and helpful, and gathering the knowledge ourselves would have taken longer.
 

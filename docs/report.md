@@ -122,7 +122,7 @@ When an issue is created, a ticket is generated and put into the "New" section o
 
 ## How to make _Chirp!_ work locally
 
-As Chirp! supports using both SQLite and SQLServer in both development- and production environment, Chirp can be configured to a specific database provider through appsettings. For local SqlServer this guide uses Docker to host SqlServer instance.
+As _Chirp!_ supports using both SQLite and SQLServer in both development- and production environment, Chirp can be configured to a specific database provider through appsettings. For local SqlServer this guide uses Docker to host SqlServer instance.
 
 **For Local SqLite**
 - Set "DatabaseProviderType" for "DatabaseProviderConfig" in appsettings.json - to "SqLite".
@@ -146,7 +146,7 @@ As Chirp! supports using both SQLite and SQLServer in both development- and prod
 
 ## How to run test suite locally
 
-Chirp! covers several test strategies - unit tests, integration tests and End2End tests.
+_Chirp!_ covers several test strategies - unit tests, integration tests and End2End tests.
 
 **Steps to run Unit Tests**
 - Open Terminal

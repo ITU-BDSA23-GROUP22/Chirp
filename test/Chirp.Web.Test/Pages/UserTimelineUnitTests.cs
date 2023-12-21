@@ -1,13 +1,17 @@
 using System.Net;
 using System.Net.Http.Headers;
-using Chirp.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Xunit;
+using Microsoft.Extensions.Logging;
 using Moq;
+using Xunit;
+using Xunit.Abstractions;
 using Chirp.Core;
+using Chirp.Core.Services;
+using Chirp.SharedUsings;
+using Microsoft.Extensions.Configuration;
 
 namespace Chirp.Web.Pages
 {

@@ -69,7 +69,7 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 
 ![SequenceShareCheep](Diagrams/SubSystemSequenceDiagramShareCheep.drawio.svg "UML Diagram of the Sequence of ShareCheep")
 <!--<img src="Diagrams/SubSystemSequenceDiagramShareCheep.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>-->
-> The sequence diagram of interactions between subsystems through _Chirp!_ fir Share Cheep feature. We have illustrated this with an unauthorized using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through _Chirp!_ for Share Cheep feature. We have illustrated this with an unauthorized using the application to view the public timeline.
 
 ![SequenceFollowAuthor](Diagrams/SubSystemSequenceDiagramFollowAuthor.drawio.svg "UML Diagram of the Sequence of FollowAuthor")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramFollowAuthor.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>-->
@@ -81,7 +81,7 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 
 ![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramAuthors.drawio.svg "UML Diagram of the Sequence of Author")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
-> The sequence diagram of interactions between subsystems through _Chirp!_ for Author. We have illustrated this with an unauthorized using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through _Chirp!_ on Authors. We have illustrated this with an unauthorized using the application to view the public timeline.
 
 # Process
 

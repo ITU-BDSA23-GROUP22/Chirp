@@ -77,8 +77,11 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 
 ![SequenceUnfollowAuthor](Diagrams/SubSystemsSequenceDiagramUnfollowAuthor.drawio.svg "UML Diagram of the Sequence of UnfollowAuthor")
 <!-- <img src="Diagrams/SubSystemsSequenceDiagramUnfollowAuthor.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>-->
-> The sequence diagram of interactions between subsystems through _Chirp!_ for Unfollo TimeLine. We have illustrated this with an unauthorized using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through _Chirp!_ for Unfollow TimeLine. We have illustrated this with an unauthorized using the application to view the public timeline.
 
+![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramAuthors.drawio.svg "UML Diagram of the Sequence of Author")
+<!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
+> The sequence diagram of interactions between subsystems through _Chirp!_ for Unfollow Author. We have illustrated this with an unauthorized using the application to view the public timeline.
 
 # Process
 
@@ -135,9 +138,3 @@ Towards the end, however, when finishing the test suite, a lot of different libr
 
 A small sidenote is that specifically ChatGPT is not 100& up-to-date and will sometimes give vague or misleading answers with solutions that are outdated. However, these outdated answers were used to guide us towards the correct answers and implementations
 
-
-
-
-<img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
-
-> The sequence diagram of interactions between subsystems through _Chirp!_ on Authors. We have illustrated this with an unauthorized using the application to view the public timeline.

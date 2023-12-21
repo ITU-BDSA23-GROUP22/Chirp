@@ -30,7 +30,6 @@ numbersections: true
 
 
 ## Architecture of deployed application
-WHY WE CHANGED BACK TO SQLITE WRITE HERE
 
 <img src="Diagrams/DeployedArchithecture.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
@@ -62,7 +61,6 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 # Process
 
 ## Build, test, release, and deployment
-INSERT DIAGRAM AND SMALL NOTE
 
 <img src="Diagrams/BuildTestReleaseDeploy.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 In order to automate the majority of the development process, the deployment and release workflows are automated using GitHub Actions Workflow. 
@@ -84,7 +82,6 @@ When an issue is created a ticket is generated and put into the "New" section of
 > Illustration of a ticket moving through the projectboard. From a new issue to pull request.
 
 ## How to make _Chirp!_ work locally
-TEXT TO EXPLAIN HOW AND WHY
 
 In As Chirp! both supports using SQLite and SQL server on Docker, in the code it is defaulted to connect to the SQL server docker container. The following steps are to run the default configurations.  
 Open Terminal  
@@ -96,7 +93,6 @@ If the developer wants to change the configuration, the configuration in appsett
 
 
 ## How to run test suite locally
-TEXT TO EXPLAIN HOW AND WHY
 
 The following steps are to run the various test suites.  
 Open Terminal  
@@ -106,7 +102,7 @@ Open Terminal
 # Ethics
 
 ## License
-WHICH LICENSE WE CHOSE
+Rasmus:
 
 ## LLMs, ChatGPT, CoPilot, and others
 Throughout the project LLM usage has been kept to a minimum, only used to ask quick questions about syntax for either C# code og advice for how to set up 3rd party tools such as Azure and Docker.

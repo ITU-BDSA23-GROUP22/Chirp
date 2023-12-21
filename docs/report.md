@@ -122,14 +122,27 @@ When an issue is created a ticket is generated and put into the "New" section of
 
 ## How to make _Chirp!_ work locally
 
-In As Chirp! both supports using SQLite and SQL server on Docker, in the code it is defaulted to connect to the SQL server docker container. The following steps are to run the default configurations.  
-Open Terminal  
-```Docker run```  
-```cd src/Chirp.Web```  
-```dotnet run```
+As Chirp! supports using both SQLite and SQLServer in both development- and production environment, Chirp can be configured to a specific database provider through appsettings. For local SqlServer this guide uses Docker to host SqlServer instance.
 
-If the developer wants to change the configuration of the database provide, this can be done in appsettings. In Chirp/src/Chirp.web/appsettings.json under the "DatabaseProviderConfig" change the "DatabaseProviderType" field between the two options: "SqLite" or "SqlServer".
+**For Local SqLite**
+- Set "DatabaseProviderType" for "DatabaseProviderConfig" in appsettings.json - to "SqLite".
+- Open Terminal
+- ```cd <Chirp>/src/Chirp.Web```
+- ```dotnet run``` 
 
+**For Local SqServer**
+- Set "DatabaseProviderType" for "DatabaseProviderConfig" in appsettings.json - to "SqlServer".
+- Open Terminal
+- Start docker
+- [MacOS] ```docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=adminAdmin!' -p 1433:1433 --name ChirpDockerDB -d mcr.microsoft.com/azure-sql-edge```
+- [Windows] ```docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=adminAdmin!" -p 1433:1433 -name ChirpDockerDB -d mcr.microsoft.com/mssql/server:latest```
+- ```cd <Chirp>/src/Chirp.Migrations```
+- [MacOS] ```export ASPNETCORE_ENVIRONMENT=Development```
+- [Windows] ```set ASPNETCORE_ENVIRONMENT=Development```
+- ```dotnet ef database update```
+- ```dotnet run seed```
+- ```cd <Chirp>/src/Chirp.Web```
+- ```dotnet run```
 
 ## How to run test suite locally
 

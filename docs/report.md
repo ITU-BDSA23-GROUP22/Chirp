@@ -99,7 +99,7 @@ However, Chirp! is fully capable to run on SqlServer without any alterations oth
 <!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on About Me. We have illustrated this with an unauthorized user using the application to view the public timeline.
 
-![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramDownloadInfo.drawio.png "UML Diagram of the Sequence of Author")
+![SequenceUnfollowAuthor](Diagrams/SubSystemDiagramDownloadInfo.drawio.png "UML Diagram of the Sequence of Author")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ for the Download Information feature. We have illustrated this with an unauthorized user using the application to view the public timeline.
 

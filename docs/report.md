@@ -55,7 +55,7 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 
 > The sequence diagram of interactions between subsystems through _Chirp!_ on Public TimeLine. We have illustrated this with an unauthorized using the application to view the public timeline.
 
-<img src="Diagrams/SubSystemsSequenceDiagramPrivateTimeline.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
+<img src="Diagrams/SubSystemSequenceDiagramPrivateTimeline.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
 > The sequence diagram of interactions between subsystems through _Chirp!_ on Private TimeLine. We have illustrated this with an unauthorized using the application to view the public timeline.
 

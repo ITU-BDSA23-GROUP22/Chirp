@@ -128,7 +128,7 @@ Open Terminal
 ```cd src/Chirp.Web```  
 ```dotnet run```
 
-If the developer wants to change the configuration, the configuration in appsettings…
+If the developer wants to change the configuration of the database provide, this can be done in appsettings. In Chirp/src/Chirp.web/appsettings.json under the "DatabaseProviderConfig" change the "DatabaseProviderType" field between the two options: "SqLite" or "SqlServer".
 
 
 ## How to run test suite locally

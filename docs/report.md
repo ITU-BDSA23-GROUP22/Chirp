@@ -111,9 +111,9 @@ The deployment workflow is triggered on any push or merge to main, which means t
 
 
 
-## Team work
+## Teamwork
 
-When an issue is created a ticket is generated and put into the "New" section of the project board with the tag "Triage" assigned to it. From here it will be moved into either "Backlog" for tickets that cannot be done immediately and "ready" for tickets that are ready to be taken on by a group member. When working on a ticket one should be assigned to it and move it to the "In Progress" section. Once a pull request has been created the ticket should be "In Review" and then moved to "Done" once the issue is resolved. 
+When an issue is created, a ticket is generated and put into the "New" section of the project board with the tag "Triage" assigned to it. From here it will be moved into either "Backlog" for tickets that cannot be done immediately and "ready" for tickets that are ready to be taken on by a group member. When working on a ticket one should be assigned to it and move it to the "In Progress" section. Once a pull request has been created the ticket should be "In Review" and then moved to "Done" once the issue is resolved. 
 
 ![ProjectBoard](Diagrams/ProjectBoardDiagram.drawio.png "UML Diagram of Project Board")
 <!-- <img src="Diagrams/ProjectBoardDiagram.drawio.png" alt="UML diagram of how tickets travel through the projectboard"/> -->

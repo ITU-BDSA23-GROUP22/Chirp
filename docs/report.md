@@ -54,6 +54,7 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 <img src="Diagrams/SequenceOfFunctionality.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
 <img src="Diagrams/SubSystemSequenceDiagramShareCheep.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
+<img src="Diagrams/SubSystemSequenceDiagramFollowAuthor.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
 
 > The sequence of functionalit through _Chirp!_ . We have illustrated this with an unauthorized using the application to view the public timeline.
 

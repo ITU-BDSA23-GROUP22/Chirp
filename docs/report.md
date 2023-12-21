@@ -193,7 +193,7 @@ _Chirp!_ covers several test strategies - unit tests, integration tests and End2
 - Open Terminal
 - ```cd <Chirp>/test/Chirp.Infrastructure.Test"```
 - ```dotnet test```
-- - ```cd <Chirp>/test/Chirp.Web.Test"```
+- ```cd <Chirp>/test/Chirp.Web.Test"```
 - ```dotnet test```
 
 **Steps to run Integration Tests**

@@ -63,6 +63,14 @@ However, Chirp! is fully capable to run on SqlServer without any alterations oth
 
 ## Sequence of functionality/calls through _Chirp!_
 
+The following sub-system sequence diagrams, illustrates the interaction between high level sub-systems and uses the following xx.
+
+- Public - Page showing public timeline with cheeps from any Authors. Accessible for Unauthorized- and auhtorized users.
+- Private - Page showing private timeline with cheeps for a specifc Author. Accessible for Unauthorized- and auhtorized users.
+- My Timeline - Page showing private timeline with cheeps for a authenticated Author and followed Authors. Accessible for auhtorized users.
+- Authors - Page showing searchable Authors. Accessible for Unauthorized- and auhtorized users.
+- About me - Page showing authenticated Author information and followed Authors for authenticated Author. Download Information and Forget Me feature are accessible from this page. Accessible for Unauthorized- and auhtorized users.
+
 ![SequenceFunctionality](Diagrams/SequenceOfFunctionality.drawio.png "UML Diagram of the Sequence of Functionality")
 <!-- <img src="Diagrams/SequenceOfFunctionality.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on Public Timeline. 

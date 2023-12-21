@@ -14,7 +14,7 @@ numbersections: true
 
 
 ## Domain model
-![Domain model](Diagrams/DomainModel.drawio.svg "UML Diagram of the domain model")
+![Domain model](Diagrams/DomainModel.drawio.png "UML Diagram of the domain model")
 <!--<img src=Diagrams/DomainModel.drawio.svg alt="UML Diagram of the domain model" backgroundcolor="white" style="height:700px;"/> -->
 
 

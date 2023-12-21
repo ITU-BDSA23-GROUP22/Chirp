@@ -37,11 +37,14 @@ numbersections: true
 <!-- <img src="Diagrams/DeployedArchithecture.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 
 **Azure web services**  
-The _Chirp!_ client is hosted on azure, under Azure Web Services, which is connected to the server via the connection string in appsettings.
+The _Chirp!_ client is hosted as an Azure Web Service, and connects to database appsettings connection string for either SqLite or SqlServer.
 
 **Database**  
-The deployed application supports using both SQLite and Azure SQL database(application in local/development environment also supports SQL Server using Docker), based on the configurations in appsettings.< Development | Production >.json. In the deployed application, the appsettings configuration for SQLite is chosen in the final deployed application, due to insufficient student credits, at the end of the project.
+The deployed application supports using both SQLite and Azure SQL database based on the configurations in appsettings.Production.json. In the deployed application, the appsettings configuration for SQLite is chosen in the final deployed application, due to insufficient student credits, at the end of the project.
 
+When Chirp! is configured to use SqLite, the SqLite database file is stored on Azure Web Service server.
+
+However, Chirp! is fully capable to run on SqlServer without any alterations other than appsettings configurations.
 
 
 ## User activities

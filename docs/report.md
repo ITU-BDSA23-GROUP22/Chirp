@@ -36,10 +36,10 @@ numbersections: true
 ![Architecture deployed](Diagrams/DeployedArchithecture.drawio.png "UML Diagram of deployed architecture")
 <!-- <img src="Diagrams/DeployedArchithecture.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 
-**Azure web services**
+**Azure web services**  
 The _Chirp!_ client is hosted on azure, under Azure Web Services, which is connected to the server via the connection string in appsettings.
 
-**Database**
+**Database**  
 The deployed application supports using both SQLite and Azure SQL database(application in local/development environment also supports SQL Server using Docker), based on the configurations in appsettings.< Development | Production >.json. In the deployed application, the appsettings configuration for SQLite is chosen in the final deployed application, due to insufficient student credits, at the end of the project.
 
 

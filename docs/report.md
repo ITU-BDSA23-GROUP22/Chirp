@@ -15,7 +15,7 @@ numbersections: true
 
 ## Domain model
 ![Domain model](Diagrams/DomainModel.drawio.png "UML Diagram of the domain model")
-<!--<img src=Diagrams/DomainModel.drawio.svg alt="UML Diagram of the domain model" backgroundcolor="white" style="height:700px;"/> -->
+<!--<img src=Diagrams/DomainModel.drawio.png alt="UML Diagram of the domain model" backgroundcolor="white" style="height:700px;"/> -->
 
 
 > Illustration of the Domain model of _Chirp!_ application. Data Transfer Objects are used to minimize data transfer calls. IChirpService handles data proccessing between DBContext and author / cheep repositories and entities, request from layers above. IDBContext is used to handle Database control and querying. 
@@ -25,7 +25,7 @@ numbersections: true
 ## Architecture — In the small
 
 ![Architecture](Diagrams/SmallArchitecture.drawio.png "Onion diagram of the architecture")
-<!-- <img src="Diagrams/SmallArchitecture.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
+<!-- <img src="Diagrams/SmallArchitecture.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 
 > On the above diagram we display the onion-like architecture that is employed within the application. Classes located in any circle are dependant on the classes in the circles closer to the middle. The outer layers are closer to what the user interacts with while the inner circles are the core functionalities of _Chirp!_.
 
@@ -33,8 +33,8 @@ numbersections: true
 
 ## Architecture of deployed application
 
-![Architecture deployed](Diagrams/DeployedArchithecture.drawio.svg "UML Diagram of deployed architecture")
-<!-- <img src="Diagrams/DeployedArchithecture.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
+![Architecture deployed](Diagrams/DeployedArchithecture.drawio.png "UML Diagram of deployed architecture")
+<!-- <img src="Diagrams/DeployedArchithecture.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 
 **Azure web services**
 The Chirp! client is hosted on azure, under Azure Web Services, which is connected to the server via the connection string in appsettings.
@@ -46,8 +46,8 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 
 ## User activities
 
-![User journey](Diagrams/UserJourney.drawio.svg "UML Diagram of the user journey")
-<!-- <img src="Diagrams/UserJourney.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
+![User journey](Diagrams/UserJourney.drawio.png "UML Diagram of the user journey")
+<!-- <img src="Diagrams/UserJourney.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 
 > The above diagram shows a user journey scenario (a typical way to traverse the _Chirp!_ application). We show the options of pages and actions aswell as conditionals. 
 
@@ -55,48 +55,48 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 
 ## Sequence of functionality/calls trough _Chirp!_
 
-![SequenceFunctionality](Diagrams/SequenceOfFunctionality.drawio.svg "UML Diagram of the Sequence of Functionality")
-<!-- <img src="Diagrams/SequenceOfFunctionality.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
+![SequenceFunctionality](Diagrams/SequenceOfFunctionality.drawio.png "UML Diagram of the Sequence of Functionality")
+<!-- <img src="Diagrams/SequenceOfFunctionality.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on Public TimeLine. We have illustrated this with an unauthorized using the application to view the public timeline.
 
-![SequencePrivateTimeline](SubSystemSequenceDiagramPrivateTimeline.drawio.svg "UML Diagram of the Sequence of Private Timeline")
-<!-- <img src="Diagrams/SubSystemSequenceDiagramPrivateTimeline.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
+![SequencePrivateTimeline](SubSystemSequenceDiagramPrivateTimeline.drawio.png "UML Diagram of the Sequence of Private Timeline")
+<!-- <img src="Diagrams/SubSystemSequenceDiagramPrivateTimeline.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on Private TimeLine. We have illustrated this with an unauthorized using the application to view the public timeline.
 
-![SequenceMyTimeline](SubSystemSequenceDiagramMyTimeline.drawio.svg "UML Diagram of the Sequence of My Timeline")
-<!-- <img src="Diagrams/SubSystemSequenceDiagramMyTimeline.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
+![SequenceMyTimeline](SubSystemSequenceDiagramMyTimeline.drawio.png "UML Diagram of the Sequence of My Timeline")
+<!-- <img src="Diagrams/SubSystemSequenceDiagramMyTimeline.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through Chirp! on My TimeLine. We have illustrated this with an unauthorized using the application to view the public timeline.
 
-![SequenceShareCheep](Diagrams/SubSystemSequenceDiagramShareCheep.drawio.svg "UML Diagram of the Sequence of ShareCheep")
-<!--<img src="Diagrams/SubSystemSequenceDiagramShareCheep.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>-->
+![SequenceShareCheep](Diagrams/SubSystemSequenceDiagramShareCheep.drawio.png "UML Diagram of the Sequence of ShareCheep")
+<!--<img src="Diagrams/SubSystemSequenceDiagramShareCheep.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/>-->
 > The sequence diagram of interactions between subsystems through _Chirp!_ for Share Cheep feature. We have illustrated this with an unauthorized using the application to view the public timeline.
 
-![SequenceFollowAuthor](Diagrams/SubSystemSequenceDiagramFollowAuthor.drawio.svg "UML Diagram of the Sequence of FollowAuthor")
-<!-- <img src="Diagrams/SubSystemSequenceDiagramFollowAuthor.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>-->
+![SequenceFollowAuthor](Diagrams/SubSystemSequenceDiagramFollowAuthor.drawio.png "UML Diagram of the Sequence of FollowAuthor")
+<!-- <img src="Diagrams/SubSystemSequenceDiagramFollowAuthor.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/>-->
 > The sequence diagram of interactions between subsystems through _Chirp!_ for Follow feature. We have illustrated this with an unauthorized using the application to view the public timeline.
 
-![SequenceUnfollowAuthor](Diagrams/SubSystemsSequenceDiagramUnfollowAuthor.drawio.svg "UML Diagram of the Sequence of UnfollowAuthor")
-<!-- <img src="Diagrams/SubSystemsSequenceDiagramUnfollowAuthor.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>-->
+![SequenceUnfollowAuthor](Diagrams/SubSystemsSequenceDiagramUnfollowAuthor.drawio.png "UML Diagram of the Sequence of UnfollowAuthor")
+<!-- <img src="Diagrams/SubSystemsSequenceDiagramUnfollowAuthor.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/>-->
 > The sequence diagram of interactions between subsystems through _Chirp!_ for Unfollow TimeLine. We have illustrated this with an unauthorized using the application to view the public timeline.
 
-![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramAuthors.drawio.svg "UML Diagram of the Sequence of Author")
-<!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
+![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramAuthors.drawio.png "UML Diagram of the Sequence of Author")
+<!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on Authors. We have illustrated this with an unauthorized using the application to view the public timeline.
 
-![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramForgetMe.drawio.svg "UML Diagram of the Sequence of Author")
-<!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
+![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramForgetMe.drawio.png "UML Diagram of the Sequence of Author")
+<!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ for Forget me feature. We have illustrated this with an unauthorized using the application to view the public timeline.
 
-![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramAboutMe.drawio.svg "UML Diagram of the Sequence of Author")
-<!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
+![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramAboutMe.drawio.png "UML Diagram of the Sequence of Author")
+<!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on About Me. We have illustrated this with an unauthorized using the application to view the public timeline.
 
 # Process
 
 ## Build, test, release, and deployment
 
-![BuildTestReleaseDeploy](Diagrams/UserJourney.drawio.svg "UML Diagram of the Build, Test, Release and Deploy workflow")
-<!-- <img src="Diagrams/BuildTestReleaseDeploy.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
+![BuildTestReleaseDeploy](Diagrams/UserJourney.drawio.png "UML Diagram of the Build, Test, Release and Deploy workflow")
+<!-- <img src="Diagrams/BuildTestReleaseDeploy.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 In order to automate the majority of the development process, the deployment and release workflows are automated using GitHub Actions Workflow. 
 
 The Release workflow first builds and tests the application, to minimise the risk of errors and bugs in the application to be released. If the build is succeeded and the tests are passed, the workflow will create a new release on github with a dependent, ready-to-run-application with the given semantic version tag “vx.x.x”. The release workflow is triggered by pushing a new tag to the main branch.
@@ -111,8 +111,8 @@ The deployment workflow is triggered on any push or merge to main, which means t
 
 When an issue is created a ticket is generated and put into the "New" section of the project board with the tag "Triage" assigned to it. From here it will be moved into either "Backlog" for tickets that cannot be done immediately and "ready" for tickets that are ready to be taken on by a group member. When working on a ticket one should be assigned to it and move it to the "In Progress" section. Once a pull request has been created the ticket should be "In Review" and then moved to "Done" once the issue is resolved. 
 
-![ProjectBoard](Diagrams/ProjectBoardDiagram.drawio.svg "UML Diagram of Project Board")
-<!-- <img src="Diagrams/ProjectBoardDiagram.drawio.svg" alt="UML diagram of how tickets travel through the projectboard"/> -->
+![ProjectBoard](Diagrams/ProjectBoardDiagram.drawio.png "UML Diagram of Project Board")
+<!-- <img src="Diagrams/ProjectBoardDiagram.drawio.png" alt="UML diagram of how tickets travel through the projectboard"/> -->
 
 > Illustration of a ticket moving through the projectboard. From a new issue to pull request.
 

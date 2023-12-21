@@ -146,10 +146,24 @@ As Chirp! supports using both SQLite and SQLServer in both development- and prod
 
 ## How to run test suite locally
 
-The following steps are to run the various test suites.  
-Open Terminal  
-```cd test/Chirp.Web.Test``` or ```cd test/Chirp.Infrastructure.Test``` or  ```cd test/Chirp.End2EndTests``` or ```cd test/Chirp.IntegrationTests```
-```dotnet test```
+Chirp! covers several test strategies - unit tests, integration tests and End2End tests.
+
+**Steps to run Unit Tests**
+- Open Terminal
+- ```cd <Chirp>/test/Chirp.Infrastructure.Test"```
+- ```dotnet test```
+- - ```cd <Chirp>/test/Chirp.Web.Test"```
+- ```dotnet test```
+
+**Steps to run Integration Tests**
+- Open Terminal
+- ```cd <Chirp>/test/Chirp.IntegrationTests"```
+- ```dotnet test```
+  
+**Steps to run End2End Tests**
+- Open Terminal
+- ```cd <Chirp>/test/Chirp.End2EndTests"```
+- ```dotnet test```
 
 # Ethics
 

@@ -109,6 +109,7 @@ Open Terminal
 WHICH LICENSE WE CHOSE
 
 ## LLMs, ChatGPT, CoPilot, and others
+**LLM usage*
 Throughout the project LLM usage has been kept to a minimum, only used to ask quick questions about syntax for either C# code og advice for how to set up 3rd party tools such as Azure and Docker.
-
+**ChatGPT**
 Towards the end, however, when finishing the test suite, a lot of different libraries were used and ChatGPT was a great help to understand the basics and provide tips for how to fetch certain necessary components using different methods for separate elements. Here, the use of ChatGPT was used in a way to gain quick and easy access to information, instead of having to learn whole libraries one could ask for very specific guidance.

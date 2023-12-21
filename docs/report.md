@@ -37,12 +37,15 @@ numbersections: true
 <!-- <img src="Diagrams/DeployedArchithecture.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 
 **Configuration**
+
 Chirp! is configurable for target environments developement and production through dedicated appsettings.<Development | Production>.json.
 
 **Azure web services**  
+
 The _Chirp!_ client is hosted as an Azure Web Service, and connects to database through appsettings connection string for either SqLite or SqlServer.
 
 **Database**  
+
 The deployed application supports using both SQLite and Azure SQL database based on the configurations in appsettings.Production.json. In the deployed application, the appsettings configuration for SQLite is chosen in the final deployed application, due to insufficient student credits, at the end of the project.
 
 When Chirp! is configured to use SqLite, the SqLite database file is stored on Azure Web Service server.

@@ -36,6 +36,10 @@ numbersections: true
 ![Architecture deployed](Diagrams/DeployedArchithecture.drawio.png "UML Diagram of deployed architecture")
 <!-- <img src="Diagrams/DeployedArchithecture.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 
+**Azure AD B2C Authentication**
+
+Chirp! handles authentication using Azure Active Directory B2C Authentication with GitHub as authentication provider. This removes the responsibility of authenticating the user as well as storing the user’s login information securely. 
+
 **Configuration**
 
 Chirp! is configurable for target environments development and production through dedicated appsettings.<Development | Production>.json.

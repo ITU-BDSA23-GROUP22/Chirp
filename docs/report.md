@@ -99,7 +99,7 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 
 ## Build, test, release, and deployment
 
-![BuildTestReleaseDeploy](Diagrams/UserJourney.drawio.png "UML Diagram of the Build, Test, Release and Deploy workflow")
+![BuildTestReleaseDeploy](Diagrams/BuildTestReleaseDeploy.drawio.png "UML Diagram of the Build, Test, Release and Deploy workflow")
 <!-- <img src="Diagrams/BuildTestReleaseDeploy.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 In order to automate the majority of the development process, the deployment and release workflows are automated using GitHub Actions Workflow. 
 

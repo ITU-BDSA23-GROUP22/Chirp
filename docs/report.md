@@ -91,6 +91,10 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 <!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on About Me. We have illustrated this with an unauthorized using the application to view the public timeline.
 
+![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramDownloadInfo.drawio.png "UML Diagram of the Sequence of Author")
+<!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
+> The sequence diagram of interactions between subsystems through _Chirp!_ for Download information feature. We have illustrated this with an unauthorized using the application to view the public timeline.
+
 # Process
 
 ## Build, test, release, and deployment

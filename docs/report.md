@@ -52,15 +52,23 @@ The deployed application supports using both SQLite and Azure SQL database(appli
 ## Sequence of functionality/calls trough _Chirp!_
 
 <img src="Diagrams/SequenceOfFunctionality.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
+
 > The sequence diagram of interactions between subsystems through _Chirp!_ on Public TimeLine. We have illustrated this with an unauthorized using the application to view the public timeline.
 
+<img src="Diagrams/SubSystemsSequenceDiagramPrivateTimeline.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
+
+> The sequence diagram of interactions between subsystems through _Chirp!_ on Private TimeLine. We have illustrated this with an unauthorized using the application to view the public timeline.
+
 <img src="Diagrams/SubSystemSequenceDiagramShareCheep.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
+
 > The sequence diagram of interactions between subsystems through _Chirp!_ fir Share Cheep feature. We have illustrated this with an unauthorized using the application to view the public timeline.
 
 <img src="Diagrams/SubSystemSequenceDiagramFollowAuthor.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
+
 > The sequence diagram of interactions between subsystems through _Chirp!_ for Follow feature. We have illustrated this with an unauthorized using the application to view the public timeline.
  
 <img src="Diagrams/SubSystemsSequenceDiagramUnfollowAuthor.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/>
+
 > The sequence diagram of interactions between subsystems through _Chirp!_ for Unfollo TimeLine. We have illustrated this with an unauthorized using the application to view the public timeline.
 
 

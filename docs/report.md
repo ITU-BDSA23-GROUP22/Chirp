@@ -154,6 +154,8 @@ When an issue is created, a ticket is generated and put into the "New" section o
 ![ProjectBoard](Diagrams/ProjectBoardDiagram.drawio.png "UML Diagram of Project Board")
 <!-- <img src="Diagrams/ProjectBoardDiagram.drawio.png" alt="UML diagram of how tickets travel through the projectboard"/> -->
 
+The issue "LoginTest for end2end to be resolve on github workflow" still remains on the project board. We have tried resolving the bug but we are unsure of what causes it and therefore can't fix it, as this problem only exists on the deployed GitHub workflow, and the tests passing in local devices. The problem seems to stem from GitHub not saving any cookies and consequently won't be redirected back to the Chirp! application after loggin in via github. 
+
 > Illustration of a ticket moving through the projectboard. From a new issue to pull request.
 
 ## How to make _Chirp!_ work locally

@@ -24,7 +24,7 @@ numbersections: true
 
 ## Architecture — In the small
 
-![Architecture](Diagrams/SmallArchitecture.drawio.svg "Onion diagram of the architecture")
+![Architecture](Diagrams/SmallArchitecture.drawio.png "Onion diagram of the architecture")
 <!-- <img src="Diagrams/SmallArchitecture.drawio.svg" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 
 > On the above diagram we display the onion-like architecture that is employed within the application. Classes located in any circle are dependant on the classes in the circles closer to the middle. The outer layers are closer to what the user interacts with while the inner circles are the core functionalities of _Chirp!_.

@@ -176,10 +176,10 @@ namespace Chirp.Infrastructure
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<Author>> GetAuthors(IEnumerable<Guid> authors)
+        public async Task<IEnumerable<Author>> GetAuthors(IEnumerable<Guid> authorIds)
         {
             return await dbContext.Authors
-                .Where(x => authors.Contains(x.AuthorId))
+                .Where(x => authorIds.Contains(x.AuthorId))
                 .OrderByDescending(x => x.Name)
                 .ToListAsync();
         }

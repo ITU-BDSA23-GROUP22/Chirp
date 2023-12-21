@@ -12,7 +12,7 @@
     <ul>
         <strong>Name: </strong> @authorUser.AuthorName
         <br>
-        <strong>IDs of followed users: </strong>
+        <strong>Name of followed users: </strong>
         @foreach (var followedAuthor in Model.Authors)
         {
             <li><a href="/@followedAuthor.Id">@followedAuthor.Name</a></li>

@@ -34,9 +34,8 @@ namespace Chirp.Web.Filters
             if (user?.Identity?.IsAuthenticated == true)
             {
                 // For all authenticated requests, ensure that author is created
-
-                var authorName = user.Identity.Name;
                 var authorIdString = user.Claims.SingleOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+                var authorName = user.Identity?.Name ?? authorIdString;
 
                 if (authorName != null && Guid.TryParse(authorIdString, out var authorId))
                 {

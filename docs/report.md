@@ -37,7 +37,7 @@ numbersections: true
 <!-- <img src="Diagrams/DeployedArchithecture.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 
 **Azure web services**  
-The _Chirp!_ client is hosted as an Azure Web Service, and connects to database appsettings connection string for either SqLite or SqlServer.
+The _Chirp!_ client is hosted as an Azure Web Service, and connects to database through appsettings connection string for either SqLite or SqlServer.
 
 **Database**  
 The deployed application supports using both SQLite and Azure SQL database based on the configurations in appsettings.Production.json. In the deployed application, the appsettings configuration for SQLite is chosen in the final deployed application, due to insufficient student credits, at the end of the project.
@@ -56,7 +56,7 @@ However, Chirp! is fully capable to run on SqlServer without any alterations oth
 
 
 
-## Sequence of functionality/calls trough _Chirp!_
+## Sequence of functionality/calls through _Chirp!_
 
 ![SequenceFunctionality](Diagrams/SequenceOfFunctionality.drawio.png "UML Diagram of the Sequence of Functionality")
 <!-- <img src="Diagrams/SequenceOfFunctionality.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->

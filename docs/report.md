@@ -67,11 +67,11 @@ However, Chirp! is fully capable to run on SqlServer without any alterations oth
 <!-- <img src="Diagrams/SequenceOfFunctionality.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on Public Timeline. We have illustrated this with an unauthorized user using the application to view the public timeline.
 
-![SequencePrivateTimeline](SubSystemSequenceDiagramPrivateTimeline.drawio.png "UML Diagram of the Sequence of Private Timeline")
+![SequencePrivateTimeline](Diagrams/SubSystemSequenceDiagramPrivateTimeline.drawio.png "UML Diagram of the Sequence of Private Timeline")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramPrivateTimeline.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on Private Timeline. We have illustrated this with an unauthorized user using the application to view the public timeline.
 
-![SequenceMyTimeline](SubSystemSequenceDiagramMyTimeline.drawio.png "UML Diagram of the Sequence of My Timeline")
+![SequenceMyTimeline](Diagrams/SubSystemSequenceDiagramMyTimeline.drawio.png "UML Diagram of the Sequence of My Timeline")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramMyTimeline.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through Chirp! on My Timeline. We have illustrated this with an unauthorized user using the application to view the public timeline.
 

@@ -72,51 +72,61 @@ The following sub-system sequence diagrams, illustrates the interaction between 
 - About me - Page showing authenticated Author information and followed Authors for authenticated Author. Download Information and Forget Me feature are accessible from this page. Accessible for Unauthorized- and auhtorized users.
 
 **Public Timeline**
+
 ![SequenceFunctionality](Diagrams/SequenceOfFunctionality.drawio.png "UML Diagram of the Sequence of Functionality")
 <!-- <img src="Diagrams/SequenceOfFunctionality.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on Public Timeline. 
 
 **Private Timeline**
+
 ![SequencePrivateTimeline](Diagrams/SubSystemSequenceDiagramPrivateTimeline.drawio.png "UML Diagram of the Sequence of Private Timeline")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramPrivateTimeline.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on Private Timeline. 
 
 **My Timeline**
+
 ![SequenceMyTimeline](Diagrams/SubSystemSequenceDiagramMyTimeline.drawio.png "UML Diagram of the Sequence of My Timeline")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramMyTimeline.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through Chirp! on My Timeline. 
 
 **Authors**
+
 ![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramAuthors.drawio.png "UML Diagram of the Sequence of Author")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on Authors. 
 
 **About Me**
+
 ![SequenceUnfollowAuthor](Diagrams/SubSystemDiagramAboutMe.drawio.png "UML Diagram of the Sequence of Author")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ on About Me.
 
 **Share Cheep**
+
 ![SequenceShareCheep](Diagrams/SubSystemSequenceDiagramShareCheep.drawio.png "UML Diagram of the Sequence of ShareCheep")
 <!--<img src="Diagrams/SubSystemSequenceDiagramShareCheep.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/>-->
 > The sequence diagram of interactions between subsystems through _Chirp!_ for the Share Cheep feature. 
 
 **Follow Author**
+
 ![SequenceFollowAuthor](Diagrams/SubSystemSequenceDiagramFollowAuthor.drawio.png "UML Diagram of the Sequence of FollowAuthor")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramFollowAuthor.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/>-->
 > The sequence diagram of interactions between subsystems through _Chirp!_ for the Follow feature. 
 
 **Unfollow Author**
+
 ![SequenceUnfollowAuthor](Diagrams/SubSystemsSequenceDiagramUnfollowAuthor.drawio.png "UML Diagram of the Sequence of UnfollowAuthor")
 <!-- <img src="Diagrams/SubSystemsSequenceDiagramUnfollowAuthor.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/>-->
 > The sequence diagram of interactions between subsystems through _Chirp!_ for the Unfollow feature. 
 
 **Forget Me**
+
 ![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramForgetMe.drawio.png "UML Diagram of the Sequence of Author")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ for the Forget Me feature. 
 
 **Download Information**
+
 ![SequenceUnfollowAuthor](Diagrams/SubSystemDiagramDownloadInfo.drawio.png "UML Diagram of the Sequence of Author")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
 > The sequence diagram of interactions between subsystems through _Chirp!_ for the Download Information feature. 

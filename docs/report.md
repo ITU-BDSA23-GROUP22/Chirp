@@ -127,7 +127,7 @@ If the developer wants to change the configuration, the configuration in appsett
 
 The following steps are to run the various test suites.  
 Open Terminal  
-```cd test/Chirp.Web.Test``` or ```cd test/Chirp.Infrastructure.Test```  
+```cd test/Chirp.Web.Test``` or ```cd test/Chirp.Infrastructure.Test``` or  ```cd test/Chirp.End2EndTests``` or ```cd test/Chirp.IntegrationTests```
 ```dotnet test```
 
 # Ethics

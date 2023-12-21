@@ -65,43 +65,43 @@ However, Chirp! is fully capable to run on SqlServer without any alterations oth
 
 ![SequenceFunctionality](Diagrams/SequenceOfFunctionality.drawio.png "UML Diagram of the Sequence of Functionality")
 <!-- <img src="Diagrams/SequenceOfFunctionality.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
-> The sequence diagram of interactions between subsystems through _Chirp!_ on Public Timeline. We have illustrated this with an unauthorized user using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through _Chirp!_ on Public Timeline. 
 
 ![SequencePrivateTimeline](Diagrams/SubSystemSequenceDiagramPrivateTimeline.drawio.png "UML Diagram of the Sequence of Private Timeline")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramPrivateTimeline.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
-> The sequence diagram of interactions between subsystems through _Chirp!_ on Private Timeline. We have illustrated this with an unauthorized user using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through _Chirp!_ on Private Timeline. 
 
 ![SequenceMyTimeline](Diagrams/SubSystemSequenceDiagramMyTimeline.drawio.png "UML Diagram of the Sequence of My Timeline")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramMyTimeline.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
-> The sequence diagram of interactions between subsystems through Chirp! on My Timeline. We have illustrated this with an unauthorized user using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through Chirp! on My Timeline. 
 
 ![SequenceShareCheep](Diagrams/SubSystemSequenceDiagramShareCheep.drawio.png "UML Diagram of the Sequence of ShareCheep")
 <!--<img src="Diagrams/SubSystemSequenceDiagramShareCheep.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/>-->
-> The sequence diagram of interactions between subsystems through _Chirp!_ for the Share Cheep feature. We have illustrated this with an unauthorized user using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through _Chirp!_ for the Share Cheep feature. 
 
 ![SequenceFollowAuthor](Diagrams/SubSystemSequenceDiagramFollowAuthor.drawio.png "UML Diagram of the Sequence of FollowAuthor")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramFollowAuthor.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/>-->
-> The sequence diagram of interactions between subsystems through _Chirp!_ for the Follow feature. We have illustrated this with an unauthorized user using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through _Chirp!_ for the Follow feature. 
 
 ![SequenceUnfollowAuthor](Diagrams/SubSystemsSequenceDiagramUnfollowAuthor.drawio.png "UML Diagram of the Sequence of UnfollowAuthor")
 <!-- <img src="Diagrams/SubSystemsSequenceDiagramUnfollowAuthor.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/>-->
-> The sequence diagram of interactions between subsystems through _Chirp!_ for the Unfollow feature. We have illustrated this with an unauthorized user using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through _Chirp!_ for the Unfollow feature. 
 
 ![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramAuthors.drawio.png "UML Diagram of the Sequence of Author")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
-> The sequence diagram of interactions between subsystems through _Chirp!_ on Authors. We have illustrated this with an unauthorized user using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through _Chirp!_ on Authors. 
 
 ![SequenceUnfollowAuthor](Diagrams/SubSystemSequenceDiagramForgetMe.drawio.png "UML Diagram of the Sequence of Author")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
-> The sequence diagram of interactions between subsystems through _Chirp!_ for the Forget Me feature. We have illustrated this with an unauthorized user using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through _Chirp!_ for the Forget Me feature. 
 
 ![SequenceUnfollowAuthor](Diagrams/SubSystemDiagramAboutMe.drawio.png "UML Diagram of the Sequence of Author")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
-> The sequence diagram of interactions between subsystems through _Chirp!_ on About Me. We have illustrated this with an unauthorized user using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through _Chirp!_ on About Me. 
 
 ![SequenceUnfollowAuthor](Diagrams/SubSystemDiagramDownloadInfo.drawio.png "UML Diagram of the Sequence of Author")
 <!-- <img src="Diagrams/SubSystemSequenceDiagramAuthors.drawio.png" alt="UML Diagram of the domain model" style="height:500px;"/> -->
-> The sequence diagram of interactions between subsystems through _Chirp!_ for the Download Information feature. We have illustrated this with an unauthorized user using the application to view the public timeline.
+> The sequence diagram of interactions between subsystems through _Chirp!_ for the Download Information feature. 
 
 # Process
 

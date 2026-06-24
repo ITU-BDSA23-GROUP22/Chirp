@@ -13,7 +13,7 @@
   
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.13" />
   
-    <PackageReference Include="Microsoft.Identity.Web" Version="2.15.3" />  
+    <PackageReference Include="Microsoft.Identity.Web" Version="4.11.0" />  
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
   </ItemGroup>
 
